@@ -30,3 +30,7 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 ---
 
 Happy coding!
+
+To shuffle the cards used utube video :https://www.youtube.com/watch?v=0YkEy17Dz-M
+
+validate number https://pynative.com/python-check-user-input-is-number-or-string/
