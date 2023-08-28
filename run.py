@@ -72,9 +72,9 @@ def initial_deal(active_cards):
     global dealer_cards
     global player_cards
     print('Dealing cards..........')
-    print('players cards')
+    print('players card')
     deal(active_cards, player_cards)
-    print('dealers cards')
+    print('dealers card')
     deal(active_cards, dealer_cards)
     print('players cards')
     deal(active_cards, player_cards)
@@ -86,7 +86,7 @@ def ace():
     return 11
 
 def calculate_total(hands):
-    print(hands)
+    # print(hands)
     individual = [hand['name'] for hand in hands]
     print(f'this is individual {individual}')
     total = 0
@@ -144,9 +144,19 @@ def dealer_time():
             dealer_total = calculate_total(dealer_cards)
         elif dealer_total > 17 :
             break
-        
+
+def clear_for_round():
+    global player_cards
+    global player_total
+    global dealer_cards
+    global dealer_total
+    player_cards.clear()
+    player_total = 0
+    dealer_cards.clear()
+    dealer_total = 0
+
 def continue_playing():
-    print('Do you want to continue playing?')
+    print('Do you want to continue playing another round?')
     contnue = ["[Y] Yes", "[N] No"]
     terminal_menu = TerminalMenu(contnue)
     chosen = terminal_menu.show()
@@ -155,7 +165,7 @@ def continue_playing():
         print('Thank you for playing')
         print(f'your final credit was {credit}')
     elif chosen == 0:
-        #clear variables
+        clear_for_round()
         main()
 
 def main():
