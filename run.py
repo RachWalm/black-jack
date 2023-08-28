@@ -4,6 +4,7 @@
 
 import random
 
+
 name = 'str'
 credit = 200
 bet = 1
@@ -39,8 +40,6 @@ def check_credit(suggest):
 def subtract_credit(minus):
     global credit
     credit -= minus
-    
-    
 
 def place_bet():
     global credit
@@ -61,10 +60,36 @@ def generate_deck():
     random_deck = random.sample(generate_cards(), 48)
     return random_deck
 
+def deal(stack, who):
+    last_card = stack.pop()
+    who.append(last_card)
+    print(who)
+
+def initial_deal(active_cards):
+    global dealer_cards
+    global player_cards
+    print('Dealing cards..........')
+    print('players cards')
+    deal(active_cards, player_cards)
+    print('dealers cards')
+    deal(active_cards, dealer_cards)
+    print('players cards')
+    deal(active_cards, player_cards)
+    print('dealers cards')
+    deal(active_cards, dealer_cards)
+
+def user_action():
+    print('Please choose whether to Hit (H) or  Stick (S)')
+    print('for example to get one more card press H enter')
+    print('or to stick press S enter')
+
+
 def main():
     print('Welcome to Black Jack')
     print(f'Your credit is {credit} units')
-    place_bet()
+    # place_bet()
     deck = generate_deck()
+    initial_deal(deck)
+    user_action()
 
 main()
