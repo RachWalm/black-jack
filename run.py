@@ -82,7 +82,7 @@ def user_action():
     print('Please choose whether to Hit (get one more card) or  Stick (No more cards)')
     print('move up or down until you have selected what you want to do')
     print('then press enter')
-    choices = ["Hit", "Stick"]
+    choices = ["[H] Hit", "[S] Stick"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
     print(f'You have chosen {choices[chosen]}!')

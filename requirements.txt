@@ -1,1 +1,1 @@
-# Your requirements go here
+simple-term-menu==1.6.1
