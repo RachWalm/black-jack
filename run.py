@@ -8,6 +8,7 @@ from simple_term_menu import TerminalMenu
 name = 'str'
 credit = 200
 bet = 1
+deck = []
 player_cards = []
 player_total = 0
 dealer_cards = []
@@ -80,6 +81,10 @@ def initial_deal(active_cards):
     print('dealers cards')
     deal(active_cards, dealer_cards)
 
+def ace():
+    print('ace')
+    return 11
+
 def calculate_total(hands):
     print(hands)
     individual = [hand['name'] for hand in hands]
@@ -94,11 +99,9 @@ def calculate_total(hands):
                 print('court')
                 individuals = 10
             elif ind == 'Ace':
-                print('Ace')
+                individuals = ace()
             total += individuals
-
-
-    print(total)
+    return total
 
 def user_action():
     print('Please choose whether to Hit (get one more card) or  Stick (No more cards)')
@@ -111,19 +114,49 @@ def user_action():
     return chosen
 
 def proceed(choice):
+    global deck
     if choice == 0:
         print('hit')
+        deal(deck, player_cards)
+        player_time()
     elif choice == 1:
         print('stick')
 
+def player_time():
+    player_total = calculate_total(player_cards)
+    action = user_action()
+    proceed(action)
+
+def dealer_time():
+    dealer_total = calculate_total(dealer_cards)
+    print(dealer_total)
+    while dealer_total <= 17:
+        print('need to deal')
+        # deal(deck, dealer_cards)
+    # elif dealer_total > 17:
+        #print('stick')
+
+def continue_playing():
+    print('Do you want to continue playing?')
+    contnue = ["[Y] Yes", "[N] No"]
+    terminal_menu = TerminalMenu(contnue)
+    chosen = terminal_menu.show()
+    print(f'You have chosen {contnue[chosen]}!')
+    if contnue == 1:
+        print('Thank you for playing')
+        print(f'your final credit was {credit}')
+    elif contnue == 0:
+        main()
+
 def main():
+    global deck
     print('Welcome to Black Jack')
     print(f'Your credit is {credit} units')
     # place_bet()
     deck = generate_deck()
     initial_deal(deck)
-    calculate_total(player_cards)
-    # action = user_action()
-    # proceed(action)
+    player_time()
+    # dealer_time()
+    # continue_playing()
 
 main()
