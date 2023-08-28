@@ -103,6 +103,12 @@ def calculate_total(hands):
             total += individuals
     return total
 
+def check_blackjack(total, who):
+    if total == 21:
+        pay_type = 'blackjack'
+        print('blackjack')
+
+
 def user_action():
     print('Please choose whether to Hit (get one more card) or  Stick (No more cards)')
     print('move up or down until you have selected what you want to do')
@@ -124,28 +130,32 @@ def proceed(choice):
 
 def player_time():
     player_total = calculate_total(player_cards)
+    check_blackjack(player_total, 'P')
     action = user_action()
     proceed(action)
 
 def dealer_time():
     dealer_total = calculate_total(dealer_cards)
     print(dealer_total)
-    while dealer_total <= 17:
-        print('need to deal')
-        # deal(deck, dealer_cards)
-    # elif dealer_total > 17:
-        #print('stick')
-
+    for num in range (2,17):
+        if dealer_total <= 17:
+            print('need to deal')
+            deal(deck, dealer_cards)
+            dealer_total = calculate_total(dealer_cards)
+        elif dealer_total > 17 :
+            break
+        
 def continue_playing():
     print('Do you want to continue playing?')
     contnue = ["[Y] Yes", "[N] No"]
     terminal_menu = TerminalMenu(contnue)
     chosen = terminal_menu.show()
     print(f'You have chosen {contnue[chosen]}!')
-    if contnue == 1:
+    if chosen == 1:
         print('Thank you for playing')
         print(f'your final credit was {credit}')
-    elif contnue == 0:
+    elif chosen == 0:
+        #clear variables
         main()
 
 def main():
@@ -156,7 +166,7 @@ def main():
     deck = generate_deck()
     initial_deal(deck)
     player_time()
-    # dealer_time()
-    # continue_playing()
+    dealer_time()
+    continue_playing()
 
 main()

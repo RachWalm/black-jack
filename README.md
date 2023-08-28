@@ -39,6 +39,9 @@ validate number https://pynative.com/python-check-user-input-is-number-or-string
 https://pypi.org/project/simple-term-menu/
 by using this menu most of the validation is done for me
 
+## bugs
+dealer time infinite loop, forgot to add the new card to the dealer total so it always stayed below 17 if it started there.
+
 ## deployment
 
 1. [Heroku](heroku.com) was used to deploy.
