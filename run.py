@@ -90,7 +90,14 @@ def calculate_total(hands):
             individuals = int(ind)
             total += individuals
         except ValueError:
-            print('ValueError')
+            if ind == 'Jack' or 'Queen' or 'King':
+                print('court')
+                individuals = 10
+            elif ind == 'Ace':
+                print('Ace')
+            total += individuals
+
+
     print(total)
 
 def user_action():
