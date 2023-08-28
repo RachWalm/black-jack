@@ -3,7 +3,7 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
 import random
-
+from simple_term_menu import TerminalMenu
 
 name = 'str'
 credit = 200
@@ -31,7 +31,7 @@ def validate_number(input):
 
 def check_credit(suggest):
     suggested = int(suggest)
-    if suggested < credit:
+    if suggested <= credit:
         print('This bet is within your credit')
     else:
         print(f'Your bet exceeds your credit of {credit}')
@@ -79,15 +79,18 @@ def initial_deal(active_cards):
     deal(active_cards, dealer_cards)
 
 def user_action():
-    print('Please choose whether to Hit (H) or  Stick (S)')
-    print('for example to get one more card press H enter')
-    print('or to stick press S enter')
-
+    print('Please choose whether to Hit (get one more card) or  Stick (No more cards)')
+    print('move up or down until you have selected what you want to do')
+    print('then press enter')
+    choices = ["Hit", "Stick"]
+    terminal_menu = TerminalMenu(choices)
+    chosen = terminal_menu.show()
+    print(f'You have chosen {choices[chosen]}!')
 
 def main():
     print('Welcome to Black Jack')
     print(f'Your credit is {credit} units')
-    # place_bet()
+    place_bet()
     deck = generate_deck()
     initial_deal(deck)
     user_action()

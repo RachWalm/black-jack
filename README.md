@@ -34,3 +34,7 @@ Happy coding!
 To shuffle the cards used utube video :https://www.youtube.com/watch?v=0YkEy17Dz-M
 
 validate number https://pynative.com/python-check-user-input-is-number-or-string/
+
+
+https://pypi.org/project/simple-term-menu/
+by using this menu most of the validation is done for me
