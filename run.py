@@ -9,7 +9,9 @@ name = 'str'
 credit = 200
 bet = 1
 player_cards = []
+player_total = 0
 dealer_cards = []
+dealer_total = 0
 
 def request_bet():
     print('Please place your bet as a whole number.')
@@ -78,6 +80,19 @@ def initial_deal(active_cards):
     print('dealers cards')
     deal(active_cards, dealer_cards)
 
+def calculate_total(hands):
+    print(hands)
+    individual = [hand['name'] for hand in hands]
+    print(f'this is individual {individual}')
+    total = 0
+    for ind in individual:
+        try:
+            individuals = int(ind)
+            total += individuals
+        except ValueError:
+            print('ValueError')
+    print(total)
+
 def user_action():
     print('Please choose whether to Hit (get one more card) or  Stick (No more cards)')
     print('move up or down until you have selected what you want to do')
@@ -86,13 +101,22 @@ def user_action():
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
     print(f'You have chosen {choices[chosen]}!')
+    return chosen
+
+def proceed(choice):
+    if choice == 0:
+        print('hit')
+    elif choice == 1:
+        print('stick')
 
 def main():
     print('Welcome to Black Jack')
     print(f'Your credit is {credit} units')
-    place_bet()
+    # place_bet()
     deck = generate_deck()
     initial_deal(deck)
-    user_action()
+    calculate_total(player_cards)
+    # action = user_action()
+    # proceed(action)
 
 main()
