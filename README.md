@@ -38,3 +38,62 @@ validate number https://pynative.com/python-check-user-input-is-number-or-string
 
 https://pypi.org/project/simple-term-menu/
 by using this menu most of the validation is done for me
+
+## deployment
+
+1. [Heroku](heroku.com) was used to deploy.
+2. Once logged onto the website, using the drop down menu in the top right we went to the dashboard.
+![dashboard](document/go-to-dashboard.png)
+3. From here we are able to create a new app either by clicking on the icon (which is what we did)
+
+![icon](document/create-new-app.png)
+
+or the drop down menu
+
+![dropdown](document/create-new-app-dropdown.png)
+
+4. Next the app was named black-jack21 and the Europe region chosen in these feilds
+
+![name](document/name-and-region.png)
+
+and the purple 'create' button was pressed.
+
+5. In the menu navigation bar the settings was selected
+
+![settings](document/settings.png)
+
+6. The section with Config Vars was then opened up by clicking the Reveal Config Vars button
+
+![reveal](document/reveal.png)
+
+7. The port was set to 8000
+
+![port](document/port.png)
+
+8. The build packs were then chosen, firstly the purple button add build packs was pressed, then the icon for python. The purple button for add build packs was pressed again and the icon for JSNode
+
+![packs](document/build-packs.png)
+
+![pythonJSNode](document/icons.png)
+
+9. Now we used the menu navigation bar again, this time to select deploy
+
+![nav](document/nav-bar.png)
+
+10. The deployment method was selected by clicking on the GitHub icon and it stated that it was connected to github
+
+![method](document/choose-git.png)
+
+11. The repository was chosen by searching my github
+
+![find](document/find.png)
+![connect](document/connect.png)
+![connected](document/connected.png)
+
+12. Automatic deployment was chosen so that it would update every time the changes were pushed to git
+
+![auto](document/auto.png)
+
+13. It was deployed
+
+![deployed](document/deployed.png)
