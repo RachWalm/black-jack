@@ -20,16 +20,17 @@ def request_bet():
     """
     The player is asked to provide an integer to place a bet with from their 
     credit. The number is validated to be an integer and checked to be within
-    thier credit available. Then the bet value is returned
+    thier credit available. Then the bet value updated if valid
     """
+    global bet
     print('Please place your bet as a whole number.')
     print(f'It must be less than your credit, which is {credit} units')
     print('For example, if you want to bet 50 units, type 50 and press enter')
-    bet = input()
-    # if input a letter then a number goes through whole thing again after with the letter
-    validate_number(bet)
-    check_credit(bet)
-    return bet
+    in_bet = input()
+    if validate_number(in_bet) and check_credit(in_bet):
+        bet = int(in_bet)
+    else: 
+        request_bet()
 
 def validate_number(input):
     """
@@ -39,9 +40,11 @@ def validate_number(input):
     try:
         value = int(input)
         print(f'you have bet {input} credits')
+        return True
     except ValueError:
         print('this is either not a number or not a whole number')
-        request_bet()
+        return False
+        #request_bet()
 
 def check_credit(suggest):
     """
@@ -51,9 +54,11 @@ def check_credit(suggest):
     suggested = int(suggest)
     if suggested <= credit:
         print('This bet is within your credit')
+        return True
     else:
         print(f'Your bet exceeds your credit of {credit}')
-        request_bet()
+        return False
+        #request_bet()
 
 def subtract_credit(minus):
     """
@@ -68,8 +73,10 @@ def place_bet():
     credit together along with the text to inform the user
     """
     global credit
-    string_bet = request_bet()
-    bet = int(string_bet)
+    #string_bet = 
+    request_bet()
+    #print(string_bet)
+    #bet = int(string_bet)
     print(credit)
     subtract_credit(bet)
     print(f' end of place bet. bet: {bet} credit: {credit}')
@@ -151,7 +158,6 @@ def check_blackjack(total, who):
     if total == 21:
         pay_type = 'blackjack'
         print('blackjack')
-
 
 def user_action():
     """
@@ -242,11 +248,11 @@ def main():
     global deck
     print('Welcome to Black Jack')
     print(f'Your credit is {credit} units')
-    # place_bet()
-    deck = generate_deck()
-    initial_deal(deck)
-    player_time()
-    dealer_time()
-    continue_playing()
+    place_bet()
+    # deck = generate_deck()
+    # initial_deal(deck)
+    # player_time()
+    # dealer_time()
+    # continue_playing()
 
 main()

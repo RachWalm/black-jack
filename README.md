@@ -31,6 +31,14 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 
 Happy coding!
 
+# Black Jack 21 game
+
+Black Jack is a card game played at casinos against a dealer. As it only requires a pack of cards it has also been popular family entertainment without the betting. This version includes betting. For a more complete history see [Wikipedia](https://en.wikipedia.org/wiki/Blackjack)
+
+## flow chart
+
+### initial flow chart 
+
 To shuffle the cards used utube video :https://www.youtube.com/watch?v=0YkEy17Dz-M
 
 validate number https://pynative.com/python-check-user-input-is-number-or-string/
@@ -42,6 +50,9 @@ by using this menu most of the validation is done for me
 https://www.simplilearn.com/tutorials/python-tutorial/sleep-in-python#:~:text=The%20sleep()%20function%20in,the%20given%20number%20of%20seconds. for sleep function.
 
 ## bugs
+
+Bet when input letter it would return the letter and the eventual number that got validated. needed to put bet as a global variable in the function rathr than try and define it outside using a return
+
 dealer time infinite loop, forgot to add the new card to the dealer total so it always stayed below 17 if it started there.
 
 ## deployment
