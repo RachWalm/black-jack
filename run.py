@@ -15,7 +15,7 @@ player_cards = []
 player_total = 0
 dealer_cards = []
 dealer_total = 0
-payout = 'undecided'
+pay_type = 'undecided'
 
 def request_bet():
     """
@@ -103,7 +103,7 @@ def enough_cards():
     """
     global deck
     if len(deck) > 1:
-        print(len(deck))
+        pass
     else:
         new_deck = generate_deck()
         deck.extend(new_deck)
@@ -148,28 +148,35 @@ def calculate_total(hands):
     print(f'this is individual {individual}')
     total = 0
     for ind in individual:
-        try:
+        if ind == 'Jack':
+            individuals = 10
+            print('jack')
+        elif ind == 'Queen':
+            individuals = 10
+            print('queen')
+        elif ind == 'King':
+            individuals = 10
+            print('King')
+        elif ind == 'Ace':
+            individuals = ace()
+            print('Ace')
+        else:
             individuals = int(ind)
-            total += individuals
-        except ValueError:
-            if ind == 'Jack' or 'Queen' or 'King':
-                individuals = 10
-            elif ind == 'Ace':
-                individuals = ace()
-            total += individuals
-    return total
+        total += individuals
+    print(total)
 
 def check_instant_end(total):
     """
-    Checks if the hand totals 21 which would mean an instant payout
-    and end of game
+    Checks if the hand totals 21 or over which would mean an instant payout
+    or / and end of game
     """
+    global pay_type
     if total == 21:
         pay_type = 'blackjack'
-        #print('blackjack')
+        print('blackjack in instant end')
     elif total > 21:
         pay_type = 'bust'
-        #print('bust')
+        print('bust in instant end')
 
 def user_action():
     """
@@ -204,58 +211,75 @@ def player_time():
     """
     player_total = calculate_total(player_cards)
     check_instant_end(player_total)
-    if payout == 'undecided':
+    if pay_type == 'undecided':
         print('undecided')
         action = user_action()
         proceed(action)
-    elif payout == 'blackjack':
+    elif pay_type == 'blackjack':
         print('blackjack')
-    elif payout == 'bust':
+    elif pay_type == 'bust':
         print('bust')
 
 def who_won():
-    if dealer_total > player_total:
+    print('who won')
+    if dealer_total > 21:
+        print('dealer bust')
+        pay_type = 'even'    
+    elif dealer_total > player_total:
         print('dealer won')
-        payout = 'no'
+        pay_type = 'no'
     elif dealer_total < player_total:
         print('player won')
-        payout = 'even'
+        pay_type = 'even'
     elif dealer_total == player_total:
-        payout = 'back'
+        pay_type = 'back'
+    print(f'pay_type equals {pay_type}')
+    pay_winnings()
 
 def pay_winnings():
-    global payout
-    if payout == 'blackjack':
+    global bet
+    global credit
+    global pay_type
+    if pay_type == 'blackjack':
         pay = ((bet/2)*3)+bet
-    elif payout == 'bust':
+    elif pay_type == 'bust' or 'no':
         pay = 0
+    elif pay_type == 'even':
+        pay = 2 * bet
+    elif pay_type == 'back':
+        pay = bet
+    print(f'pay is {pay}')
+    credit += pay
+    print(f'credit is now {credit}!!!')
 
 def dealer_time():
     """
     Performs the actions required during the time the dealer is interacting 
     with the cards after the play has completed their turn
     """
-    if payout == 'undecided':
+    if pay_type == 'undecided':
         print('dealer time')
         dealer_total = calculate_total(dealer_cards)
         print(dealer_total)
-        #for num in range (2,17):
-        if dealer_total <= 17:
-            print('need to deal')
-            deal(deck, dealer_cards)
-            dealer_total = calculate_total(dealer_cards)
-            '''elif dealer_total > 17 :
-                break'''
+        for num in range (2,17):
+            if dealer_total <= 17:
+                print('need to deal')
+                deal(deck, dealer_cards)
+                dealer_total = calculate_total(dealer_cards)
+            elif dealer_total > 17 :
+                break
 
 def clear_for_round():
     """
     Clears variables that need to be empty at the beginning of a round, 
     so the game can continue a the end of a round
     """
+    global pay_type
     global player_cards
     global player_total
     global dealer_cards
     global dealer_total
+    pay_type = 'undecided'
     player_cards.clear()
     player_total = 0
     dealer_cards.clear()
@@ -287,9 +311,11 @@ def main():
     print(f'Your credit is {credit} units')
     #place_bet()
     initial_deal(deck)
-    player_time()
+    calculate_total(player_cards)
+    calculate_total(dealer_cards)
+    """player_time()
     dealer_time()
     who_won()
-    continue_playing()
+    continue_playing()"""
 
 main()
