@@ -10,18 +10,12 @@ import time
 name = 'str'
 credit = 200
 bet = 1
-deck = [
-    {'suit': 'heart', 'name': 9}, 
-    {'suit': 'spade', 'name': 'King'},
-    {'suit': 'spade', 'name': 5},
-    {'suit': 'diamond', 'name': 9},
-    {'suit': 'diamond', 'name': 7},
-    {'suit': 'club', 'name': 3}
-    ]
+deck = []
 player_cards = []
 player_total = 0
 dealer_cards = []
 dealer_total = 0
+payout = 'undecided'
 
 def request_bet():
     """
@@ -80,10 +74,7 @@ def place_bet():
     credit together along with the text to inform the user
     """
     global credit
-    #string_bet = 
     request_bet()
-    #print(string_bet)
-    #bet = int(string_bet)
     print(credit)
     subtract_credit(bet)
     print(f' end of place bet. bet: {bet} credit: {credit}')
@@ -168,14 +159,17 @@ def calculate_total(hands):
             total += individuals
     return total
 
-def check_blackjack(total, who):
+def check_instant_end(total):
     """
     Checks if the hand totals 21 which would mean an instant payout
     and end of game
     """
     if total == 21:
         pay_type = 'blackjack'
-        print('blackjack')
+        #print('blackjack')
+    elif total > 21:
+        pay_type = 'bust'
+        #print('bust')
 
 def user_action():
     """
@@ -209,24 +203,49 @@ def player_time():
     with the cards
     """
     player_total = calculate_total(player_cards)
-    check_blackjack(player_total, 'P')
-    action = user_action()
-    proceed(action)
+    check_instant_end(player_total)
+    if payout == 'undecided':
+        print('undecided')
+        action = user_action()
+        proceed(action)
+    elif payout == 'blackjack':
+        print('blackjack')
+    elif payout == 'bust':
+        print('bust')
+
+def who_won():
+    if dealer_total > player_total:
+        print('dealer won')
+        payout = 'no'
+    elif dealer_total < player_total:
+        print('player won')
+        payout = 'even'
+    elif dealer_total == player_total:
+        payout = 'back'
+
+def pay_winnings():
+    global payout
+    if payout == 'blackjack':
+        pay = ((bet/2)*3)+bet
+    elif payout == 'bust':
+        pay = 0
 
 def dealer_time():
     """
     Performs the actions required during the time the dealer is interacting 
     with the cards after the play has completed their turn
     """
-    dealer_total = calculate_total(dealer_cards)
-    print(dealer_total)
-    for num in range (2,17):
+    if payout == 'undecided':
+        print('dealer time')
+        dealer_total = calculate_total(dealer_cards)
+        print(dealer_total)
+        #for num in range (2,17):
         if dealer_total <= 17:
             print('need to deal')
             deal(deck, dealer_cards)
             dealer_total = calculate_total(dealer_cards)
-        elif dealer_total > 17 :
-            break
+            '''elif dealer_total > 17 :
+                break'''
 
 def clear_for_round():
     """
@@ -267,10 +286,10 @@ def main():
     print('Welcome to Black Jack')
     print(f'Your credit is {credit} units')
     #place_bet()
-    #deck = generate_deck()
     initial_deal(deck)
     player_time()
-    #dealer_time()
-    #continue_playing()
+    dealer_time()
+    who_won()
+    continue_playing()
 
 main()
