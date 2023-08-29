@@ -49,6 +49,8 @@ by using this menu most of the validation is done for me
 
 https://www.simplilearn.com/tutorials/python-tutorial/sleep-in-python#:~:text=The%20sleep()%20function%20in,the%20given%20number%20of%20seconds. for sleep function.
 
+https://www.w3schools.com/python/gloss_python_join_lists.asp for extend list to add two decks together
+
 ## bugs
 
 Bet when input letter it would return the letter and the eventual number that got validated. needed to put bet as a global variable in the function rathr than try and define it outside using a return

@@ -10,7 +10,14 @@ import time
 name = 'str'
 credit = 200
 bet = 1
-deck = []
+deck = [
+    {'suit': 'heart', 'name': 9}, 
+    {'suit': 'spade', 'name': 'King'},
+    {'suit': 'spade', 'name': 5},
+    {'suit': 'diamond', 'name': 9},
+    {'suit': 'diamond', 'name': 7},
+    {'suit': 'club', 'name': 3}
+    ]
 player_cards = []
 player_total = 0
 dealer_cards = []
@@ -99,11 +106,23 @@ def generate_deck():
     random_deck = random.sample(generate_cards(), 48)
     return random_deck
 
+def enough_cards():
+    """
+    Checks that there are enough cards left in the pack to continue dealing
+    """
+    global deck
+    if len(deck) > 1:
+        print(len(deck))
+    else:
+        new_deck = generate_deck()
+        deck.extend(new_deck)
+
 def deal(stack, who):
     """
     Takes the last card from the deck that is being dealt from and places
     it either in the player or dealers list of cards
     """
+    enough_cards()
     last_card = stack.pop()
     who.append(last_card)
     print(who)
@@ -143,7 +162,6 @@ def calculate_total(hands):
             total += individuals
         except ValueError:
             if ind == 'Jack' or 'Queen' or 'King':
-                print('court')
                 individuals = 10
             elif ind == 'Ace':
                 individuals = ace()
@@ -248,11 +266,11 @@ def main():
     global deck
     print('Welcome to Black Jack')
     print(f'Your credit is {credit} units')
-    place_bet()
-    # deck = generate_deck()
-    # initial_deal(deck)
-    # player_time()
-    # dealer_time()
-    # continue_playing()
+    #place_bet()
+    #deck = generate_deck()
+    initial_deal(deck)
+    player_time()
+    #dealer_time()
+    #continue_playing()
 
 main()
