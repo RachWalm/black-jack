@@ -135,9 +135,26 @@ def initial_deal(active_cards):
     print('dealers cards')
     deal(active_cards, dealer_cards)
 
-def ace():
+def ace(hands):
     print('ace')
     return 11
+
+def change_court_to_num(string, hands):
+    if string == 'Jack':
+        num = 10
+        print('jack')
+    elif string == 'Queen':
+        num = 10
+        print('queen')
+    elif string == 'King':
+        num = 10
+        print('King')
+    elif string == 'Ace':
+        num = ace(hands)
+        print('Ace')
+    else:
+        num = int(string)
+    return num
 
 def calculate_total(hands):
     """
@@ -148,7 +165,8 @@ def calculate_total(hands):
     print(f'this is individual {individual}')
     total = 0
     for ind in individual:
-        if ind == 'Jack':
+        individuals = change_court_to_num(ind, hands)
+        """if ind == 'Jack':
             individuals = 10
             print('jack')
         elif ind == 'Queen':
@@ -158,10 +176,10 @@ def calculate_total(hands):
             individuals = 10
             print('King')
         elif ind == 'Ace':
-            individuals = ace()
+            individuals = ace(hands)
             print('Ace')
         else:
-            individuals = int(ind)
+            individuals = int(ind)"""
         total += individuals
     print(total)
 
