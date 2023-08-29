@@ -45,7 +45,6 @@ def validate_number(input):
     except ValueError:
         print('this is either not a number or not a whole number')
         return False
-        #request_bet()
 
 def check_credit(suggest):
     """
@@ -59,7 +58,6 @@ def check_credit(suggest):
     else:
         print(f'Your bet exceeds your credit of {credit}')
         return False
-        #request_bet()
 
 def subtract_credit(minus):
     """
@@ -75,7 +73,6 @@ def place_bet():
     """
     global credit
     request_bet()
-    print(credit)
     subtract_credit(bet)
     print(f' end of place bet. bet: {bet} credit: {credit}')
 
@@ -137,21 +134,17 @@ def initial_deal(active_cards):
 
 def ace(hands):
     print('ace')
-    return 11
+    return 1
 
 def change_court_to_num(string, hands):
     if string == 'Jack':
         num = 10
-        print('jack')
     elif string == 'Queen':
         num = 10
-        print('queen')
     elif string == 'King':
         num = 10
-        print('King')
     elif string == 'Ace':
         num = ace(hands)
-        print('Ace')
     else:
         num = int(string)
     return num
@@ -160,28 +153,13 @@ def calculate_total(hands):
     """
     Calculates the numerical value of the cards added together
     """
-    # print(hands)
     individual = [hand['name'] for hand in hands]
     print(f'this is individual {individual}')
     total = 0
     for ind in individual:
         individuals = change_court_to_num(ind, hands)
-        """if ind == 'Jack':
-            individuals = 10
-            print('jack')
-        elif ind == 'Queen':
-            individuals = 10
-            print('queen')
-        elif ind == 'King':
-            individuals = 10
-            print('King')
-        elif ind == 'Ace':
-            individuals = ace(hands)
-            print('Ace')
-        else:
-            individuals = int(ind)"""
         total += individuals
-    print(total)
+    return total
 
 def check_instant_end(total):
     """
@@ -201,7 +179,8 @@ def user_action():
     Asks the user what action they wish to take now they have their cards.
     Do they want to hit or stick?
     """
-    print('Please choose whether to Hit (get one more card) or  Stick (No more cards)')
+    print('Please choose whether to Hit (get one more card)')
+    print('or Stick (No more cards)')
     print('move up or down until you have selected what you want to do')
     print('then press enter')
     choices = ["[H] Hit", "[S] Stick"]
@@ -221,29 +200,33 @@ def proceed(choice):
         player_time()
     elif choice == 1:
         print('stick')
+        dealer_time()
 
 def player_time():
     """
     performs the functions that are required during the players interaction
     with the cards
     """
+    global player_total
     player_total = calculate_total(player_cards)
+    print(f'player total equls {player_total}')
     check_instant_end(player_total)
     if pay_type == 'undecided':
-        print('undecided')
         action = user_action()
         proceed(action)
     elif pay_type == 'blackjack':
-        print('blackjack')
+        pay_winnings()
     elif pay_type == 'bust':
-        print('bust')
+        pay_winnings()
 
 def who_won():
-    print('who won')
+    global player_total
+    global dealer_total
+    global pay_type
     if dealer_total > 21:
         print('dealer bust')
         pay_type = 'even'    
-    elif dealer_total > player_total:
+    elif (dealer_total > player_total): # and (dealer_total < 22):
         print('dealer won')
         pay_type = 'no'
     elif dealer_total < player_total:
@@ -254,38 +237,55 @@ def who_won():
     print(f'pay_type equals {pay_type}')
     pay_winnings()
 
-def pay_winnings():
+def amount_winnings():
+    print('start amount winnings')
     global bet
-    global credit
     global pay_type
+    print(pay_type)
+    pay = 0
     if pay_type == 'blackjack':
         pay = ((bet/2)*3)+bet
-    elif pay_type == 'bust' or 'no':
+        print('blackjan')
+    elif pay_type == 'bust': 
         pay = 0
+        print('no pay')
+    elif pay_type == 'no':
+        pay = 0
+        print('no pay')
     elif pay_type == 'even':
         pay = 2 * bet
+        print('even stephen')
     elif pay_type == 'back':
         pay = bet
-    print(f'pay is {pay}')
-    credit += pay
+        print('backsies')
+    print('pay equals')
+    print(pay)
+    return pay
+
+def pay_winnings():
+    global credit
+    pay = amount_winnings()
+    decimal = credit + pay
+    credit = int(decimal)
     print(f'credit is now {credit}!!!')
+    continue_playing()
 
 def dealer_time():
     """
     Performs the actions required during the time the dealer is interacting 
     with the cards after the play has completed their turn
     """
+    global dealer_total
     if pay_type == 'undecided':
-        print('dealer time')
         dealer_total = calculate_total(dealer_cards)
         print(dealer_total)
         for num in range (2,17):
             if dealer_total <= 17:
-                print('need to deal')
                 deal(deck, dealer_cards)
                 dealer_total = calculate_total(dealer_cards)
             elif dealer_total > 17 :
                 break
+        who_won()
 
 def clear_for_round():
     """
@@ -308,17 +308,23 @@ def continue_playing():
     Allows the user to decide if they want to continue playing at the end
     of the round with another round
     """
-    print('Do you want to continue playing another round?')
-    contnue = ["[Y] Yes", "[N] No"]
-    terminal_menu = TerminalMenu(contnue)
-    chosen = terminal_menu.show()
-    print(f'You have chosen {contnue[chosen]}!')
-    if chosen == 1:
+    global credit
+    if credit >= 1:
+        print('Do you want to continue playing another round?')
+        contnue = ["[Y] Yes", "[N] No"]
+        terminal_menu = TerminalMenu(contnue)
+        chosen = terminal_menu.show()
+        print(f'You have chosen {contnue[chosen]}!')
+        if chosen == 1:
+            print('Thank you for playing')
+            print(f'your final credit was {credit}')
+        elif chosen == 0:
+            clear_for_round()
+            main()
+    else:
         print('Thank you for playing')
-        print(f'your final credit was {credit}')
-    elif chosen == 0:
-        clear_for_round()
-        main()
+        print('You are out of credit so we have to say GOODBYE!!!')
+
 
 def main():
     """
@@ -327,13 +333,8 @@ def main():
     global deck
     print('Welcome to Black Jack')
     print(f'Your credit is {credit} units')
-    #place_bet()
+    place_bet()
     initial_deal(deck)
-    calculate_total(player_cards)
-    calculate_total(dealer_cards)
-    """player_time()
-    dealer_time()
-    who_won()
-    continue_playing()"""
-
+    player_time()
+    
 main()
