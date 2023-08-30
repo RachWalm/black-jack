@@ -10,12 +10,44 @@ import time
 name = 'str'
 credit = 200
 bet = 1
-deck = []
+deck = [[{'suit': 'spade', 'name': 'Ace'}, {'suit': 'spade', 'name': 2}, {'suit': 'spade', 'name': 3}, {'suit': 'spade', 'name': 4}, {'suit': 'spade', 'name': 5}, {'suit': 'spade', 'name': 6}, {'suit': 'spade', 'name': 7}, {'suit': 'spade', 'name': 8}, {'suit': 'spade', 'name': 9}, {'suit': 'spade', 'name': 'Jack'}, {'suit': 'spade', 'name': 'Queen'}, {'suit': 'spade', 'name': 'King'}, {'suit': 'diamond', 'name': 'Ace'}, {'suit': 'diamond', 'name': 2}, {'suit': 'diamond', 'name': 3}, {'suit': 'diamond', 'name': 4}, {'suit': 'diamond', 'name': 5}, {'suit': 'diamond', 'name': 6}, {'suit': 'diamond', 'name': 7}, {'suit': 'diamond', 'name': 8}, {'suit': 'diamond', 'name': 9}, {'suit': 'diamond', 'name': 'Jack'}, {'suit': 'diamond', 'name': 'Queen'}, {'suit': 'diamond', 'name': 'King'}, {'suit': 'heart', 'name': 'Ace'}, {'suit': 'heart', 'name': 2}, {'suit': 'heart', 'name': 3}, {'suit': 'heart', 'name': 4}, {'suit': 'heart', 'name': 5}, {'suit': 'heart', 'name': 6}, {'suit': 'heart', 'name': 7}, {'suit': 'heart', 'name': 8}, {'suit': 'heart', 'name': 9}, {'suit': 'heart', 'name': 'Jack'}, {'suit': 'heart', 'name': 'Queen'}, {'suit': 'heart', 'name': 'King'}, {'suit': 'club', 'name': 'Ace'}, {'suit': 'club', 'name': 2}, {'suit': 'club', 'name': 3}, {'suit': 'club', 'name': 4}, {'suit': 'club', 'name': 5}, {'suit': 'club', 'name': 6}, {'suit': 'club', 'name': 7}, {'suit': 'club', 'name': 8}, {'suit': 'club', 'name': 9}, {'suit': 'club', 'name': 'Jack'}, {'suit': 'club', 'name': 'Queen'}, {'suit': 'club', 'name': 'King'}]]
 player_cards = []
 player_total = 0
 dealer_cards = []
 dealer_total = 0
 pay_type = 'undecided'
+
+def title():
+    print('88888888ba   88                          88 ')
+    print('88      "8b  88                          88 ')
+    print('88      ,8P  88                          88  ')
+    print("88aaaaaa8P'  88  ,adPPYYba,   ,adPPYba,  88   ,d8")
+    print('88""""""8b,  88  ""     `Y8  a8"     ""  88 ,a8"')
+    print('88      `8b  88  ,adPPPPP88  8b          8888[  ')
+    print('88      a8P  88  88,    ,88  "8a,   ,aa  88`"Yba,')
+    print('88888888P"   88  `"8bbdP"Y8   `"Ybbd8"   88   `Y8a')
+    print('')
+    print('        88                          88')
+    print('        88                          88 ')
+    print('        88                          88 ')
+    print('        88  ,adPPYYba,   ,adPPYba,  88   ,d8')
+    print('        88  ""     `Y8  a8"     ""  88 ,a8"')
+    print('        88  ,adPPPPP88  8b          8888[  ')
+    print('88,   ,d88  88,    ,88  "8a,   ,aa  88`"Yba,')
+    print(' "Y8888P"   `"8bbdP"Y8   `"Ybbd8"   88   `Y8a')
+   
+title()
+
+def print_cards(deck):
+    print('geerate cards')
+    #card = deck.pop()
+    #print(card)
+    for card in deck:
+        suit = card['suit']
+        name = card['name']
+        print(suit, name)
+
+print_cards(deck)
 
 def request_bet():
     """
@@ -325,7 +357,6 @@ def continue_playing():
         print('Thank you for playing')
         print('You are out of credit so we have to say GOODBYE!!!')
 
-
 def main():
     """
     Functions overall
@@ -337,4 +368,4 @@ def main():
     initial_deal(deck)
     player_time()
     
-main()
+#main()
