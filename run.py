@@ -10,7 +10,7 @@ import time
 name = 'str'
 credit = 200
 bet = 1
-deck = [[{'suit': 'spade', 'name': 'Ace'}, {'suit': 'spade', 'name': 2}, {'suit': 'spade', 'name': 3}, {'suit': 'spade', 'name': 4}, {'suit': 'spade', 'name': 5}, {'suit': 'spade', 'name': 6}, {'suit': 'spade', 'name': 7}, {'suit': 'spade', 'name': 8}, {'suit': 'spade', 'name': 9}, {'suit': 'spade', 'name': 'Jack'}, {'suit': 'spade', 'name': 'Queen'}, {'suit': 'spade', 'name': 'King'}, {'suit': 'diamond', 'name': 'Ace'}, {'suit': 'diamond', 'name': 2}, {'suit': 'diamond', 'name': 3}, {'suit': 'diamond', 'name': 4}, {'suit': 'diamond', 'name': 5}, {'suit': 'diamond', 'name': 6}, {'suit': 'diamond', 'name': 7}, {'suit': 'diamond', 'name': 8}, {'suit': 'diamond', 'name': 9}, {'suit': 'diamond', 'name': 'Jack'}, {'suit': 'diamond', 'name': 'Queen'}, {'suit': 'diamond', 'name': 'King'}, {'suit': 'heart', 'name': 'Ace'}, {'suit': 'heart', 'name': 2}, {'suit': 'heart', 'name': 3}, {'suit': 'heart', 'name': 4}, {'suit': 'heart', 'name': 5}, {'suit': 'heart', 'name': 6}, {'suit': 'heart', 'name': 7}, {'suit': 'heart', 'name': 8}, {'suit': 'heart', 'name': 9}, {'suit': 'heart', 'name': 'Jack'}, {'suit': 'heart', 'name': 'Queen'}, {'suit': 'heart', 'name': 'King'}, {'suit': 'club', 'name': 'Ace'}, {'suit': 'club', 'name': 2}, {'suit': 'club', 'name': 3}, {'suit': 'club', 'name': 4}, {'suit': 'club', 'name': 5}, {'suit': 'club', 'name': 6}, {'suit': 'club', 'name': 7}, {'suit': 'club', 'name': 8}, {'suit': 'club', 'name': 9}, {'suit': 'club', 'name': 'Jack'}, {'suit': 'club', 'name': 'Queen'}, {'suit': 'club', 'name': 'King'}]]
+deck = [{'suit': 'spade', 'name': 'Ace'}, {'suit': 'spade', 'name': 2}, {'suit': 'spade', 'name': 3}, {'suit': 'spade', 'name': 4}, {'suit': 'spade', 'name': 5}, {'suit': 'spade', 'name': 6}, {'suit': 'spade', 'name': 7}, {'suit': 'spade', 'name': 8}, {'suit': 'spade', 'name': 9}, {'suit': 'spade', 'name': 'Jack'}, {'suit': 'spade', 'name': 'Queen'}, {'suit': 'spade', 'name': 'King'}, {'suit': 'diamond', 'name': 'Ace'}, {'suit': 'diamond', 'name': 2}, {'suit': 'diamond', 'name': 3}, {'suit': 'diamond', 'name': 4}, {'suit': 'diamond', 'name': 5}, {'suit': 'diamond', 'name': 6}, {'suit': 'diamond', 'name': 7}, {'suit': 'diamond', 'name': 8}, {'suit': 'diamond', 'name': 9}, {'suit': 'diamond', 'name': 'Jack'}, {'suit': 'diamond', 'name': 'Queen'}, {'suit': 'diamond', 'name': 'King'}, {'suit': 'heart', 'name': 'Ace'}, {'suit': 'heart', 'name': 2}, {'suit': 'heart', 'name': 3}, {'suit': 'heart', 'name': 4}, {'suit': 'heart', 'name': 5}, {'suit': 'heart', 'name': 6}, {'suit': 'heart', 'name': 7}, {'suit': 'heart', 'name': 8}, {'suit': 'heart', 'name': 9}, {'suit': 'heart', 'name': 'Jack'}, {'suit': 'heart', 'name': 'Queen'}, {'suit': 'heart', 'name': 'King'}, {'suit': 'club', 'name': 'Ace'}, {'suit': 'club', 'name': 2}, {'suit': 'club', 'name': 3}, {'suit': 'club', 'name': 4}, {'suit': 'club', 'name': 5}, {'suit': 'club', 'name': 6}, {'suit': 'club', 'name': 7}, {'suit': 'club', 'name': 8}, {'suit': 'club', 'name': 9}, {'suit': 'club', 'name': 'Jack'}, {'suit': 'club', 'name': 'Queen'}, {'suit': 'club', 'name': 'King'}]
 player_cards = []
 player_total = 0
 dealer_cards = []
@@ -38,15 +38,31 @@ def title():
    
 title()
 
-def print_cards(deck):
-    print('geerate cards')
-    #card = deck.pop()
-    #print(card)
-    for card in deck:
-        suit = card['suit']
-        name = card['name']
-        print(suit, name)
+def change_str_to_uni(string):
+    if string == 'spade':
+        image = '\u2660'
+    elif string == 'heart':
+        image = '\u2665'
+    elif string == 'club':
+        image = '\u2663'
+    elif string == 'diamond':
+        image = '\u2666'
+    """elif string == 'Jack':
+        image = '\U0001F934'
+    elif string == 'Queen':
+        image = '\U0001F478'"""
+    return image
+    #print(heart, diamond, spade, club)
 
+
+def print_cards(deck):
+    #card = [sub['suit'] for sub in deck]
+    for sub in deck:
+        suit = sub['suit']
+        name = sub['name']
+        suit_image = change_str_to_uni(suit)
+        print(name, 'of', suit_image)
+    
 print_cards(deck)
 
 def request_bet():
@@ -368,4 +384,4 @@ def main():
     initial_deal(deck)
     player_time()
     
-#main()
+main()
