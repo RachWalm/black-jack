@@ -10,7 +10,7 @@ import time
 name = 'str'
 credit = 200
 bet = 1
-deck = [{'suit': 'spade', 'name': 'Ace'}, {'suit': 'spade', 'name': 2}, {'suit': 'spade', 'name': 3}, {'suit': 'spade', 'name': 4}, {'suit': 'spade', 'name': 5}, {'suit': 'spade', 'name': 6}, {'suit': 'spade', 'name': 7}, {'suit': 'spade', 'name': 8}, {'suit': 'spade', 'name': 9}, {'suit': 'spade', 'name': 'Jack'}, {'suit': 'spade', 'name': 'Queen'}, {'suit': 'spade', 'name': 'King'}, {'suit': 'diamond', 'name': 'Ace'}, {'suit': 'diamond', 'name': 2}, {'suit': 'diamond', 'name': 3}, {'suit': 'diamond', 'name': 4}, {'suit': 'diamond', 'name': 5}, {'suit': 'diamond', 'name': 6}, {'suit': 'diamond', 'name': 7}, {'suit': 'diamond', 'name': 8}, {'suit': 'diamond', 'name': 9}, {'suit': 'diamond', 'name': 'Jack'}, {'suit': 'diamond', 'name': 'Queen'}, {'suit': 'diamond', 'name': 'King'}, {'suit': 'heart', 'name': 'Ace'}, {'suit': 'heart', 'name': 2}, {'suit': 'heart', 'name': 3}, {'suit': 'heart', 'name': 4}, {'suit': 'heart', 'name': 5}, {'suit': 'heart', 'name': 6}, {'suit': 'heart', 'name': 7}, {'suit': 'heart', 'name': 8}, {'suit': 'heart', 'name': 9}, {'suit': 'heart', 'name': 'Jack'}, {'suit': 'heart', 'name': 'Queen'}, {'suit': 'heart', 'name': 'King'}, {'suit': 'club', 'name': 'Ace'}, {'suit': 'club', 'name': 2}, {'suit': 'club', 'name': 3}, {'suit': 'club', 'name': 4}, {'suit': 'club', 'name': 5}, {'suit': 'club', 'name': 6}, {'suit': 'club', 'name': 7}, {'suit': 'club', 'name': 8}, {'suit': 'club', 'name': 9}, {'suit': 'club', 'name': 'Jack'}, {'suit': 'club', 'name': 'Queen'}, {'suit': 'club', 'name': 'King'}]
+deck = []
 player_cards = []
 player_total = 0
 dealer_cards = []
@@ -27,7 +27,7 @@ def title():
     print('88      a8P  88  88,    ,88  "8a,   ,aa  88`"Yba,')
     print('88888888P"   88  `"8bbdP"Y8   `"Ybbd8"   88   `Y8a')
     print('')
-    print('        88                          88')
+    """print('        88                          88')"""
     print('        88                          88 ')
     print('        88                          88 ')
     print('        88  ,adPPYYba,   ,adPPYba,  88   ,d8')
@@ -36,8 +36,6 @@ def title():
     print('88,   ,d88  88,    ,88  "8a,   ,aa  88`"Yba,')
     print(' "Y8888P"   `"8bbdP"Y8   `"Ybbd8"   88   `Y8a')
    
-title()
-
 def change_str_to_uni(string):
     if string == 'spade':
         image = '\u2660'
@@ -55,15 +53,13 @@ def change_str_to_uni(string):
     #print(heart, diamond, spade, club)
 
 
-def print_cards(deck):
-    #card = [sub['suit'] for sub in deck]
-    for sub in deck:
+def print_cards(hand):
+    #print(hand)
+    for sub in hand:
         suit = sub['suit']
         name = sub['name']
         suit_image = change_str_to_uni(suit)
         print(name, 'of', suit_image)
-    
-print_cards(deck)
 
 def request_bet():
     """
@@ -161,8 +157,10 @@ def deal(stack, who):
     enough_cards()
     last_card = stack.pop()
     who.append(last_card)
-    print(who)
-
+    symbol = who
+    #print(symbol)
+    print_cards(symbol)
+    
 def initial_deal(active_cards):
     """
     Carries out the function of the dealer initially dealing the cards
@@ -202,7 +200,7 @@ def calculate_total(hands):
     Calculates the numerical value of the cards added together
     """
     individual = [hand['name'] for hand in hands]
-    print(f'this is individual {individual}')
+    # print(f'this is individual {individual}')
     total = 0
     for ind in individual:
         individuals = change_court_to_num(ind, hands)
@@ -247,7 +245,7 @@ def proceed(choice):
         deal(deck, player_cards)
         player_time()
     elif choice == 1:
-        print('stick')
+        #print('stick')
         dealer_time()
 
 def player_time():
@@ -286,28 +284,28 @@ def who_won():
     pay_winnings()
 
 def amount_winnings():
-    print('start amount winnings')
+    #print('start amount winnings')
     global bet
     global pay_type
     print(pay_type)
     pay = 0
     if pay_type == 'blackjack':
         pay = ((bet/2)*3)+bet
-        print('blackjan')
+        #print('blackjan')
     elif pay_type == 'bust': 
         pay = 0
-        print('no pay')
+        #print('no pay')
     elif pay_type == 'no':
         pay = 0
-        print('no pay')
+        #print('no pay')
     elif pay_type == 'even':
         pay = 2 * bet
-        print('even stephen')
+        #print('even stephen')
     elif pay_type == 'back':
         pay = bet
-        print('backsies')
-    print('pay equals')
-    print(pay)
+        #print('backsies')
+    #print('pay equals')
+    #print(pay)
     return pay
 
 def pay_winnings():
@@ -378,6 +376,7 @@ def main():
     Functions overall
     """
     global deck
+    title()
     print('Welcome to Black Jack')
     print(f'Your credit is {credit} units')
     place_bet()
