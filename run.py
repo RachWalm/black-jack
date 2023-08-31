@@ -37,17 +37,23 @@ def change_str_to_uni(string):
     if string == 'spade':
         image = '\u2660'
     elif string == 'heart':
-        image = '\u2665'
+        image = f'{Fore.RED}\u2665 {Fore.WHITE}'
     elif string == 'club':
         image = '\u2663'
     elif string == 'diamond':
-        image = '\u2666'
-    """elif string == 'Jack':
-        image = '\U0001F934'
+        image = f'{Fore.RED}\u2666 {Fore.WHITE}'
     elif string == 'Queen':
-        image = '\U0001F478'"""
+        image = f'{Fore.MAGENTA}Queen {Fore.WHITE} \U0001F451 '
+    elif string == 'King':
+        image = f'{Fore.MAGENTA}King {Fore.WHITE} \U0001F451 '
+    elif string == 'Jack':
+        image = f'{Fore.MAGENTA}Jack {Fore.WHITE} \U0001F451 '
+    elif string == 'Ace':
+        image = f'{Fore.MAGENTA}Ace{Fore.WHITE}'
+    else:
+        image = f'{Fore.BLUE}{string}{Fore.WHITE}'
     return image
-    #print(heart, diamond, spade, club)
+    
 
 
 def print_cards(hand):
@@ -56,7 +62,8 @@ def print_cards(hand):
         suit = sub['suit']
         name = sub['name']
         suit_image = change_str_to_uni(suit)
-        print(name, 'of', suit_image)
+        name_image = change_str_to_uni(name)
+        print(f'{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}')
 
 def request_bet():
     """
