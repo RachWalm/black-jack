@@ -20,11 +20,18 @@ dealer_total = 0
 pay_type = 'undecided'
 
 def clear_terminal():
+    """
+    Clears terminal so that previous text isn't visible and put the title
+    and credit on the screen in the same place
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
     title()
     print(f'Your credit is {Fore.GREEN}{credit}{Fore.White}')
 
 def title():
+    """
+    ASCII title so the user knows name of program
+    """
     print('  ____  _            _       _            _    ____  _ ')
     print(' | __ )| | __ _  ___| | __  | | __ _  ___| | _|___ \/ |')
     print(' |  _ \| |/ _` |/ __| |/ /  | |/ _` |/ __| |/ / __) | |')
@@ -32,6 +39,9 @@ def title():
     print(' |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\_____|_|')
 
 def goodbye():
+    """
+    ASCII writing to say goodbye to user
+    """
     print('   ____                 _ _                ')
     print(' / ___| ___   ___   __| | |__  _   _   ___')
     print('| |  _ / _ \ / _ \ / _  | |_ \| | | | | _ |')
@@ -40,6 +50,10 @@ def goodbye():
     print('                               |___/      ')
 
 def change_str_to_uni(string):
+    """
+    Makes names and values on the cards more readable with colours and 
+    symbols from the string value
+    """
     if string == 'spade':
         image = '\u2660'
     elif string == 'heart':
@@ -61,7 +75,9 @@ def change_str_to_uni(string):
     return image
     
 def print_cards(hand):
-    #print(hand)
+    """
+    Prints a user readable version of the cards to the terminal
+    """
     for sub in hand:
         suit = sub['suit']
         name = sub['name']
@@ -177,20 +193,25 @@ def initial_deal(active_cards):
     global dealer_cards
     global player_cards
     print('Dealing cards..........')
-    print('players card')
+    print('The players first card is:')
     deal(active_cards, player_cards)
-    print('dealers card')
+    print('The dealers first card is:')
     deal(active_cards, dealer_cards)
-    print('players cards')
+    print('The players cards:')
     deal(active_cards, player_cards)
-    print('dealers cards')
+    print('The dealers cards:')
     deal(active_cards, dealer_cards)
 
 def ace(total, aces):
-    value = 1
+    """
+    Calculates if there are aces what their values added together should be
+    """
+    value = 0
     if aces == 1:
         if total < 10:
             value = 11
+        else:
+            value = 1
     elif aces == 2:
         if total < 9:
             value = 12
@@ -206,10 +227,15 @@ def ace(total, aces):
             value = 14
         else:
             value = 4
+    elif aces == 0:
+        pass
     return value
     #print(value)
 
 def change_court_to_num(string):
+    """
+    Changes the string name of the card to an integer 
+    """
     if string == 'Jack':
         num = 10
     elif string == 'Queen':
@@ -223,6 +249,9 @@ def change_court_to_num(string):
     return num
 
 def calculate_total(hands):
+    """
+    Calculates how much the cards in the hand adds up to
+    """
     individual = [hand['name'] for hand in hands]
     aces = 0
     total = 0
@@ -285,7 +314,8 @@ def proceed(choice):
 def player_time():
     """
     performs the functions that are required during the players interaction
-    with the cards
+    with the cards. If there is an instant winner/bust moves player to 
+    that route
     """
     global player_total
     player_total = calculate_total(player_cards)
@@ -300,6 +330,10 @@ def player_time():
         pay_winnings()
 
 def who_won():
+    """
+    Applies the rules of blackJack to determine who won after the dealer has
+    decided what action to take
+    """
     global player_total
     global dealer_total
     global pay_type
@@ -318,7 +352,10 @@ def who_won():
     pay_winnings()
 
 def amount_winnings():
-    #print('start amount winnings')
+    """
+    Calculates what the winnings/if there are winnings depending on what 
+    the outcome of the game was
+    """
     global bet
     global pay_type
     print(pay_type)
@@ -343,6 +380,9 @@ def amount_winnings():
     return pay
 
 def pay_winnings():
+    """
+    Puts winnings into the credit pot of the player
+    """
     global credit
     pay = amount_winnings()
     decimal = credit + pay
@@ -419,4 +459,4 @@ def main():
     initial_deal(deck)
     player_time()
     
-#main()
+main()
