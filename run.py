@@ -6,6 +6,7 @@ import random
 from simple_term_menu import TerminalMenu
 import emoji
 import time
+from colorama import Fore, Back, Style
 
 name = 'str'
 credit = 200
@@ -18,24 +19,20 @@ dealer_total = 0
 pay_type = 'undecided'
 
 def title():
-    print('88888888ba   88                          88 ')
-    print('88      "8b  88                          88 ')
-    print('88      ,8P  88                          88  ')
-    print("88aaaaaa8P'  88  ,adPPYYba,   ,adPPYba,  88   ,d8")
-    print('88""""""8b,  88  ""     `Y8  a8"     ""  88 ,a8"')
-    print('88      `8b  88  ,adPPPPP88  8b          8888[  ')
-    print('88      a8P  88  88,    ,88  "8a,   ,aa  88`"Yba,')
-    print('88888888P"   88  `"8bbdP"Y8   `"Ybbd8"   88   `Y8a')
-    print('')
-    """print('        88                          88')"""
-    print('        88                          88 ')
-    print('        88                          88 ')
-    print('        88  ,adPPYYba,   ,adPPYba,  88   ,d8')
-    print('        88  ""     `Y8  a8"     ""  88 ,a8"')
-    print('        88  ,adPPPPP88  8b          8888[  ')
-    print('88,   ,d88  88,    ,88  "8a,   ,aa  88`"Yba,')
-    print(' "Y8888P"   `"8bbdP"Y8   `"Ybbd8"   88   `Y8a')
-   
+    print('  ____  _            _       _            _    ____  _ ')
+    print(' | __ )| | __ _  ___| | __  | | __ _  ___| | _|___ \/ |')
+    print(' |  _ \| |/ _` |/ __| |/ /  | |/ _` |/ __| |/ / __) | |')
+    print(" | |_) | | (_| | (__|   < |_| | (_| | (__|   < / __/| |")
+    print(' |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\_____|_|')
+
+def goodbye():
+    print('   ____                 _ _                ')
+    print(' / ___| ___   ___   __| | |__  _   _   ___')
+    print('| |  _ / _ \ / _ \ / _  | |_ \| | | | | _ |')
+    print('| |_| | (_) | (_) | (_| | |_) | |_| | | __/')
+    print(' \____|\___/ \___/ \__,_|_.__/ \__, | \___|')
+    print('                               |___/      ')
+
 def change_str_to_uni(string):
     if string == 'spade':
         image = '\u2660'
@@ -390,12 +387,14 @@ def continue_playing():
         if chosen == 1:
             print('Thank you for playing')
             print(f'your final credit was {credit}')
+            goodbye()
         elif chosen == 0:
             clear_for_round()
             main()
     else:
         print('Thank you for playing')
         print('You are out of credit so we have to say GOODBYE!!!')
+        goodbye()
 
 def main():
     """
