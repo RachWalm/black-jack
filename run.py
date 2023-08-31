@@ -26,7 +26,7 @@ def clear_terminal():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
     title()
-    print(f'Your credit is {Fore.GREEN}{credit}{Fore.White}')
+    print(f'Your credit is {Fore.GREEN}{credit}{Fore.WHITE} units')
 
 def title():
     """
@@ -63,15 +63,15 @@ def change_str_to_uni(string):
     elif string == 'diamond':
         image = f'{Fore.RED}\u2666 {Fore.WHITE}'
     elif string == 'Queen':
-        image = f'{Fore.MAGENTA}Queen {Fore.WHITE} \U0001F451 '
+        image = f'{Fore.CYAN}Queen {Fore.WHITE} \U0001F451 '
     elif string == 'King':
-        image = f'{Fore.MAGENTA}King {Fore.WHITE} \U0001F451 '
+        image = f'{Fore.CYAN}King {Fore.WHITE} \U0001F451 '
     elif string == 'Jack':
-        image = f'{Fore.MAGENTA}Jack {Fore.WHITE} \U0001F451 '
+        image = f'{Fore.CYAN}Jack {Fore.WHITE} \U0001F451 '
     elif string == 'Ace':
-        image = f'{Fore.MAGENTA}Ace{Fore.WHITE}'
+        image = f'{Fore.CYAN}Ace{Fore.WHITE}'
     else:
-        image = f'{Fore.BLUE}{string}{Fore.WHITE}'
+        image = f'{Fore.CYAN}{string}{Fore.WHITE}'
     return image
     
 def print_cards(hand):
@@ -192,6 +192,7 @@ def initial_deal(active_cards):
     """
     global dealer_cards
     global player_cards
+    print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
     print('Dealing cards..........')
     print('The players first card is:')
     deal(active_cards, player_cards)
@@ -436,13 +437,15 @@ def continue_playing():
         chosen = terminal_menu.show()
         print(f'You have chosen {contnue[chosen]}!')
         if chosen == 1:
+            clear_terminal()
             print('Thank you for playing')
-            print(f'your final credit was {credit}')
+            print(f'your final credit was {Fore.GREEN}{credit}{Fore.WHITE}')
             goodbye()
         elif chosen == 0:
             clear_for_round()
             main()
     else:
+        clear_terminal()
         print('Thank you for playing')
         print('You are out of credit so we have to say GOODBYE!!!')
         goodbye()
@@ -452,10 +455,9 @@ def main():
     Functions overall
     """
     global deck
-    title()
-    print('Welcome to Black Jack')
-    print(f'Your credit is {credit} units')
+    clear_terminal()
     place_bet()
+    clear_terminal()
     initial_deal(deck)
     player_time()
     
