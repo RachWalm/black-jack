@@ -265,8 +265,6 @@ def calculate_total(hands):
         total += individuals
         aced = 0 
         aced = ace(total, aces)
-        print(f'total {total}')
-        print(f'aced {aced}')
         aced_total = aced + total
         
     return aced_total
@@ -291,9 +289,8 @@ def user_action():
     """
     print('Please choose whether to Hit (get one more card)')
     print('or Stick (No more cards)')
-    print('move up or down until you have selected what you want to do')
-    print('then press enter')
-    choices = ["[H] Hit", "[S] Stick"]
+    print('move up or down to select then press enter')
+    choices = ["Hit", "Stick"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
     print(f'You have chosen {choices[chosen]}!')
@@ -305,7 +302,8 @@ def proceed(choice):
     """
     global deck
     if choice == 0:
-        print('hit')
+        clear_terminal()
+        print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
         deal(deck, player_cards)
         player_time()
     elif choice == 1:
@@ -320,7 +318,6 @@ def player_time():
     """
     global player_total
     player_total = calculate_total(player_cards)
-    print(f'player total equls {player_total}')
     check_instant_end(player_total)
     if pay_type == 'undecided':
         action = user_action()
@@ -398,8 +395,8 @@ def dealer_time():
     """
     global dealer_total
     if pay_type == 'undecided':
+        clear_terminal()
         dealer_total = calculate_total(dealer_cards)
-        print(dealer_total)
         for num in range (2,17):
             if dealer_total <= 17:
                 deal(deck, dealer_cards)
@@ -439,7 +436,7 @@ def continue_playing():
         if chosen == 1:
             clear_terminal()
             print('Thank you for playing')
-            print(f'your final credit was {Fore.GREEN}{credit}{Fore.WHITE}')
+            print(f'Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units')
             goodbye()
         elif chosen == 0:
             clear_for_round()
