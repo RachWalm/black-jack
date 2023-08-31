@@ -2,6 +2,7 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+import os
 import random
 from simple_term_menu import TerminalMenu
 import emoji
@@ -17,6 +18,11 @@ player_total = 0
 dealer_cards = []
 dealer_total = 0
 pay_type = 'undecided'
+
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    title()
+    print(f'Your credit is {Fore.GREEN}{credit}{Fore.White}')
 
 def title():
     print('  ____  _            _       _            _    ____  _ ')
@@ -54,8 +60,6 @@ def change_str_to_uni(string):
         image = f'{Fore.BLUE}{string}{Fore.WHITE}'
     return image
     
-
-
 def print_cards(hand):
     #print(hand)
     for sub in hand:
@@ -415,4 +419,4 @@ def main():
     initial_deal(deck)
     player_time()
     
-main()
+#main()

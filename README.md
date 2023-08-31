@@ -51,6 +51,8 @@ https://www.simplilearn.com/tutorials/python-tutorial/sleep-in-python#:~:text=Th
 
 https://www.w3schools.com/python/gloss_python_join_lists.asp for extend list to add two decks together
 
+OS clear screen and colours adapted from madlibs
+
 ## bugs
 
 Bet when input letter it would return the letter and the eventual number that got validated. needed to put bet as a global variable in the function rathr than try and define it outside using a return
