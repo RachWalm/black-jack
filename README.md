@@ -53,6 +53,10 @@ https://www.w3schools.com/python/gloss_python_join_lists.asp for extend list to 
 
 OS clear screen and colours adapted from madlibs
 
+development problems Ace trying to get total before total
+
+not got black jack
+
 ## bugs
 
 Bet when input letter it would return the letter and the eventual number that got validated. needed to put bet as a global variable in the function rathr than try and define it outside using a return

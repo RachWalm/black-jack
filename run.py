@@ -93,8 +93,8 @@ def request_bet():
     """
     global bet
     print('Please place your bet as a whole number.')
-    print(f'It must be less than your credit, which is {credit} units')
-    print('For example, if you want to bet 50 units, type 50 and press enter')
+    print(f'It must be less than your credit, which is {Fore.GREEN}{credit}{Fore.WHITE} units')
+    print(f'For example, if you want to bet {Fore.RED}50{Fore.WHITE} units, type {Fore.RED}50{Fore.WHITE} and press enter')
     in_bet = input()
     if validate_number(in_bet) and check_credit(in_bet):
         bet = int(in_bet)
@@ -194,12 +194,19 @@ def initial_deal(active_cards):
     global player_cards
     print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
     print('Dealing cards..........')
+    time.sleep(2)
     print('The players first card is:')
     deal(active_cards, player_cards)
+    time.sleep(1)
     print('The dealers first card is:')
     deal(active_cards, dealer_cards)
+    time.sleep(1)
+    ingame_screen()
+    print('Dealing cards..........')
+    time.sleep(2)
     print('The players cards:')
     deal(active_cards, player_cards)
+    time.sleep(1)
     print('The dealers cards:')
     deal(active_cards, dealer_cards)
 
@@ -228,8 +235,8 @@ def ace(total, aces):
             value = 14
         else:
             value = 4
-    elif aces == 0:
-        pass
+    #elif aces == 0:
+        #pass
     return value
     #print(value)
 
@@ -265,6 +272,7 @@ def calculate_total(hands):
         total += individuals
         aced = 0 
         aced = ace(total, aces)
+        #print(f'Aced returns {aced}')
         aced_total = aced + total
         
     return aced_total
@@ -275,6 +283,8 @@ def check_instant_end(total):
     or / and end of game
     """
     global pay_type
+    #print('check instant end')
+    #print(total)
     if total == 21:
         pay_type = 'blackjack'
         print('blackjack in instant end')
@@ -282,15 +292,24 @@ def check_instant_end(total):
         pay_type = 'bust'
         print('bust in instant end')
 
+def double_down():
+    global bet
+    global credit
+    global deck
+    credit -= bet
+    bet *= 2
+    deal(deck, player_cards)
+    dealer_time()
+
 def user_action():
     """
     Asks the user what action they wish to take now they have their cards.
     Do they want to hit or stick?
     """
     print('Please choose whether to Hit (get one more card)')
-    print('or Stick (No more cards)')
+    print('or Stick (No more cards) or double down(get one more card and double bet)')
     print('move up or down to select then press enter')
-    choices = ["Hit", "Stick"]
+    choices = ["Hit", "Stick", "Double down"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
     print(f'You have chosen {choices[chosen]}!')
@@ -302,13 +321,17 @@ def proceed(choice):
     """
     global deck
     if choice == 0:
-        clear_terminal()
-        print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
+        ingame_screen()
         deal(deck, player_cards)
         player_time()
     elif choice == 1:
-        #print('stick')
         dealer_time()
+    elif choice ==2:
+        double_down()
+
+def ingame_screen():
+    clear_terminal()
+    print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
 
 def player_time():
     """
@@ -318,6 +341,7 @@ def player_time():
     """
     global player_total
     player_total = calculate_total(player_cards)
+    print(f'player total going into instant win {player_total}')
     check_instant_end(player_total)
     if pay_type == 'undecided':
         action = user_action()
@@ -395,7 +419,7 @@ def dealer_time():
     """
     global dealer_total
     if pay_type == 'undecided':
-        clear_terminal()
+        ingame_screen()
         dealer_total = calculate_total(dealer_cards)
         for num in range (2,17):
             if dealer_total <= 17:
