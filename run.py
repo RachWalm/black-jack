@@ -107,9 +107,13 @@ def validate_number(input):
     speical character etc.
     """
     try:
-        value = int(input)
-        print(f'you have bet {input} credits')
-        return True
+        value = (int(input))
+        if value >1:
+            print(f'you have bet {input} credits')
+            return True
+        else:
+            print('This does not appear to be a positive number')
+            return False
     except ValueError:
         print('this is either not a number or not a whole number')
         return False
@@ -471,11 +475,38 @@ def continue_playing():
         print('You are out of credit so we have to say GOODBYE!!!')
         goodbye()
 
+def validate_name(in_name):
+    try:
+        if in_name is not None:
+            return True
+    except ValueError:
+        return False
+
+def request_name():
+    """
+    gets the users name
+    """
+    global name
+    print('What is your name?')
+    print('Type your name and press enter')
+    in_name = input()
+    strip = in_name.strip()
+    cap_name = strip.capitalize() 
+    if validate_name(cap_name):
+        name = (cap_name)
+    else: 
+        print('you do not appear to have typed a name')
+        request_name()
+    print(f'Thank you {name}')
+    time.sleep(1)
+
 def main():
     """
     Functions overall
     """
     global deck
+    clear_terminal()
+    request_name()
     clear_terminal()
     place_bet()
     clear_terminal()
