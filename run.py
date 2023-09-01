@@ -4,9 +4,9 @@
 
 import os
 import random
+from time import sleep
 from simple_term_menu import TerminalMenu
 import emoji
-import time
 from colorama import Fore, Back, Style
 
 name = 'str'
@@ -19,6 +19,7 @@ dealer_cards = []
 dealer_total = 0
 pay_type = 'undecided'
 
+
 def clear_terminal():
     """
     Clears terminal so that previous text isn't visible and put the title
@@ -28,30 +29,26 @@ def clear_terminal():
     title()
     print(f'Your credit is {Fore.GREEN}{credit}{Fore.WHITE} units')
 
+
 def title():
-    """
-    ASCII title so the user knows name of program
-    """
-    print('  ____  _            _       _            _    ____  _ ')
-    print(' | __ )| | __ _  ___| | __  | | __ _  ___| | _|___ \/ |')
-    print(' |  _ \| |/ _` |/ __| |/ /  | |/ _` |/ __| |/ / __) | |')
-    print(" | |_) | | (_| | (__|   < |_| | (_| | (__|   < / __/| |")
-    print(' |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\_____|_|')
+    """ASCII title so the user knows name of program"""
+    print(f"""
+    ╔╗ ┬  ┌─┐┌─┐┬┌─ ╦┌─┐┌─┐┬┌─
+    ╠╩╗│  ├─┤│  ├┴┐ ║├─┤│  ├┴┐
+    ╚═╝┴─┘┴ ┴└─┘┴ ┴╚╝┴ ┴└─┘┴ ┴""")
+
 
 def goodbye():
-    """
-    ASCII writing to say goodbye to user
-    """
-    print('   ____                 _ _                ')
-    print(' / ___| ___   ___   __| | |__  _   _   ___')
-    print('| |  _ / _ \ / _ \ / _  | |_ \| | | | | _ |')
-    print('| |_| | (_) | (_) | (_| | |_) | |_| | | __/')
-    print(' \____|\___/ \___/ \__,_|_.__/ \__, | \___|')
-    print('                               |___/      ')
+    """ASCII writing to say goodbye to user"""
+    print(f"""
+    ╔═╗┌─┐┌─┐┌┬┐┌┐ ┬ ┬┌─┐
+    ║ ╦│ ││ │ ││├┴┐└┬┘├┤
+    ╚═╝└─┘└─┘─┴┘└─┘ ┴ └─┘""")
+
 
 def change_str_to_uni(string):
     """
-    Makes names and values on the cards more readable with colours and 
+    Makes names and values on the cards more readable with colours and
     symbols from the string value
     """
     if string == 'spade':
@@ -73,10 +70,10 @@ def change_str_to_uni(string):
     else:
         image = f'{Fore.CYAN}{string}{Fore.WHITE}'
     return image
-    
+
+
 def print_cards(hand):
-    """
-    Prints a user readable version of the cards to the terminal
+    """Prints a user readable version of the cards to the terminal
     """
     for sub in hand:
         suit = sub['suit']
@@ -85,30 +82,33 @@ def print_cards(hand):
         name_image = change_str_to_uni(name)
         print(f'{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}')
 
+
 def request_bet():
     """
-    The player is asked to provide an integer to place a bet with from their 
+    The player is asked to provide an integer to place a bet with from their
     credit. The number is validated to be an integer and checked to be within
     thier credit available. Then the bet value updated if valid
     """
     global bet
-    print('Please place your bet as a whole number.')
-    print(f'It must be less than your credit, which is {Fore.GREEN}{credit}{Fore.WHITE} units')
-    print(f'For example, if you want to bet {Fore.RED}50{Fore.WHITE} units, type {Fore.RED}50{Fore.WHITE} and press enter')
+    print(f"""It is time to place your bet.......
+Which must be less than your credit: {Fore.GREEN}{credit}{Fore.WHITE} units
+For example, if you want to bet {Fore.RED}50{Fore.WHITE} units,
+type {Fore.RED}50{Fore.WHITE} and press enter""")
     in_bet = input()
     if validate_number(in_bet) and check_credit(in_bet):
         bet = int(in_bet)
-    else: 
+    else:
         request_bet()
+
 
 def validate_number(input):
     """
-    Validate to check if the input was an integer, not a float / letter / 
+    Validate to check if the input was an integer, not a float / letter /
     speical character etc.
     """
     try:
         value = (int(input))
-        if value >1:
+        if value > 1:
             print(f'you have bet {input} credits')
             return True
         else:
@@ -118,9 +118,10 @@ def validate_number(input):
         print('this is either not a number or not a whole number')
         return False
 
+
 def check_credit(suggest):
     """
-    Checks that the integer put in is within the credit of the person 
+    Checks that the integer put in is within the credit of the person
     placing the bet
     """
     suggested = int(suggest)
@@ -131,12 +132,14 @@ def check_credit(suggest):
         print(f'Your bet exceeds your credit of {credit}')
         return False
 
+
 def subtract_credit(minus):
     """
     Subtracts the bet from the credit
     """
     global credit
     credit -= minus
+
 
 def place_bet():
     """
@@ -148,15 +151,14 @@ def place_bet():
     subtract_credit(bet)
     print(f' end of place bet. bet: {bet} credit: {credit}')
 
+
 def generate_cards():
-    """
-    Builds a deck of cards into a dictionary in a list.
-    """
+    """Builds a deck of cards into a dictionary in a list."""
     suits = ["spade", "diamond", "heart", "club"]
     names = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 'Jack', 'Queen', 'King']
-    cards = [{'suit': suit, 'name': name} for suit in suits for 
-    name in names]
+    cards = [{'suit': suit, 'name': name} for suit in suits for name in names]
     return cards
+
 
 def generate_deck():
     """
@@ -166,9 +168,11 @@ def generate_deck():
     random_deck = random.sample(generate_cards(), 48)
     return random_deck
 
+
 def enough_cards():
     """
-    Checks that there are enough cards left in the pack to continue dealing
+    Checks that there are enough cards left in the pack to
+    continue dealing
     """
     global deck
     if len(deck) > 1:
@@ -176,6 +180,7 @@ def enough_cards():
     else:
         new_deck = generate_deck()
         deck.extend(new_deck)
+
 
 def deal(stack, who):
     """
@@ -186,9 +191,9 @@ def deal(stack, who):
     last_card = stack.pop()
     who.append(last_card)
     symbol = who
-    #print(symbol)
     print_cards(symbol)
-    
+
+
 def initial_deal(active_cards):
     """
     Carries out the function of the dealer initially dealing the cards
@@ -198,25 +203,28 @@ def initial_deal(active_cards):
     global player_cards
     print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
     print('Dealing cards..........')
-    time.sleep(2)
+    sleep(2)
     print('The players first card is:')
     deal(active_cards, player_cards)
-    time.sleep(1)
+    sleep(1)
     print('The dealers first card is:')
     deal(active_cards, dealer_cards)
-    time.sleep(1)
+    sleep(1)
     ingame_screen()
     print('Dealing cards..........')
-    time.sleep(2)
+    sleep(2)
     print('The players cards:')
     deal(active_cards, player_cards)
-    time.sleep(1)
+    sleep(1)
     print('The dealers cards:')
     deal(active_cards, dealer_cards)
 
+
 def ace(total, aces):
     """
-    Calculates if there are aces what their values added together should be
+    Checks if there are aces - which can be 1 or 11.
+    If there are aces if calculate what their values added
+    together equals
     """
     value = 0
     if aces == 1:
@@ -242,12 +250,10 @@ def ace(total, aces):
     #elif aces == 0:
         #pass
     return value
-    #print(value)
+
 
 def change_court_to_num(string):
-    """
-    Changes the string name of the card to an integer 
-    """
+    """Changes the string name of the card to an integer """
     if string == 'Jack':
         num = 10
     elif string == 'Queen':
@@ -260,26 +266,24 @@ def change_court_to_num(string):
         num = int(string)
     return num
 
+
 def calculate_total(hands):
-    """
-    Calculates how much the cards in the hand adds up to
-    """
+    """Calculates how much the cards in the hand adds up to"""
     individual = [hand['name'] for hand in hands]
     aces = 0
     total = 0
     for ind in individual:
         if ind == 'Ace':
-            aces +=1
+            aces += 1
             individuals = 0
         else:
             individuals = change_court_to_num(ind)
         total += individuals
-        aced = 0 
+        aced = 0
         aced = ace(total, aces)
-        #print(f'Aced returns {aced}')
         aced_total = aced + total
-        
     return aced_total
+
 
 def check_instant_end(total):
     """
@@ -287,14 +291,13 @@ def check_instant_end(total):
     or / and end of game
     """
     global pay_type
-    #print('check instant end')
-    #print(total)
     if total == 21:
         pay_type = 'blackjack'
         print('blackjack in instant end')
     elif total > 21:
         pay_type = 'bust'
         print('bust in instant end')
+
 
 def double_down():
     global bet
@@ -305,19 +308,21 @@ def double_down():
     deal(deck, player_cards)
     dealer_time()
 
+
 def user_action():
     """
     Asks the user what action they wish to take now they have their cards.
     Do they want to hit or stick?
     """
-    print('Please choose whether to Hit (get one more card)')
-    print('or Stick (No more cards) or double down(get one more card and double bet)')
-    print('move up or down to select then press enter')
+    print(f"""Please choose whether to Hit (get one more card)
+or Stick (No more cards) or double down(get one more card and double bet)
+move up or down to select then press enter""")
     choices = ["Hit", "Stick", "Double down"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
     print(f'You have chosen {choices[chosen]}!')
     return chosen
+
 
 def proceed(choice):
     """
@@ -330,17 +335,19 @@ def proceed(choice):
         player_time()
     elif choice == 1:
         dealer_time()
-    elif choice ==2:
+    elif choice == 2:
         double_down()
+
 
 def ingame_screen():
     clear_terminal()
     print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
 
+
 def player_time():
     """
     performs the functions that are required during the players interaction
-    with the cards. If there is an instant winner/bust moves player to 
+    with the cards. If there is an instant winner/bust moves player to
     that route
     """
     global player_total
@@ -355,6 +362,7 @@ def player_time():
     elif pay_type == 'bust':
         pay_winnings()
 
+
 def who_won():
     """
     Applies the rules of blackJack to determine who won after the dealer has
@@ -365,8 +373,8 @@ def who_won():
     global pay_type
     if dealer_total > 21:
         print('dealer bust')
-        pay_type = 'even'    
-    elif (dealer_total > player_total): # and (dealer_total < 22):
+        pay_type = 'even'
+    elif (dealer_total > player_total):  # and (dealer_total < 22):
         print('dealer won')
         pay_type = 'no'
     elif dealer_total < player_total:
@@ -377,9 +385,10 @@ def who_won():
     print(f'pay_type equals {pay_type}')
     pay_winnings()
 
+
 def amount_winnings():
     """
-    Calculates what the winnings/if there are winnings depending on what 
+    Calculates what the winnings/if there are winnings depending on what
     the outcome of the game was
     """
     global bet
@@ -388,22 +397,16 @@ def amount_winnings():
     pay = 0
     if pay_type == 'blackjack':
         pay = ((bet/2)*3)+bet
-        #print('blackjan')
-    elif pay_type == 'bust': 
+    elif pay_type == 'bust':
         pay = 0
-        #print('no pay')
     elif pay_type == 'no':
         pay = 0
-        #print('no pay')
     elif pay_type == 'even':
         pay = 2 * bet
-        #print('even stephen')
     elif pay_type == 'back':
         pay = bet
-        #print('backsies')
-    #print('pay equals')
-    #print(pay)
     return pay
+
 
 def pay_winnings():
     """
@@ -416,26 +419,28 @@ def pay_winnings():
     print(f'credit is now {credit}!!!')
     continue_playing()
 
+
 def dealer_time():
     """
-    Performs the actions required during the time the dealer is interacting 
+    Performs the actions required during the time the dealer is interacting
     with the cards after the play has completed their turn
     """
     global dealer_total
     if pay_type == 'undecided':
         ingame_screen()
         dealer_total = calculate_total(dealer_cards)
-        for num in range (2,17):
+        for num in range(2, 17):
             if dealer_total <= 17:
                 deal(deck, dealer_cards)
                 dealer_total = calculate_total(dealer_cards)
-            elif dealer_total > 17 :
+            elif dealer_total > 17:
                 break
         who_won()
 
+
 def clear_for_round():
     """
-    Clears variables that need to be empty at the beginning of a round, 
+    Clears variables that need to be empty at the beginning of a round,
     so the game can continue a the end of a round
     """
     global pay_type
@@ -448,6 +453,7 @@ def clear_for_round():
     player_total = 0
     dealer_cards.clear()
     dealer_total = 0
+
 
 def continue_playing():
     """
@@ -463,8 +469,8 @@ def continue_playing():
         print(f'You have chosen {contnue[chosen]}!')
         if chosen == 1:
             clear_terminal()
-            print('Thank you for playing')
-            print(f'Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units')
+            print(f"""Thank you for playing
+Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
             goodbye()
         elif chosen == 0:
             clear_for_round()
@@ -475,42 +481,50 @@ def continue_playing():
         print('You are out of credit so we have to say GOODBYE!!!')
         goodbye()
 
+
 def validate_name(in_name):
+    """Checks that the input for the name is letters -  not spaces numbers
+    or special characters"""
     try:
         if in_name is not None:
             return True
     except ValueError:
         return False
 
+
 def request_name():
-    """
-    gets the users name
-    """
+    """gets the users name"""
     global name
-    print('What is your name?')
-    print('Type your name and press enter')
-    in_name = input()
-    strip = in_name.strip()
-    cap_name = strip.capitalize() 
-    if validate_name(cap_name):
-        name = (cap_name)
-    else: 
-        print('you do not appear to have typed a name')
-        request_name()
-    print(f'Thank you {name}')
-    time.sleep(1)
+    if name != 'str':
+        print('What is your name?')
+        print('Type your name and press enter')
+        in_name = input()
+        strip = in_name.strip()
+        cap_name = strip.capitalize()
+        if validate_name(cap_name):
+            name = (cap_name)
+        else:
+            print('you do not appear to have typed a name')
+            request_name()
+        print(f'Thank you {name}')
+        sleep(1)
+
+
+def instructions():
+    print('instructions function here')
+
 
 def main():
-    """
-    Functions overall
-    """
+    """The main run through of the program for an entire players hand"""
     global deck
     clear_terminal()
     request_name()
     clear_terminal()
+    instructions()
     place_bet()
     clear_terminal()
     initial_deal(deck)
     player_time()
-    
+
+
 main()
