@@ -91,9 +91,10 @@ def request_bet():
     """
     global bet
     print(f"""It is time to place your bet.......
-Which must be less than your credit: {Fore.GREEN}{credit}{Fore.WHITE} units
-For example, if you want to bet {Fore.RED}50{Fore.WHITE} units,
-type {Fore.RED}50{Fore.WHITE} and press enter""")
+Your bet must be less than your credit: {Fore.GREEN}{credit}{Fore.WHITE} units
+If you wanted to bet {Fore.RED}50{Fore.WHITE} units,
+you would type {Fore.RED}50{Fore.WHITE} and press enter
+Please input your bet""")
     in_bet = input()
     if validate_number(in_bet) and check_credit(in_bet):
         bet = int(in_bet)
@@ -312,10 +313,13 @@ def user_action():
     Asks the user what action they wish to take now they have their cards.
     Do they want to hit or stick?
     """
-    print(f"""Please choose whether to Hit (get one more card)
-or Stick (No more cards) or double down(get one more card and double bet)
+    print(f"""Please choose whether to 
+   {Fore.CYAN}Hit{Fore.WHITE} (get one more card)
+or {Fore.CYAN}Stick{Fore.WHITE} (No more cards) 
+or {Fore.CYAN}Double down{Fore.WHITE} (get one more card and double bet)
+or {Fore.CYAN}Quit round{Fore.WHITE} (loose bet and end round)
 move up or down to select then press enter""")
-    choices = ["Hit", "Stick", "Double down"]
+    choices = ["Hit", "Stick", "Double down", "Quit round"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
     print(f'You have chosen {choices[chosen]}!')
@@ -335,6 +339,13 @@ def proceed(choice):
         dealer_time()
     elif choice == 2:
         double_down()
+    elif choice == 3:
+        quit_round()
+
+
+def quit_round():
+    clear_for_round()
+    continue_playing()
 
 
 def ingame_screen():
@@ -506,8 +517,6 @@ def request_name():
 This is not a name consisting of only of letters.
 Please re-enter your name using letters only""")
             request_name()
-    print(f'Thank you {name}')
-    sleep(1)
 
 
 def instructions():
