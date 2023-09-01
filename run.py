@@ -9,7 +9,7 @@ from simple_term_menu import TerminalMenu
 import emoji
 from colorama import Fore, Back, Style
 
-name = 'str'
+name = None
 credit = 200
 bet = 1
 deck = []
@@ -108,14 +108,13 @@ def validate_number(input):
     """
     try:
         value = (int(input))
-        if value > 1:
-            print(f'you have bet {input} credits')
+        if value > 0:
             return True
         else:
-            print('This does not appear to be a positive number')
+            print('The bet does not appear to be a positive number')
             return False
     except ValueError:
-        print('this is either not a number or not a whole number')
+        print('The bet is either not a number or not a whole number')
         return False
 
 
@@ -126,10 +125,10 @@ def check_credit(suggest):
     """
     suggested = int(suggest)
     if suggested <= credit:
-        print('This bet is within your credit')
         return True
     else:
-        print(f'Your bet exceeds your credit of {credit}')
+        print(f"""Your bet -{Fore.RED}{suggested}{Fore.WHITE}
+exceeds your credit : {Fore.GREEN}{credit}{Fore.WHITE}""")
         return False
 
 
@@ -149,7 +148,6 @@ def place_bet():
     global credit
     request_bet()
     subtract_credit(bet)
-    print(f' end of place bet. bet: {bet} credit: {credit}')
 
 
 def generate_cards():
@@ -416,7 +414,7 @@ def pay_winnings():
     pay = amount_winnings()
     decimal = credit + pay
     credit = int(decimal)
-    print(f'credit is now {credit}!!!')
+    print(f'credit is now {Fore.GREEN}{credit}{Fore.WHITE}!!!')
     continue_playing()
 
 
@@ -486,7 +484,7 @@ def validate_name(in_name):
     """Checks that the input for the name is letters -  not spaces numbers
     or special characters"""
     try:
-        if in_name is not None:
+        if in_name.isalpha():
             return True
     except ValueError:
         return False
@@ -495,7 +493,7 @@ def validate_name(in_name):
 def request_name():
     """gets the users name"""
     global name
-    if name != 'str':
+    if name is None:
         print('What is your name?')
         print('Type your name and press enter')
         in_name = input()
@@ -504,10 +502,12 @@ def request_name():
         if validate_name(cap_name):
             name = (cap_name)
         else:
-            print('you do not appear to have typed a name')
+            print(f"""you entered {Fore.RED}{in_name}{Fore.WHITE}
+This is not a name consisting of only of letters.
+Please re-enter your name using letters only""")
             request_name()
-        print(f'Thank you {name}')
-        sleep(1)
+    print(f'Thank you {name}')
+    sleep(1)
 
 
 def instructions():
