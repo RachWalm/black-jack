@@ -33,11 +33,39 @@ Happy coding!
 
 # Black Jack 21 game
 
+BlackJack21 is a python terminal game, which is run on the Code Institue mock terminal on Heroku. 
+
+It is a betting game that is played against a dealer which in this case is the computer. It is played with playing cards and the aim is to get as close to 21 as possible without exceeding it. You win if you get 21 or beat the value of the dealers cards without exceeding 21.
+
+[Here is the live version of the project](https://black-jack21-fa4b7e8cb0bf.herokuapp.com/)
+
 Black Jack is a card game played at casinos against a dealer. As it only requires a pack of cards it has also been popular family entertainment without the betting. This version includes betting. For a more complete history see [Wikipedia](https://en.wikipedia.org/wiki/Blackjack)
 
 ## flow chart
 
 ### initial flow chart 
+
+The initial design of the game was discussed using a flow-chart and document that I put together with some thoughts.
+
+![flowchart]()
+
+[idea document]()
+
+## How to play
+
+
+- The aim is to get as close to 21 (or ideally 21) and beat the dealers hand.
+- Initially you place a bet without knowing the cards by typing a whole number that is less than or equal to your credit.
+- The cards will then be displayed. Two each for you and the dealer, one of the dealers cards will be held in the hole until his turn (So you can't see his second card).
+- If you have two identical value cards you can then split by answering the y/n question.
+- You can Hit (get one more card the decide again), Stick (stay where you are and it is the dealers turn) or Double down (which doubles the bet and gives you only one more card - no more).
+- Your cards are worth their face value if they are a number card. Jack, Queen and King are worth 10 and Ace can be worth 1 or 11 depending on what is best for the hand.
+- If you exceed 21 then you will lose your bet.
+- If you don't exceed 21 and have stuck or doubled down then the dealers(computers) turn commences. You will get to see the dealers cards and if he gets additional cards.
+- If he gets higher than you without exceeding 21 he wins, if he exceeds 21 you get your money back and if you have the higher value you win. 
+- If you win the winnings will be paid into your credit.
+- 21 gets a higher return than just beating the dealer.
+
 
 To shuffle the cards used utube video :https://www.youtube.com/watch?v=0YkEy17Dz-M
 
