@@ -147,7 +147,6 @@ def place_bet():
     Brings all the functions required to place a bet and subtract it from
     credit together along with the text to inform the user
     """
-    global credit
     request_bet()
     subtract_credit(bet)
 
@@ -311,13 +310,13 @@ def double_down():
 
 def instructions_query():
     """
-    Asks the user if they want to read the instructions, 
+    Asks the user if they want to read the instructions,
     or continue to play or quit
     """
     print(f"""{name}, please choose whether to
-   {Fore.CYAN}Read instructions{Fore.WHITE} 
-or {Fore.CYAN}Play the game{Fore.WHITE} 
-or {Fore.CYAN}Quit{Fore.WHITE} 
+   {Fore.CYAN}Read instructions{Fore.WHITE}
+or {Fore.CYAN}Play the game{Fore.WHITE}
+or {Fore.CYAN}Quit{Fore.WHITE}
 move up or down to select then press enter""")
     choices = ["Instructions", "Game", "Quit"]
     terminal_menu = TerminalMenu(choices)

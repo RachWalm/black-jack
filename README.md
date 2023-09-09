@@ -91,6 +91,8 @@ This third party module provides all the required validation which makes the cod
 - Simplistic reading of the cards was aided by the use of emojis. The initial idea to use the cards emojis was quickly disregarded when it became apparent that they were unreadable due to size on the terminal output so a crown and the emojis for the suits were used instead. This was taken from [emoji](https://pypi.org/project/emoji/). It was attempted to also do the Jack, King and Queen with their own emoji's but the available emoji's didn't make that clear. So it was decided just to have a crown to show that they were court cards.
 
 It is possible that if the player wins or breaks even and continues through several rounds that the deck of cards will run out. Therefore, when this occurs an additional deck of cards is shuffled and added to the end of the pack. This was done using [W3](https://www.w3schools.com/python/gloss_python_join_lists.asp) to extend list to add two decks together
+ 
+https://www.scaler.com/topics/exit-in-python/ - quit function
 
 ### Potential Future features
 
