@@ -47,7 +47,7 @@ def goodbye():
     quit()
 
 
-def change_str_to_uni(string):
+def change_suit_to_uni(string):
     """
     Makes names and values on the cards more readable with colours and
     symbols from the string value
@@ -60,12 +60,20 @@ def change_str_to_uni(string):
         image = '\u2663'
     elif string == 'diamond':
         image = f'{Fore.RED}\u2666 {Fore.WHITE}'
-    elif string == 'Queen':
-        image = f'{Fore.CYAN}Queen {Fore.WHITE} \U0001F451 '
+    return image
+
+
+def change_value_to_uni(string):
+    """
+    Makes values on the cards more readable with colours and
+    symbols from the string value
+    """
+    if string == 'Queen':
+        image = f'{Fore.CYAN}Queen{Fore.WHITE} \U0001F451 '
     elif string == 'King':
-        image = f'{Fore.CYAN}King {Fore.WHITE} \U0001F451 '
+        image = f'{Fore.CYAN}King{Fore.WHITE} \U0001F451 '
     elif string == 'Jack':
-        image = f'{Fore.CYAN}Jack {Fore.WHITE} \U0001F451 '
+        image = f'{Fore.CYAN}Jack{Fore.WHITE} \U0001F451 '
     elif string == 'Ace':
         image = f'{Fore.CYAN}Ace{Fore.WHITE}'
     else:
@@ -79,8 +87,8 @@ def print_cards(hand):
     for sub in hand:
         suit = sub['suit']
         name = sub['name']
-        suit_image = change_str_to_uni(suit)
-        name_image = change_str_to_uni(name)
+        suit_image = change_suit_to_uni(suit)
+        name_image = change_value_to_uni(name)
         print(f'{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}')
 
 
@@ -331,7 +339,7 @@ move up or down to select then press enter""")
         goodbye()
 
 
-def user_action():
+def player_action():
     """
     Asks the user what action they wish to take now they have their cards.
     Do they want to hit or stick or double down or quit?
@@ -349,7 +357,7 @@ move up or down to select then press enter""")
     return chosen
 
 
-def proceed(choice):
+def progress_player_choice(choice):
     """
     Carries out the action that the user has chosen to either hit or stick
     """
@@ -387,8 +395,8 @@ def player_time():
     print(f'player total going into instant win {player_total}')
     check_instant_end(player_total)
     if pay_type == 'undecided':
-        action = user_action()
-        proceed(action)
+        action = player_action()
+        progress_player_choice(action)
     elif pay_type == 'blackjack':
         pay_winnings()
     elif pay_type == 'bust':
