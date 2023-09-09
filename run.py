@@ -27,7 +27,7 @@ def clear_terminal():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
     title()
-    print(f'Your credit is {Fore.GREEN}{credit}{Fore.WHITE} units')
+    print(f'{name}, your credit is {Fore.GREEN}{credit}{Fore.WHITE} units')
 
 
 def title():
@@ -44,6 +44,7 @@ def goodbye():
     ╔═╗┌─┐┌─┐┌┬┐┌┐ ┬ ┬┌─┐
     ║ ╦│ ││ │ ││├┴┐└┬┘├┤
     ╚═╝└─┘└─┘─┴┘└─┘ ┴ └─┘""")
+    quit()
 
 
 def change_str_to_uni(string):
@@ -90,7 +91,7 @@ def request_bet():
     thier credit available. Then the bet value updated if valid
     """
     global bet
-    print(f"""It is time to place your bet.......
+    print(f"""{name}, it is time to place your bet.......
 Your bet must be less than your credit: {Fore.GREEN}{credit}{Fore.WHITE} units
 If you wanted to bet {Fore.RED}50{Fore.WHITE} units,
 you would type {Fore.RED}50{Fore.WHITE} and press enter
@@ -203,7 +204,7 @@ def initial_deal(active_cards):
     print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
     print('Dealing cards..........')
     sleep(2)
-    print('The players first card is:')
+    print("Your first card is:")
     deal(active_cards, player_cards)
     sleep(1)
     print('The dealers first card is:')
@@ -212,7 +213,7 @@ def initial_deal(active_cards):
     ingame_screen()
     print('Dealing cards..........')
     sleep(2)
-    print('The players cards:')
+    print("Your cards:")
     deal(active_cards, player_cards)
     sleep(1)
     print('The dealers cards:')
@@ -308,14 +309,37 @@ def double_down():
     dealer_time()
 
 
+def instructions_query():
+    """
+    Asks the user if they want to read the instructions, 
+    or continue to play or quit
+    """
+    print(f"""{name}, please choose whether to
+   {Fore.CYAN}Read instructions{Fore.WHITE} 
+or {Fore.CYAN}Play the game{Fore.WHITE} 
+or {Fore.CYAN}Quit{Fore.WHITE} 
+move up or down to select then press enter""")
+    choices = ["Instructions", "Game", "Quit"]
+    terminal_menu = TerminalMenu(choices)
+    chosen = terminal_menu.show()
+    print(f'You have chosen {choices[chosen]}!')
+    if chosen == 0:
+        instructions()
+    elif chosen == 2:
+        clear_terminal()
+        print(f"""Thank you for playing
+        Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
+        goodbye()
+
+
 def user_action():
     """
     Asks the user what action they wish to take now they have their cards.
-    Do they want to hit or stick?
+    Do they want to hit or stick or double down or quit?
     """
-    print(f"""Please choose whether to 
+    print(f"""Please choose whether to
    {Fore.CYAN}Hit{Fore.WHITE} (get one more card)
-or {Fore.CYAN}Stick{Fore.WHITE} (No more cards) 
+or {Fore.CYAN}Stick{Fore.WHITE} (No more cards)
 or {Fore.CYAN}Double down{Fore.WHITE} (get one more card and double bet)
 or {Fore.CYAN}Quit round{Fore.WHITE} (loose bet and end round)
 move up or down to select then press enter""")
@@ -350,7 +374,7 @@ def quit_round():
 
 def ingame_screen():
     clear_terminal()
-    print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
+    print(f'{name} - Your bet is {Fore.RED}{bet}{Fore.WHITE}')
 
 
 def player_time():
@@ -486,7 +510,7 @@ Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
             main()
     else:
         clear_terminal()
-        print('Thank you for playing')
+        print('{name} thank you for playing')
         print('You are out of credit so we have to say GOODBYE!!!')
         goodbye()
 
@@ -521,6 +545,7 @@ Please re-enter your name using letters only""")
 
 def instructions():
     print('instructions function here')
+    sleep(2)
 
 
 def main():
@@ -529,7 +554,8 @@ def main():
     clear_terminal()
     request_name()
     clear_terminal()
-    instructions()
+    instructions_query()
+    clear_terminal()
     place_bet()
     clear_terminal()
     initial_deal(deck)

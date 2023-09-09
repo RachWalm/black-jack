@@ -128,7 +128,7 @@ Due to the ordering of the actions in my code the input of a bet took a value an
 
 The dealer time was stuck in an infinite loop while the function was being developed as the part of the function that dealt an extra card hadn't been put in so it kept checking if the value exceeded 17 and as no action had occurred to change the value (no new cards to add in) it went round the loop. This took a few times to realise as sometimes the initial draw was above 17 so it was an intermittent fault.
 
-lack of code institute credits.
+Due to an issue with code institute credits on codeanywhere not being set to infinite before this project, there is a slight gap when I couldn't commit to Git. During this time I just worked on the README, to reduce loss of traceability.
 
 ## Testing
 
@@ -149,6 +149,8 @@ When you run out of credit it ends the game|says goodbye but doesn't tell you yo
 ## Validator
 
 [PEP8Online.com](https://pep8ci.herokuapp.com/) was used to validate this project. No errors was found in the final deployed version.
+
+## Technology used
 
 ## Deployment
 
