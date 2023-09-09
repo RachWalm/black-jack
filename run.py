@@ -100,7 +100,7 @@ def request_bet():
     """
     global bet
     print(f"""{name}, it is time to place your bet.......
-Your bet must be less than your credit: {Fore.GREEN}{credit}{Fore.WHITE} units
+Your bet must not exceed your credit: {Fore.GREEN}{credit}{Fore.WHITE} units
 If you wanted to bet {Fore.RED}50{Fore.WHITE} units,
 you would type {Fore.RED}50{Fore.WHITE} and press enter
 Please input your bet""")
@@ -172,7 +172,7 @@ def generate_deck():
     Randomises a deck of cards so that the last one can be taken
     as though after a shuffle. Returns the random deck
     """
-    random_deck = random.sample(generate_cards(), 48)
+    random_deck = random.sample(generate_cards(), 48) #48 cards in deck
     return random_deck
 
 
@@ -234,38 +234,17 @@ def ace(total, aces):
     together equals
     """
     value = 0
-    if aces == 1:
-        if total < 10:
-            value = 11
+    if aces > 0:
+        if total < (12 - aces):
+            value = (10 + aces)
         else:
-            value = 1
-    elif aces == 2:
-        if total < 9:
-            value = 12
-        else:
-            value = 2
-    elif aces == 3:
-        if total < 8:
-            value = 13
-        else:
-            value = 3
-    elif aces == 4:
-        if total < 7:
-            value = 14
-        else:
-            value = 4
-    #elif aces == 0:
-        #pass
-    return value
+            value = aces
+    return value   
 
 
 def change_court_to_num(string):
     """Changes the string name of the card to an integer """
-    if string == 'Jack':
-        num = 10
-    elif string == 'Queen':
-        num = 10
-    elif string == 'King':
+    if string == 'Jack' or string == 'Queen' or string == 'King':
         num = 10
     elif string == 'Ace':
         num = 0
@@ -437,9 +416,7 @@ def amount_winnings():
     pay = 0
     if pay_type == 'blackjack':
         pay = ((bet/2)*3)+bet
-    elif pay_type == 'bust':
-        pay = 0
-    elif pay_type == 'no':
+    elif pay_type == 'bust' or pay_type == 'no':
         pay = 0
     elif pay_type == 'even':
         pay = 2 * bet
@@ -517,7 +494,7 @@ Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
             main()
     else:
         clear_terminal()
-        print('{name} thank you for playing')
+        print(f'{name} thank you for playing')
         print('You are out of credit so we have to say GOODBYE!!!')
         goodbye()
 
