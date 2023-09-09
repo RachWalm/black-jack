@@ -539,7 +539,8 @@ def total_clear():
 
 def instructions():
     total_clear()
-    print(f"""Initially you enter your name using letters
+    print(f"""
+Initially you enter your name using letters
 """)
     sleep(1)
     print(f"""Then you place a bet by typing a whole number
@@ -559,7 +560,8 @@ Jack, Queen and King are worth 10 and Ace can be worth 1 or 11.
 """)
     sleep(2)
     enter_to_continue()
-    print(f"""If you exceed 21 then you will lose.
+    print(f"""
+If you exceed 21 then you will lose.
 If you get 21 there is an instant payout.
 If you stick or doubled down then it is the dealers turn
 """)

@@ -222,3 +222,5 @@ and the purple 'create' button was pressed.
 - The ASCII larger writing was taken from [patorjk.com](http://patorjk.com/software/taag/#p=display&h=2&v=2&f=Univers&t=BlackJack21) and cut and paste into print f string statements using the style Calvin S.
 
 - Wikipedia/my grandparents for teaching me the game.
+
+- [pythontutor](https://pythontutor.com/visualize.html#mode=edit) to allow me to work through my code in small sections
