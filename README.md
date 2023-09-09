@@ -84,7 +84,9 @@ This third party module provides all the required validation which makes the cod
 
 [time](https://www.simplilearn.com/tutorials/python-tutorial/sleep-in-python#:~:text=The%20sleep()%20function%20in,the%20given%20number%20of%20seconds) 
 
-- also for readability it was essential to remove extraneous information from the screen once it was no longer required. OS clear screen adapted from madlibs 
+https://www.geeksforgeeks.org/make-python-wait-for-a-pressed-key/ press enter to continue on the instructions
+
+- also for readability it was essential to remove extraneous information from the screen once it was no longer required. OS clear screen adapted from [clear](https://www.geeksforgeeks.org/clear-screen-python/)
 
 - Readability also was improved by the use of colours from [colorama](https://pypi.org/project/colorama/).
 

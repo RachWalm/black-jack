@@ -543,6 +543,7 @@ Please re-enter your name using letters only""")
 
 
 def instructions():
+    os.system('cls' if os.name == 'nt' else 'clear')
     print('Initially you enter your name using letters')
     sleep(1)
     print(f'Then you place a bet by typing a whole number')
@@ -568,6 +569,8 @@ def instructions():
     print('if at the end you have the higher value - you win.')
     print('21 gets a higher return than just beating the dealer.')
     sleep(2)
+    input("Press Enter to continue:")
+    clear_terminal()
 
 
 def main():
