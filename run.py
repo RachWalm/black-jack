@@ -27,7 +27,7 @@ def clear_terminal():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
     title()
-    print(f'{name}, your credit is {Fore.GREEN}{credit}{Fore.WHITE} units')
+    print(f"""{name}, your credit is {Fore.GREEN}{credit}{Fore.WHITE} units""")
 
 
 def title():
@@ -55,11 +55,11 @@ def change_suit_to_uni(string):
     if string == 'spade':
         image = '\u2660'
     elif string == 'heart':
-        image = f'{Fore.RED}\u2665 {Fore.WHITE}'
+        image = f"""{Fore.RED}\u2665 {Fore.WHITE}"""
     elif string == 'club':
         image = '\u2663'
     elif string == 'diamond':
-        image = f'{Fore.RED}\u2666 {Fore.WHITE}'
+        image = f"""{Fore.RED}\u2666 {Fore.WHITE}"""
     return image
 
 
@@ -69,15 +69,15 @@ def change_value_to_uni(string):
     symbols from the string value
     """
     if string == 'Queen':
-        image = f'{Fore.CYAN}Queen{Fore.WHITE} \U0001F451 '
+        image = f"""{Fore.CYAN}Queen{Fore.WHITE} \U0001F451 """
     elif string == 'King':
-        image = f'{Fore.CYAN}King{Fore.WHITE} \U0001F451 '
+        image = f"""{Fore.CYAN}King{Fore.WHITE} \U0001F451 """
     elif string == 'Jack':
-        image = f'{Fore.CYAN}Jack{Fore.WHITE} \U0001F451 '
+        image = f"""{Fore.CYAN}Jack{Fore.WHITE} \U0001F451 """
     elif string == 'Ace':
-        image = f'{Fore.CYAN}Ace{Fore.WHITE}'
+        image = f"""{Fore.CYAN}Ace{Fore.WHITE}"""
     else:
-        image = f'{Fore.CYAN}{string}{Fore.WHITE}'
+        image = f"""{Fore.CYAN}{string}{Fore.WHITE}"""
     return image
 
 
@@ -89,7 +89,7 @@ def print_cards(hand):
         name = sub['name']
         suit_image = change_suit_to_uni(suit)
         name_image = change_value_to_uni(name)
-        print(f'{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}')
+        print(f"""{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}""")
 
 
 def request_bet():
@@ -208,7 +208,7 @@ def initial_deal(active_cards):
     """
     global dealer_cards
     global player_cards
-    print(f'Your bet is {Fore.RED}{bet}{Fore.WHITE}')
+    print(f"""Your bet is {Fore.RED}{bet}{Fore.WHITE}""")
     print('Dealing cards..........')
     sleep(2)
     print("Your first card is:")
@@ -308,7 +308,7 @@ move up or down to select then press enter""")
     choices = ["Instructions", "Game", "Quit"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
-    print(f'You have chosen {choices[chosen]}!')
+    print(f"""You have chosen {choices[chosen]}!""")
     if chosen == 0:
         instructions()
     elif chosen == 2:
@@ -332,7 +332,7 @@ move up or down to select then press enter""")
     choices = ["Hit", "Stick", "Double down", "Quit round"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
-    print(f'You have chosen {choices[chosen]}!')
+    print(f"""You have chosen {choices[chosen]}!""")
     return chosen
 
 
@@ -360,7 +360,7 @@ def quit_round():
 
 def ingame_screen():
     clear_terminal()
-    print(f'{name} - Your bet is {Fore.RED}{bet}{Fore.WHITE}')
+    print(f"""{name} - Your bet is {Fore.RED}{bet}{Fore.WHITE}""")
 
 
 def player_time():
@@ -371,7 +371,7 @@ def player_time():
     """
     global player_total
     player_total = calculate_total(player_cards)
-    print(f'player total going into instant win {player_total}')
+    print(f"""player total going into instant win {player_total}""")
     check_instant_end(player_total)
     if pay_type == 'undecided':
         action = player_action()
@@ -401,7 +401,7 @@ def who_won():
         pay_type = 'even'
     elif dealer_total == player_total:
         pay_type = 'back'
-    print(f'pay_type equals {pay_type}')
+    print(f"""pay_type equals {pay_type}""")
     pay_winnings()
 
 
@@ -433,7 +433,7 @@ def pay_winnings():
     pay = amount_winnings()
     decimal = credit + pay
     credit = int(decimal)
-    print(f'credit is now {Fore.GREEN}{credit}{Fore.WHITE}!!!')
+    print(f"""credit is now {Fore.GREEN}{credit}{Fore.WHITE}!!!""")
     continue_playing()
 
 
@@ -483,7 +483,7 @@ def continue_playing():
         contnue = ["[Y] Yes", "[N] No"]
         terminal_menu = TerminalMenu(contnue)
         chosen = terminal_menu.show()
-        print(f'You have chosen {contnue[chosen]}!')
+        print(f"""You have chosen {contnue[chosen]}!""")
         if chosen == 1:
             clear_terminal()
             print(f"""Thank you for playing
@@ -494,7 +494,7 @@ Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
             main()
     else:
         clear_terminal()
-        print(f'{name} thank you for playing')
+        print(f"""{name} thank you for playing""")
         print('You are out of credit so we have to say GOODBYE!!!')
         goodbye()
 
@@ -518,8 +518,15 @@ def request_name():
         in_name = input()
         strip = in_name.strip()
         cap_name = strip.capitalize()
-        if validate_name(cap_name):
+        if validate_name(cap_name) and len(cap_name) <10:
             name = (cap_name)
+        elif validate_name(cap_name) and len(cap_name) >9:
+            name = cap_name[:9]
+            print(f"""the name you entered is too long.
+It has been shortened to {name}.
+If this is unacceptable you can quit in next menu.
+Then when you restart you can choose a different name""")
+            sleep(7)
         else:
             print(f"""you entered {Fore.RED}{in_name}{Fore.WHITE}
 This is not a name consisting of only of letters.
@@ -527,35 +534,59 @@ Please re-enter your name using letters only""")
             request_name()
 
 
-def instructions():
+def total_clear():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print('Initially you enter your name using letters')
+
+def instructions():
+    total_clear()
+    print(f"""Initially you enter your name using letters
+""")
     sleep(1)
-    print(f'Then you place a bet by typing a whole number')
-    print('which is less than or equal to your credit.')
+    print(f"""Then you place a bet by typing a whole number
+which is less than or equal to your credit.
+""")
     sleep(2)
     print('The cards will then be dealt. Two each for you and the dealer')
     # - If you have two identical value cards you can then split.
     sleep(1)
-    print('You can Hit - get one more card then decide again')
-    print('Stick - stay where you are')
-    print('double down - bet doubles and gives you only one more card.')
+    print(f"""You can Hit - get one more card then decide again
+Stick - stay where you are
+Double down - bet doubles and gives you only one more card.
+""")
     sleep(3)
-    print('Your cards are worth their face value if they are a number card.')
-    print('Jack, Queen and King are worth 10 and Ace can be worth 1 or 11.')
+    print(f"""Your cards are worth their face value if they are a number card.
+Jack, Queen and King are worth 10 and Ace can be worth 1 or 11.
+""")
     sleep(2)
-    print('If you exceed 21 then you will lose.')
-    print('If you get 21 there is an instant payout.')
-    print('If you stick or doubled down then it is the dealers turn')
+    enter_to_continue()
+    print(f"""If you exceed 21 then you will lose.
+If you get 21 there is an instant payout.
+If you stick or doubled down then it is the dealers turn
+""")
     sleep(3)
-    print('You will get to see the dealers cards and any additional cards.')
-    print('If the dealer gets higher than you without exceeding 21 he wins')
-    print('if he exceeds 21 you get your money back')
-    print('if at the end you have the higher value - you win.')
-    print('21 gets a higher return than just beating the dealer.')
+    print(f"""You will get to see the dealers cards and any additional cards.
+
+If the dealer gets higher than you without exceeding 21 he wins
+
+If he exceeds 21 you get your money back
+
+If at the end you have the higher value - you win.
+
+21 gets a higher return than just beating the dealer.""")
     sleep(2)
-    input("Press Enter to continue:")
+    enter_to_continue()
     clear_terminal()
+    instructions_query()
+
+
+def enter_to_continue():
+    while True:
+        is_enter = input("Press Enter to continue...")
+        if is_enter == "":
+            break
+        else:
+            print("Please don't use other keys, just press Enter to continue.")
+    total_clear()
 
 
 def main():
