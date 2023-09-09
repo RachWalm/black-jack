@@ -57,7 +57,7 @@ I proposed the initial design of the game using a flow-chart and document that I
 - Then you place a bet without knowing the cards by typing a whole number that is less than or equal to your credit.
 - The cards will then be dealt. Two each for you and the dealer, one of the dealers cards will be held in the hole until his turn (So you can't see his second card).
 - If you have two identical value cards you can then split by answering the y/n question.
-- You can Hit (get one more card the decide again), Stick (stay where you are and it is the dealers turn) or Double down (which doubles the bet and gives you only one more card - before the dealers turn).
+- You can Hit (get one more card then decide again), Stick (stay where you are and it is the dealers turn) or Double down (which doubles the bet and gives you only one more card - before the dealers turn).
 - Your cards are worth their face value if they are a number card. Jack, Queen and King are worth 10 and Ace can be worth 1 or 11 depending on what is best for the hand.
 - If you exceed 21 then you will lose your bet. If you get 21 there is an instant payout.
 - If you don't exceed 21 and have stuck or doubled down then the dealers(computers) turn commences. You will get to see the dealers cards and if he gets additional cards you will see those dealt.

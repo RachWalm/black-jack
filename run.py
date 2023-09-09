@@ -544,7 +544,30 @@ Please re-enter your name using letters only""")
 
 
 def instructions():
-    print('instructions function here')
+    print('Initially you enter your name using letters')
+    sleep(1)
+    print(f'Then you place a bet by typing a whole number')
+    print('which is less than or equal to your credit.')
+    sleep(2)
+    print('The cards will then be dealt. Two each for you and the dealer')
+    # - If you have two identical value cards you can then split.
+    sleep(1)
+    print('You can Hit - get one more card then decide again')
+    print('Stick - stay where you are')
+    print('double down - bet doubles and gives you only one more card.')
+    sleep(3)
+    print('Your cards are worth their face value if they are a number card.')
+    print('Jack, Queen and King are worth 10 and Ace can be worth 1 or 11.')
+    sleep(2)
+    print('If you exceed 21 then you will lose.')
+    print('If you get 21 there is an instant payout.')
+    print('If you stick or doubled down then it is the dealers turn')
+    sleep(3)
+    print('You will get to see the dealers cards and any additional cards.')
+    print('If the dealer gets higher than you without exceeding 21 he wins')
+    print('if he exceeds 21 you get your money back')
+    print('if at the end you have the higher value - you win.')
+    print('21 gets a higher return than just beating the dealer.')
     sleep(2)
 
 
