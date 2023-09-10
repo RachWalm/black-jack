@@ -8,6 +8,7 @@ from time import sleep
 from simple_term_menu import TerminalMenu
 import emoji
 from colorama import Fore, Back, Style
+import ascii
 
 name = None
 credit = 200
@@ -20,31 +21,101 @@ dealer_total = 0
 pay_type = 'undecided'
 
 
+def instructions():
+    total_clear()
+    print(f"""
+Initially you enter your {Fore.CYAN}{Fore.WHITE}name using letters
+""")
+    sleep(1)
+    print(f"""Then you place a {Fore.RED}bet{Fore.WHITE}, by typing
+a whole number,which is less than or equal to
+your {Fore.GREEN}credit{Fore.WHITE}.
+""")
+    sleep(2)
+    print('The cards will then be dealt. Two each for you and the dealer')
+    # - If you have two identical value cards you can then split.
+    sleep(1)
+    print(f"""You can {Fore.CYAN}Hit{Fore.WHITE} - get one more card,
+then you decide again,
+{Fore.CYAN}Stick{Fore.WHITE} - stay where you are
+{Fore.CYAN}Double down{Fore.WHITE} - bet doubles
+and gives you only one more card.
+""")
+    sleep(3)
+    print(f"""Your cards are worth their face value if they are a number card.
+{Fore.CYAN}Jack, Queen{Fore.WHITE} and {Fore.CYAN}King{Fore.WHITE}
+are worth {Fore.CYAN}10{Fore.WHITE}
+and {Fore.CYAN}Ace{Fore.WHITE} can be worth
+{Fore.CYAN}1{Fore.WHITE} or {Fore.CYAN}11{Fore.WHITE}.
+""")
+    sleep(2)
+    enter_to_continue()
+    print(f"""
+If you exceed {Fore.CYAN}21{Fore.WHITE} then you will lose.
+If you get {Fore.CYAN}21{Fore.WHITE} there is an instant payout.
+If you {Fore.CYAN}stick{Fore.WHITE} or {Fore.CYAN}double down{Fore.WHITE} then
+it is the dealers turn
+""")
+    sleep(3)
+    print(f"""You will now get to see all the dealers cards
+and any additional cards he deals himself.
+
+If the dealer gets higher than you without
+exceeding {Fore.CYAN}21{Fore.WHITE} he wins
+
+If he exceeds {Fore.CYAN}21{Fore.WHITE} you win
+
+If at the end you have the higher value - you win.
+
+{Fore.CYAN}21{Fore.WHITE} gets a higher return than just beating the dealer.
+""")
+    sleep(2)
+    enter_to_continue()
+    clear_terminal()
+    instructions_query()
+
+
+def enter_to_continue():
+    while True:
+        is_enter = input("Press Enter to continue...")
+        if is_enter == "":
+            break
+        else:
+            print("Please don't use other keys, just press Enter to continue.")
+    total_clear()
+
+
+def instructions_query():
+    """
+    Asks the user if they want to read the instructions,
+    or continue to play or quit
+    """
+    print(f"""{name}, please choose whether to
+   {Fore.CYAN}Read instructions{Fore.WHITE}
+or {Fore.CYAN}Play the game{Fore.WHITE}
+or {Fore.CYAN}Quit{Fore.WHITE}
+move up or down to select then press enter""")
+    choices = ["Instructions", "Game", "Quit"]
+    terminal_menu = TerminalMenu(choices)
+    chosen = terminal_menu.show()
+    print(f"""You have chosen {choices[chosen]}!""")
+    if chosen == 0:
+        instructions()
+    elif chosen == 2:
+        clear_terminal()
+        print(f"""Thank you for playing
+        Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
+        ascii.goodbye()
+
+
 def clear_terminal():
     """
     Clears terminal so that previous text isn't visible and put the title
     and credit on the screen in the same place
     """
     os.system('cls' if os.name == 'nt' else 'clear')
-    title()
+    ascii.title()
     print(f"""{name}, your credit is {Fore.GREEN}{credit}{Fore.WHITE} units""")
-
-
-def title():
-    """ASCII title so the user knows name of program"""
-    print(f"""
-    ╔╗ ┬  ┌─┐┌─┐┬┌─ ╦┌─┐┌─┐┬┌─
-    ╠╩╗│  ├─┤│  ├┴┐ ║├─┤│  ├┴┐
-    ╚═╝┴─┘┴ ┴└─┘┴ ┴╚╝┴ ┴└─┘┴ ┴""")
-
-
-def goodbye():
-    """ASCII writing to say goodbye to user"""
-    print(f"""
-    ╔═╗┌─┐┌─┐┌┬┐┌┐ ┬ ┬┌─┐
-    ║ ╦│ ││ │ ││├┴┐└┬┘├┤
-    ╚═╝└─┘└─┘─┴┘└─┘ ┴ └─┘""")
-    quit()
 
 
 def change_suit_to_uni(string):
@@ -293,29 +364,6 @@ def double_down():
     dealer_time()
 
 
-def instructions_query():
-    """
-    Asks the user if they want to read the instructions,
-    or continue to play or quit
-    """
-    print(f"""{name}, please choose whether to
-   {Fore.CYAN}Read instructions{Fore.WHITE}
-or {Fore.CYAN}Play the game{Fore.WHITE}
-or {Fore.CYAN}Quit{Fore.WHITE}
-move up or down to select then press enter""")
-    choices = ["Instructions", "Game", "Quit"]
-    terminal_menu = TerminalMenu(choices)
-    chosen = terminal_menu.show()
-    print(f"""You have chosen {choices[chosen]}!""")
-    if chosen == 0:
-        instructions()
-    elif chosen == 2:
-        clear_terminal()
-        print(f"""Thank you for playing
-        Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
-        goodbye()
-
-
 def player_action():
     """
     Asks the user what action they wish to take now they have their cards.
@@ -479,7 +527,7 @@ def continue_playing():
             clear_terminal()
             print(f"""Thank you for playing
 Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
-            goodbye()
+            ascii.goodbye()
         elif chosen == 0:
             clear_for_round()
             main()
@@ -487,7 +535,7 @@ Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
         clear_terminal()
         print(f"""{name} thank you for playing""")
         print('You are out of credit so we have to say GOODBYE!!!')
-        goodbye()
+        ascii.goodbye()
 
 
 def validate_name(in_name):
@@ -527,70 +575,6 @@ Please re-enter your name using letters only""")
 
 def total_clear():
     os.system('cls' if os.name == 'nt' else 'clear')
-
-
-def instructions():
-    total_clear()
-    print(f"""
-Initially you enter your {Fore.CYAN}{Fore.WHITE}name using letters
-""")
-    sleep(1)
-    print(f"""Then you place a {Fore.RED}bet{Fore.WHITE}, by typing
-a whole number,which is less than or equal to
-your {Fore.GREEN}credit{Fore.WHITE}.
-""")
-    sleep(2)
-    print('The cards will then be dealt. Two each for you and the dealer')
-    # - If you have two identical value cards you can then split.
-    sleep(1)
-    print(f"""You can {Fore.CYAN}Hit{Fore.WHITE} - get one more card,
-then you decide again,
-{Fore.CYAN}Stick{Fore.WHITE} - stay where you are
-{Fore.CYAN}Double down{Fore.WHITE} - bet doubles
-and gives you only one more card.
-""")
-    sleep(3)
-    print(f"""Your cards are worth their face value if they are a number card.
-{Fore.CYAN}Jack, Queen{Fore.WHITE} and {Fore.CYAN}King{Fore.WHITE}
-are worth {Fore.CYAN}10{Fore.WHITE}
-and {Fore.CYAN}Ace{Fore.WHITE} can be worth
-{Fore.CYAN}1{Fore.WHITE} or {Fore.CYAN}11{Fore.WHITE}.
-""")
-    sleep(2)
-    enter_to_continue()
-    print(f"""
-If you exceed {Fore.CYAN}21{Fore.WHITE} then you will lose.
-If you get {Fore.CYAN}21{Fore.WHITE} there is an instant payout.
-If you {Fore.CYAN}stick{Fore.WHITE} or {Fore.CYAN}double down{Fore.WHITE} then
-it is the dealers turn
-""")
-    sleep(3)
-    print(f"""You will now get to see all the dealers cards
-and any additional cards he deals himself.
-
-If the dealer gets higher than you without
-exceeding {Fore.CYAN}21{Fore.WHITE} he wins
-
-If he exceeds {Fore.CYAN}21{Fore.WHITE} you win
-
-If at the end you have the higher value - you win.
-
-{Fore.CYAN}21{Fore.WHITE} gets a higher return than just beating the dealer.
-""")
-    sleep(2)
-    enter_to_continue()
-    clear_terminal()
-    instructions_query()
-
-
-def enter_to_continue():
-    while True:
-        is_enter = input("Press Enter to continue...")
-        if is_enter == "":
-            break
-        else:
-            print("Please don't use other keys, just press Enter to continue.")
-    total_clear()
 
 
 def main():
