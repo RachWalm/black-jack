@@ -3,12 +3,12 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
 import os
-import random
 from time import sleep
 from simple_term_menu import TerminalMenu
 import emoji
-from colorama import Fore, Back, Style
+from colorama import Fore
 import ascii
+import cards
 
 name = None
 credit = 200
@@ -230,23 +230,6 @@ def place_bet():
     subtract_credit(bet)
 
 
-def generate_cards():
-    """Builds a deck of cards into a dictionary in a list."""
-    suits = ["spade", "diamond", "heart", "club"]
-    names = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 'Jack', 'Queen', 'King']
-    cards = [{'suit': suit, 'name': name} for suit in suits for name in names]
-    return cards
-
-
-def generate_deck():
-    """
-    Randomises a deck of cards so that the last one can be taken
-    as though after a shuffle. Returns the random deck
-    """
-    random_deck = random.sample(generate_cards(), 48)  # 48 cards in deck
-    return random_deck
-
-
 def enough_cards():
     """
     Checks that there are enough cards left in the pack to
@@ -256,7 +239,7 @@ def enough_cards():
     if len(deck) > 1:
         pass
     else:
-        new_deck = generate_deck()
+        new_deck = cards.generate_deck()
         deck.extend(new_deck)
 
 
