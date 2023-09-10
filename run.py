@@ -172,7 +172,7 @@ def generate_deck():
     Randomises a deck of cards so that the last one can be taken
     as though after a shuffle. Returns the random deck
     """
-    random_deck = random.sample(generate_cards(), 48) #48 cards in deck
+    random_deck = random.sample(generate_cards(), 48)  # 48 cards in deck
     return random_deck
 
 
@@ -239,7 +239,7 @@ def ace(total, aces):
             value = (10 + aces)
         else:
             value = aces
-    return value   
+    return value
 
 
 def change_court_to_num(string):
@@ -279,10 +279,8 @@ def check_instant_end(total):
     global pay_type
     if total == 21:
         pay_type = 'blackjack'
-        print('blackjack in instant end')
     elif total > 21:
         pay_type = 'bust'
-        print('bust in instant end')
 
 
 def double_down():
@@ -371,7 +369,6 @@ def player_time():
     """
     global player_total
     player_total = calculate_total(player_cards)
-    print(f"""player total going into instant win {player_total}""")
     check_instant_end(player_total)
     if pay_type == 'undecided':
         action = player_action()
@@ -390,18 +387,12 @@ def who_won():
     global player_total
     global dealer_total
     global pay_type
-    if dealer_total > 21:
-        print('dealer bust')
+    if dealer_total > 21 or dealer_total < player_total:
         pay_type = 'even'
     elif (dealer_total > player_total):  # and (dealer_total < 22):
-        print('dealer won')
         pay_type = 'no'
-    elif dealer_total < player_total:
-        print('player won')
-        pay_type = 'even'
     elif dealer_total == player_total:
         pay_type = 'back'
-    print(f"""pay_type equals {pay_type}""")
     pay_winnings()
 
 
@@ -518,9 +509,9 @@ def request_name():
         in_name = input()
         strip = in_name.strip()
         cap_name = strip.capitalize()
-        if validate_name(cap_name) and len(cap_name) <10:
+        if validate_name(cap_name) and len(cap_name) < 10:
             name = (cap_name)
-        elif validate_name(cap_name) and len(cap_name) >9:
+        elif validate_name(cap_name) and len(cap_name) > 9:
             name = cap_name[:9]
             print(f"""the name you entered is too long.
 It has been shortened to {name}.
@@ -537,44 +528,55 @@ Please re-enter your name using letters only""")
 def total_clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
 def instructions():
     total_clear()
     print(f"""
-Initially you enter your name using letters
+Initially you enter your {Fore.CYAN}{Fore.WHITE}name using letters
 """)
     sleep(1)
-    print(f"""Then you place a bet by typing a whole number
-which is less than or equal to your credit.
+    print(f"""Then you place a {Fore.RED}bet{Fore.WHITE}, by typing
+a whole number,which is less than or equal to
+your {Fore.GREEN}credit{Fore.WHITE}.
 """)
     sleep(2)
     print('The cards will then be dealt. Two each for you and the dealer')
     # - If you have two identical value cards you can then split.
     sleep(1)
-    print(f"""You can Hit - get one more card then decide again
-Stick - stay where you are
-Double down - bet doubles and gives you only one more card.
+    print(f"""You can {Fore.CYAN}Hit{Fore.WHITE} - get one more card,
+then you decide again,
+{Fore.CYAN}Stick{Fore.WHITE} - stay where you are
+{Fore.CYAN}Double down{Fore.WHITE} - bet doubles
+and gives you only one more card.
 """)
     sleep(3)
     print(f"""Your cards are worth their face value if they are a number card.
-Jack, Queen and King are worth 10 and Ace can be worth 1 or 11.
+{Fore.CYAN}Jack, Queen{Fore.WHITE} and {Fore.CYAN}King{Fore.WHITE}
+are worth {Fore.CYAN}10{Fore.WHITE}
+and {Fore.CYAN}Ace{Fore.WHITE} can be worth
+{Fore.CYAN}1{Fore.WHITE} or {Fore.CYAN}11{Fore.WHITE}.
 """)
     sleep(2)
     enter_to_continue()
     print(f"""
-If you exceed 21 then you will lose.
-If you get 21 there is an instant payout.
-If you stick or doubled down then it is the dealers turn
+If you exceed {Fore.CYAN}21{Fore.WHITE} then you will lose.
+If you get {Fore.CYAN}21{Fore.WHITE} there is an instant payout.
+If you {Fore.CYAN}stick{Fore.WHITE} or {Fore.CYAN}double down{Fore.WHITE} then
+it is the dealers turn
 """)
     sleep(3)
-    print(f"""You will get to see the dealers cards and any additional cards.
+    print(f"""You will now get to see all the dealers cards
+and any additional cards he deals himself.
 
-If the dealer gets higher than you without exceeding 21 he wins
+If the dealer gets higher than you without
+exceeding {Fore.CYAN}21{Fore.WHITE} he wins
 
-If he exceeds 21 you get your money back
+If he exceeds {Fore.CYAN}21{Fore.WHITE} you win
 
 If at the end you have the higher value - you win.
 
-21 gets a higher return than just beating the dealer.""")
+{Fore.CYAN}21{Fore.WHITE} gets a higher return than just beating the dealer.
+""")
     sleep(2)
     enter_to_continue()
     clear_terminal()
