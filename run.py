@@ -170,10 +170,6 @@ def cards_to_screen(who, when, cards):
         for x in range(0, length):
             print(f"""{print_cards(nparray[x])}""")
     elif when == "playing" and who == "player":
-        print(f"""
-Dealer cards  : """)
-        cards_to_screen(dealer.who, dealer.when, dealer.cards)
-        print("")
         print('Your current cards : ', end="")
         for x in range(0, (length - 1)):
             one_line = print_cards(nparray[x])
@@ -181,6 +177,24 @@ Dealer cards  : """)
         print(f"""
 New card is : {print_cards(nparray[-1])}
 """)
+        print(f"""Dealer cards  : """)
+        cards_to_screen(dealer.who, dealer.when, dealer.cards)
+        print("")
+    elif who == "dealer" and when == "playing":
+        print(f"""Your cards :""")
+        cards_to_screen(player.who, player.when, player.cards)
+        print('Dealer current cards: ', end=" ")
+        for x in range(0, (length - 1)):
+            one_line = print_cards(nparray[x])
+            print(one_line, end=", ")
+        print(f"""
+New card is : {print_cards(nparray[-1])}
+""")
+    elif who == "player" and when == "finished":
+        for x in range(0, (length)):
+            one_line = print_cards(nparray[x])
+            print(one_line, end=", ")
+            print("")
 
 
 def print_cards(hand):
@@ -453,16 +467,29 @@ def amount_winnings():
     Calculates what the winnings/if there are winnings depending on what
     the outcome of the game was
     """
-    print(pay_type)
+    #  print(pay_type)
     pay = 0
     if pay_type == 'blackjack':
         pay = ((bet/2)*3)+bet
+        print(f"""{Fore.GREEN}Congratulations you won.{Fore.CYAN}
+You got 21 or Blackjack{Fore.WHITE}""")
+    elif pay_type == 'bust':
+        pay = 0
+        print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
+You got exceeded 21{Fore.WHITE}""")
     elif pay_type == 'bust' or pay_type == 'no':
         pay = 0
+        print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
+You got less than the dealer{Fore.WHITE}""")
     elif pay_type == 'even':
         pay = 2 * bet
+        print(f"""{Fore.GREEN}Congratulations you won.{Fore.CYAN}
+You beat the dealer{Fore.WHITE}""")
     elif pay_type == 'back':
         pay = bet
+        print(f"""{Fore.GREEN}Congratulations
+you get your money back.{Fore.CYAN}
+Dealer went bust{Fore.WHITE}""")
     return pay
 
 
@@ -484,6 +511,8 @@ def dealer_time():
     with the cards after the play has completed their turn
     """
     global dealer_total
+    dealer.when = "playing"
+    player.when = "finished"
     if pay_type == 'undecided':
         ingame_screen()
         dealer_total = calculate_total(dealer.cards)
@@ -562,6 +591,10 @@ def request_name():
         cap_name = strip.capitalize()
         if validate_name(cap_name) and len(cap_name) < 10:
             name = (cap_name)
+        elif len(cap_name) < 1:
+            print(f"""It appears that you did not enter anything.
+Please re-enter your name using letter only""")
+            request_name()
         elif validate_name(cap_name) and len(cap_name) > 9:
             name = cap_name[:9]
             print(f"""the name you entered is too long.
