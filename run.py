@@ -137,11 +137,11 @@ def change_suit_to_uni(string):
     if string == 'spade':
         image = '\u2660'
     elif string == 'heart':
-        image = f"""{Fore.RED}\u2665 {Fore.WHITE}"""
+        image = f"""{Fore.RED}\u2665{Fore.WHITE}"""
     elif string == 'club':
         image = '\u2663'
     elif string == 'diamond':
-        image = f"""{Fore.RED}\u2666 {Fore.WHITE}"""
+        image = f"""{Fore.RED}\u2666{Fore.WHITE}"""
     return image
 
 
@@ -169,8 +169,12 @@ def cards_to_screen(who, when, cards):
     if when == "initial":
         for x in range(0, length):
             print(f"""{print_cards(nparray[x])}""")
-    elif when == "playing":
-        print('Current cards : ', end="")
+    elif when == "playing" and who == "player":
+        print(f"""
+Dealer cards  : """)
+        cards_to_screen(dealer.who, dealer.when, dealer.cards)
+        print("")
+        print('Your current cards : ', end="")
         for x in range(0, (length - 1)):
             one_line = print_cards(nparray[x])
             print(one_line, end=", ")
@@ -259,7 +263,6 @@ def enough_cards():
     Checks that there are enough cards left in the pack to
     continue dealing
     """
-    global deck
     if len(deck) > 1:
         pass
     else:
@@ -362,7 +365,6 @@ def check_instant_end(total):
 def double_down():
     global bet
     global credit
-    global deck
     credit -= bet
     bet *= 2
     deal(deck, player)
@@ -375,7 +377,7 @@ def player_action():
     Do they want to hit or stick or double down or quit?
     """
     print(f"""Please choose whether to
-   {Fore.CYAN}Hit{Fore.WHITE} (get one more card)
+{Fore.CYAN}Hit{Fore.WHITE} (get one more card)
 or {Fore.CYAN}Stick{Fore.WHITE} (No more cards)
 or {Fore.CYAN}Double down{Fore.WHITE} (get one more card and double bet)
 or {Fore.CYAN}Quit round{Fore.WHITE} (loose bet and end round)
@@ -391,7 +393,6 @@ def progress_player_choice(choice):
     """
     Carries out the action that the user has chosen to either hit or stick
     """
-    global deck
     if choice == 0:
         ingame_screen()
         deal(deck, player)
@@ -437,8 +438,6 @@ def who_won():
     Applies the rules of blackJack to determine who won after the dealer has
     decided what action to take
     """
-    global player_total
-    global dealer_total
     global pay_type
     if dealer_total > 21 or dealer_total < player_total:
         pay_type = 'even'
@@ -454,8 +453,6 @@ def amount_winnings():
     Calculates what the winnings/if there are winnings depending on what
     the outcome of the game was
     """
-    global bet
-    global pay_type
     print(pay_type)
     pay = 0
     if pay_type == 'blackjack':
@@ -490,10 +487,12 @@ def dealer_time():
     if pay_type == 'undecided':
         ingame_screen()
         dealer_total = calculate_total(dealer.cards)
-        for num in range(2, 17):
+        dealer.when = "playing"
+        for x in range(2, 17):
             if dealer_total <= 17:
                 deal(deck, dealer)
                 dealer_total = calculate_total(dealer.cards)
+                sleep(2)
             elif dealer_total > 17:
                 break
         who_won()
@@ -512,6 +511,8 @@ def clear_for_round():
     player_total = 0
     dealer.cards.clear()
     dealer_total = 0
+    dealer.when = "initial"
+    player.when = "initial"
 
 
 def continue_playing():
@@ -519,7 +520,6 @@ def continue_playing():
     Allows the user to decide if they want to continue playing at the end
     of the round with another round
     """
-    global credit
     if credit >= 1:
         print('Do you want to continue playing another round?')
         contnue = ["[Y] Yes", "[N] No"]
@@ -582,7 +582,6 @@ def total_clear():
 
 def main():
     """The main run through of the program for an entire players hand"""
-    global deck
     clear_terminal()
     request_name()
     clear_terminal()
