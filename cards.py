@@ -15,6 +15,7 @@ def generate_deck():
     as though after a shuffle. Returns the random deck
     """
     random_deck = random.sample(cards, 48)  # 48 cards in deck
+    print(random_deck)
     return random_deck
 
 

@@ -10,13 +10,27 @@ from colorama import Fore
 import ascii
 import cards
 
-name = None
+class Hand:
+    """Hand class"""
+    def __init__(self, who, when, cards):
+        #  instance attribute
+        self.who = who
+        self.cards = cards
+        self.when = when
+    
+        
+    def cards_to_screen(self):
+        print_cards(self.who, self.when, self.cards)
+
+name = "Player"
 credit = 200
 bet = 1
 deck = []
-player_cards = []
+#player_cards = []
+player = Hand("player", "initial", [])
 player_total = 0
-dealer_cards = []
+dealer = Hand("dealer", "initial", [])
+#dealer_cards = []
 dealer_total = 0
 pay_type = 'undecided'
 
@@ -260,25 +274,25 @@ def initial_deal(active_cards):
     Carries out the function of the dealer initially dealing the cards
     to the table before the user has interaction with the cards
     """
-    global dealer_cards
-    global player_cards
+    #global dealer#.cards
+    #global player.cards
     print(f"""Your bet is {Fore.RED}{bet}{Fore.WHITE}""")
     print('Dealing cards..........')
     sleep(2)
     print("Your first card is:")
-    deal(active_cards, player_cards)
+    deal(active_cards, player.cards)
     sleep(1)
     print('The dealers first card is:')
-    deal(active_cards, dealer_cards)
+    deal(active_cards, dealer.cards)
     sleep(1)
     ingame_screen()
     print('Dealing cards..........')
     sleep(2)
     print("Your cards:")
-    deal(active_cards, player_cards)
+    deal(active_cards, player.cards)
     sleep(1)
     print('The dealers cards:')
-    deal(active_cards, dealer_cards)
+    deal(active_cards, dealer.cards)
 
 
 def ace(total, aces):
@@ -343,7 +357,7 @@ def double_down():
     global deck
     credit -= bet
     bet *= 2
-    deal(deck, player_cards)
+    deal(deck, player.cards)
     dealer_time()
 
 
@@ -372,7 +386,7 @@ def progress_player_choice(choice):
     global deck
     if choice == 0:
         ingame_screen()
-        deal(deck, player_cards)
+        deal(deck, player.cards)
         player_time()
     elif choice == 1:
         dealer_time()
@@ -399,7 +413,7 @@ def player_time():
     that route
     """
     global player_total
-    player_total = calculate_total(player_cards)
+    player_total = calculate_total(player.cards)
     check_instant_end(player_total)
     if pay_type == 'undecided':
         action = player_action()
@@ -467,11 +481,11 @@ def dealer_time():
     global dealer_total
     if pay_type == 'undecided':
         ingame_screen()
-        dealer_total = calculate_total(dealer_cards)
+        dealer_total = calculate_total(dealer.cards)
         for num in range(2, 17):
             if dealer_total <= 17:
-                deal(deck, dealer_cards)
-                dealer_total = calculate_total(dealer_cards)
+                deal(deck, dealer.cards)
+                dealer_total = calculate_total(dealer.cards)
             elif dealer_total > 17:
                 break
         who_won()
@@ -483,14 +497,14 @@ def clear_for_round():
     so the game can continue a the end of a round
     """
     global pay_type
-    global player_cards
+    #global player.cards
     global player_total
-    global dealer_cards
+    #global dealer.cards
     global dealer_total
     pay_type = 'undecided'
-    player_cards.clear()
+    player.cards.clear()
     player_total = 0
-    dealer_cards.clear()
+    dealer.cards.clear()
     dealer_total = 0
 
 
@@ -534,7 +548,7 @@ def validate_name(in_name):
 def request_name():
     """gets the users name"""
     global name
-    if name is None:
+    if name is "Player":
         print('What is your name?')
         print('Type your name and press enter')
         in_name = input()
