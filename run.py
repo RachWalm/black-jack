@@ -39,7 +39,7 @@ Initially you enter your {Fore.CYAN}{Fore.WHITE}name using letters
 """)
     sleep(1)
     print(f"""Then you place a {Fore.RED}bet{Fore.WHITE}, by typing
-a whole number,which is less than or equal to
+a whole number, which is less than or equal to
 your {Fore.GREEN}credit{Fore.WHITE}.
 """)
     sleep(2)
@@ -580,6 +580,14 @@ def validate_name(in_name):
         return False
 
 
+def white_space(name):
+    for letter in name:
+        if letter == " ":
+            return False
+        else:
+            return True
+
+
 def request_name():
     """gets the users name"""
     global name
@@ -591,9 +599,13 @@ def request_name():
         cap_name = strip.capitalize()
         if validate_name(cap_name) and len(cap_name) < 10:
             name = (cap_name)
+        elif white_space(cap_name):
+            print(f"""The entry appears to have {Fore.RED}spaces{Fore.WHITE}.
+Please provide a name that does not contain spaces""")
+            request_name()
         elif len(cap_name) < 1:
             print(f"""It appears that you did not enter anything.
-Please re-enter your name using letter only""")
+Please re-enter your name using letter only.""")
             request_name()
         elif validate_name(cap_name) and len(cap_name) > 9:
             name = cap_name[:9]
