@@ -134,6 +134,8 @@ The dealer time was stuck in an infinite loop while the function was being devel
 
 Due to an issue with code institute credits on codeanywhere not being set to infinite before this project, there is a slight gap when I couldn't commit to Git. During this time I just worked on the README, to reduce loss of traceability.
 
+# numpy
+
 ## Testing
 
 check|intended outcome|comment

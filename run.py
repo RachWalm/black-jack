@@ -4,11 +4,13 @@
 
 import os
 from time import sleep
+import numpy
 from simple_term_menu import TerminalMenu
 import emoji
 from colorama import Fore
 import ascii
 import cards
+
 
 class Hand:
     """Hand class"""
@@ -17,20 +19,15 @@ class Hand:
         self.who = who
         self.cards = cards
         self.when = when
-    
-        
-    def cards_to_screen(self):
-        print_cards(self.who, self.when, self.cards)
+
 
 name = "Player"
 credit = 200
 bet = 1
 deck = []
-#player_cards = []
 player = Hand("player", "initial", [])
 player_total = 0
 dealer = Hand("dealer", "initial", [])
-#dealer_cards = []
 dealer_total = 0
 pay_type = 'undecided'
 
@@ -166,9 +163,20 @@ def change_value_to_uni(string):
     return image
 
 
+def cards_to_screen(who, when, cards):
+    length = len(cards)
+    nparray = numpy.array(cards)
+    if when == "initial":
+        print_cards(cards)
+    elif when == "playing":
+        for x in range (0, length):
+            print_cards([cards[x]])
+        print('New card is :')
+        print_cards([nparray[-1]])
+
+
 def print_cards(hand):
-    """Prints a user readable version of the cards to the terminal
-    """
+    """Prints a user readable version of the cards to the terminal"""
     for sub in hand:
         suit = sub['suit']
         name = sub['name']
@@ -257,16 +265,15 @@ def enough_cards():
         deck.extend(new_deck)
 
 
-def deal(stack, who):
+def deal(stack, self):
     """
     Takes the last card from the deck that is being dealt from and places
     it either in the player or dealers list of cards
     """
     enough_cards()
     last_card = stack.pop()
-    who.append(last_card)
-    symbol = who
-    print_cards(symbol)
+    self.cards.append(last_card)
+    cards_to_screen(self.who, self.when, self.cards)
 
 
 def initial_deal(active_cards):
@@ -274,25 +281,24 @@ def initial_deal(active_cards):
     Carries out the function of the dealer initially dealing the cards
     to the table before the user has interaction with the cards
     """
-    #global dealer#.cards
-    #global player.cards
     print(f"""Your bet is {Fore.RED}{bet}{Fore.WHITE}""")
     print('Dealing cards..........')
     sleep(2)
     print("Your first card is:")
-    deal(active_cards, player.cards)
+    deal(active_cards, player)
     sleep(1)
     print('The dealers first card is:')
-    deal(active_cards, dealer.cards)
+    deal(active_cards, dealer)
     sleep(1)
     ingame_screen()
     print('Dealing cards..........')
     sleep(2)
     print("Your cards:")
-    deal(active_cards, player.cards)
+    deal(active_cards, player)
     sleep(1)
     print('The dealers cards:')
-    deal(active_cards, dealer.cards)
+    deal(active_cards, dealer)
+    player.when = "playing"
 
 
 def ace(total, aces):
@@ -357,7 +363,7 @@ def double_down():
     global deck
     credit -= bet
     bet *= 2
-    deal(deck, player.cards)
+    deal(deck, player)
     dealer_time()
 
 
@@ -386,7 +392,7 @@ def progress_player_choice(choice):
     global deck
     if choice == 0:
         ingame_screen()
-        deal(deck, player.cards)
+        deal(deck, player)
         player_time()
     elif choice == 1:
         dealer_time()
@@ -484,7 +490,7 @@ def dealer_time():
         dealer_total = calculate_total(dealer.cards)
         for num in range(2, 17):
             if dealer_total <= 17:
-                deal(deck, dealer.cards)
+                deal(deck, dealer)
                 dealer_total = calculate_total(dealer.cards)
             elif dealer_total > 17:
                 break
@@ -497,9 +503,7 @@ def clear_for_round():
     so the game can continue a the end of a round
     """
     global pay_type
-    #global player.cards
     global player_total
-    #global dealer.cards
     global dealer_total
     pay_type = 'undecided'
     player.cards.clear()
