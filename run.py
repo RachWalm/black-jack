@@ -21,7 +21,7 @@ class Hand:
         self.when = when
 
 
-name = "Player"
+name = None
 credit = 200
 bet = 1
 deck = []
@@ -126,7 +126,7 @@ def clear_terminal():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
     ascii.title()
-    print(f"""{name}, your credit is {Fore.GREEN}{credit}{Fore.WHITE} units""")
+    print(f"""Your credit is {Fore.GREEN}{credit}{Fore.WHITE} units""")
 
 
 def change_suit_to_uni(string):
@@ -167,22 +167,24 @@ def cards_to_screen(who, when, cards):
     length = len(cards)
     nparray = numpy.array(cards)
     if when == "initial":
-        print_cards(cards)
+        for x in range(0, length):
+            print(f"""{print_cards(nparray[x])}""")
     elif when == "playing":
-        for x in range (0, length):
-            print_cards([cards[x]])
-        print('New card is :')
-        print_cards([nparray[-1]])
+        print('Current cards : ', end="")
+        for x in range(0, (length - 1)):
+            one_line = print_cards(nparray[x])
+            print(one_line, end=", ")
+        print(f"""
+New card is : {print_cards(nparray[-1])}
+""")
 
 
 def print_cards(hand):
     """Prints a user readable version of the cards to the terminal"""
-    for sub in hand:
-        suit = sub['suit']
-        name = sub['name']
-        suit_image = change_suit_to_uni(suit)
-        name_image = change_value_to_uni(name)
-        print(f"""{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}""")
+    suit_image = change_suit_to_uni(hand['suit'])
+    name_image = change_value_to_uni(hand['name'])
+    image = f"""{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}"""
+    return image
 
 
 def request_bet():
@@ -552,7 +554,7 @@ def validate_name(in_name):
 def request_name():
     """gets the users name"""
     global name
-    if name is "Player":
+    if name is None:
         print('What is your name?')
         print('Type your name and press enter')
         in_name = input()
