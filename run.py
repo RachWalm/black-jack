@@ -46,11 +46,8 @@ def instructions_query():
     or continue to play or quit then performs that action
     Self validating third party
     """
-    print(f"""{name}, please choose whether to
-   {Fore.CYAN}Read instructions{Fore.WHITE}
-or {Fore.CYAN}Play the game{Fore.WHITE}
-or {Fore.CYAN}Quit{Fore.WHITE}
-move up or down to select then press enter""")
+    print(f"""{name}""")
+    strings.str_instructions_query()
     choices = ["Instructions", "Game", "Quit"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
@@ -59,8 +56,9 @@ move up or down to select then press enter""")
         instructions()
     elif chosen == 2:
         clear_terminal()
-        print(f"""Thank you for playing
-        Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
+        print(f"""Thank you for playing""")
+        print(f"""Your final credit was
+        {Fore.GREEN}{credit}{Fore.WHITE} units""")
         ascii.goodbye()
 
 
@@ -129,8 +127,9 @@ def cards_to_screen(who, when, cards):
             one_line = print_cards(nparray[i])
             print(one_line, end=", ")  # prints cards on one line
         print(f"""
-New card is : {print_cards(nparray[-1])}
-""")
+        """)
+        print(f"""New card is : {print_cards(nparray[-1])}
+        """)
         # prints new cards on separate line
         print(f"""Dealer cards  : """)
         cards_to_screen(dealer.who, dealer.when, dealer.cards)
@@ -168,11 +167,10 @@ def request_bet():
     thier credit available. Then the bet value updated if valid
     """
     global bet
-    print(f"""{name}, it is time to place your bet.......
-Your bet must not exceed your credit: {Fore.GREEN}{credit}{Fore.WHITE} units
-If you wanted to bet {Fore.RED}50{Fore.WHITE} units,
-you would type {Fore.RED}50{Fore.WHITE} and press enter
-Please input your bet""")
+    print(f"""{name}, it is time to place your bet.......""")
+    print(f"""Your bet must not exceed your credit:
+{Fore.GREEN}{credit}{Fore.WHITE} units""")
+    strings.str_request_bet()
     in_bet = input()
     if validate_bet(in_bet) and check_credit(in_bet):
         bet = int(in_bet)  # makes validated integer the bet
@@ -350,12 +348,7 @@ def player_action():
     Do they want to hit or stick or double down or quit?
     Self validating third party
     """
-    print(f"""Please choose whether to
-{Fore.CYAN}Hit{Fore.WHITE} (get one more card)
-or {Fore.CYAN}Stick{Fore.WHITE} (No more cards)
-or {Fore.CYAN}Double down{Fore.WHITE} (get one more card and double bet)
-or {Fore.CYAN}Quit round{Fore.WHITE} (loose bet and end round)
-move up or down to select then press enter""")
+    strings.str_player_action()
     choices = ["Hit", "Stick", "Double down", "Quit round"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
@@ -516,7 +509,7 @@ def continue_playing():
     Self validating third party
     """
     if credit >= 1:
-        print('Do you want to continue playing another round?')
+        print('Do you want to continue playing for another round?')
         contnue = ["[Y] Yes", "[N] No"]
         terminal_menu = TerminalMenu(contnue)
         chosen = terminal_menu.show()

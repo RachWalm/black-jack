@@ -73,3 +73,26 @@ If at the end you have the higher value - you win.
 """)
     sleep(1)
     enter_to_continue()
+
+
+def str_instructions_query():
+    print(f"""Please choose whether to
+   {Fore.CYAN}Read instructions{Fore.WHITE}
+or {Fore.CYAN}Play the game{Fore.WHITE}
+or {Fore.CYAN}Quit{Fore.WHITE}
+move up or down to select then press enter""")
+
+
+def str_request_bet():
+    print(f"""If you wanted to bet {Fore.RED}50{Fore.WHITE} units,
+you would type {Fore.RED}50{Fore.WHITE} and press enter
+Please input your bet""")
+
+
+def str_player_action():
+    print(f"""Please choose whether to
+{Fore.CYAN}Hit{Fore.WHITE} (get one more card)
+or {Fore.CYAN}Stick{Fore.WHITE} (No more cards)
+or {Fore.CYAN}Double down{Fore.WHITE} (get one more card and double bet)
+or {Fore.CYAN}Quit round{Fore.WHITE} (loose bet and end round)
+move up or down to select then press enter""")
