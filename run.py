@@ -13,7 +13,7 @@ import cards
 
 
 class Hand:
-    """Hand class"""
+    """Hand class - provide who is playing, at what stage and their cards"""
     def __init__(self, who, when, cards):
         #  instance attribute
         self.who = who
@@ -33,7 +33,8 @@ pay_type = 'undecided'
 
 
 def instructions():
-    total_clear()
+    """Prints the instructions to the screen and a pace the user can read"""
+    total_clear() #  removes everything including title to give space
     print(f"""
 Initially you enter your {Fore.CYAN}{Fore.WHITE}name using letters
 """)
@@ -60,7 +61,7 @@ and {Fore.CYAN}Ace{Fore.WHITE} can be worth
 {Fore.CYAN}1{Fore.WHITE} or {Fore.CYAN}11{Fore.WHITE}.
 """)
     sleep(2)
-    enter_to_continue()
+    enter_to_continue() # awaits user to click enter for next screen
     print(f"""
 If you exceed {Fore.CYAN}21{Fore.WHITE} then you will lose.
 If you get {Fore.CYAN}21{Fore.WHITE} there is an instant payout.
@@ -82,24 +83,28 @@ If at the end you have the higher value - you win.
 """)
     sleep(2)
     enter_to_continue()
-    clear_terminal()
-    instructions_query()
+    clear_terminal() #  clears screen putting just title and credit on screen
+    instructions_query() # asks user if they want to see instructions or start
 
 
 def enter_to_continue():
+    """
+    Waits for user to press enter so that can continue to next screen
+    when ready.
+    """
     while True:
         is_enter = input("Press Enter to continue...")
         if is_enter == "":
             break
         else:
             print("Please don't use other keys, just press Enter to continue.")
-    total_clear()
+    total_clear() # leaves screen completely clear for next information
 
 
 def instructions_query():
     """
     Asks the user if they want to read the instructions,
-    or continue to play or quit
+    or continue to play or quit then performs that action
     """
     print(f"""{name}, please choose whether to
    {Fore.CYAN}Read instructions{Fore.WHITE}
@@ -122,10 +127,10 @@ move up or down to select then press enter""")
 def clear_terminal():
     """
     Clears terminal so that previous text isn't visible and put the title
-    and credit on the screen in the same place
+    and credit on the screen in the same place each time
     """
     os.system('cls' if os.name == 'nt' else 'clear')
-    ascii.title()
+    ascii.title() #  game name in ascii
     print(f"""Your credit is {Fore.GREEN}{credit}{Fore.WHITE} units""")
 
 
@@ -164,37 +169,43 @@ def change_value_to_uni(string):
 
 
 def cards_to_screen(who, when, cards):
+    """
+    Prints the cards to the screen in the appropriate format for
+    the stage in the game to give user maximum information for
+    the space
+    """
     length = len(cards)
     nparray = numpy.array(cards)
-    if when == "initial":
+    if when == "initial": #  during intial stage both player and dealer
         for x in range(0, length):
-            print(f"""{print_cards(nparray[x])}""")
+            print(f"""{print_cards(nparray[x])}""") #  prints cards
     elif when == "playing" and who == "player":
         print('Your current cards : ', end="")
-        for x in range(0, (length - 1)):
+        for x in range(0, (length - 1)): # prints all but one cards
             one_line = print_cards(nparray[x])
-            print(one_line, end=", ")
+            print(one_line, end=", ") #  prints cards on one line
         print(f"""
 New card is : {print_cards(nparray[-1])}
-""")
+""") # prints new cards on separate line
         print(f"""Dealer cards  : """)
         cards_to_screen(dealer.who, dealer.when, dealer.cards)
-        print("")
+        print("") # prints dealer cards for information
     elif who == "dealer" and when == "playing":
-        print(f"""Your cards :""")
+        print(f"""Your cards :""") #  prints player cards
         cards_to_screen(player.who, player.when, player.cards)
         print('Dealer current cards: ', end=" ")
         for x in range(0, (length - 1)):
             one_line = print_cards(nparray[x])
-            print(one_line, end=", ")
+            print(one_line, end=", ") #  prints dealer cards one line
         print(f"""
 New card is : {print_cards(nparray[-1])}
-""")
+""") #  prints dealers new card
+        sleep(2)
     elif who == "player" and when == "finished":
         for x in range(0, (length)):
             one_line = print_cards(nparray[x])
             print(one_line, end=", ")
-            print("")
+        print("")
 
 
 def print_cards(hand):
@@ -218,13 +229,13 @@ If you wanted to bet {Fore.RED}50{Fore.WHITE} units,
 you would type {Fore.RED}50{Fore.WHITE} and press enter
 Please input your bet""")
     in_bet = input()
-    if validate_number(in_bet) and check_credit(in_bet):
+    if validate_bet(in_bet) and check_credit(in_bet):
         bet = int(in_bet)
     else:
         request_bet()
 
 
-def validate_number(input):
+def validate_bet(input):
     """
     Validate to check if the input was an integer, not a float / letter /
     speical character etc.
@@ -304,20 +315,20 @@ def initial_deal(active_cards):
     print('Dealing cards..........')
     sleep(2)
     print("Your first card is:")
-    deal(active_cards, player)
+    deal(active_cards, player) #  deals player first card to array
     sleep(1)
     print('The dealers first card is:')
-    deal(active_cards, dealer)
+    deal(active_cards, dealer) #  deals dealer first card to array
     sleep(1)
-    ingame_screen()
+    ingame_screen() #  clears screen for second round of deal
     print('Dealing cards..........')
     sleep(2)
     print("Your cards:")
-    deal(active_cards, player)
+    deal(active_cards, player) # deals player second card to array
     sleep(1)
     print('The dealers cards:')
-    deal(active_cards, dealer)
-    player.when = "playing"
+    deal(active_cards, dealer) #  deals dealer second card to array
+    player.when = "playing" #  changes players status to playing 
 
 
 def ace(total, aces):
@@ -328,10 +339,10 @@ def ace(total, aces):
     """
     value = 0
     if aces > 0:
-        if total < (12 - aces):
-            value = (10 + aces)
+        if total < (12 - aces): #  calculates switch point from 11 to 1
+            value = (10 + aces) #  one ace as 11 then rest as 1
         else:
-            value = aces
+            value = aces #  all aces are worth 1
     return value
 
 
@@ -377,12 +388,17 @@ def check_instant_end(total):
 
 
 def double_down():
+    """
+    If user chooses to double down the bet then it increases the bet to
+    double and reduces the credit appropriately while providing one more
+    card before starting the dealers turn
+    """
     global bet
     global credit
     credit -= bet
     bet *= 2
-    deal(deck, player)
-    dealer_time()
+    deal(deck, player) #  deals one card only in accordance with rules
+    dealer_time() #  starts dealers turn
 
 
 def player_action():
@@ -405,7 +421,8 @@ move up or down to select then press enter""")
 
 def progress_player_choice(choice):
     """
-    Carries out the action that the user has chosen to either hit or stick
+    Carries out the action that the user has chosen to either
+    hit or stick
     """
     if choice == 0:
         ingame_screen()
@@ -420,11 +437,19 @@ def progress_player_choice(choice):
 
 
 def quit_round():
+    """
+    Ends round and takes them to menu to ask if they
+    want to play another round
+    """
     clear_for_round()
     continue_playing()
 
 
 def ingame_screen():
+    """
+    Used after the bet has been placed to put the title, credit
+    and bet amount on the top of each screen
+    """
     clear_terminal()
     print(f"""{name} - Your bet is {Fore.RED}{bet}{Fore.WHITE}""")
 
@@ -571,8 +596,7 @@ Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
 
 
 def validate_name(in_name):
-    """Checks that the input for the name is letters -  not spaces numbers
-    or special characters"""
+    """Checks that the input for the name is letters only"""
     try:
         if in_name.isalpha():
             return True
@@ -581,6 +605,10 @@ def validate_name(in_name):
 
 
 def white_space(name):
+    """
+    Checks for white space in the middle of the name after strip has
+    removed any from the ends
+    """
     for letter in name:
         if letter == " ":
             return False
@@ -589,7 +617,7 @@ def white_space(name):
 
 
 def request_name():
-    """gets the users name"""
+    """gets the users name and check various potential problems"""
     global name
     if name is None:
         print('What is your name?')
@@ -599,6 +627,7 @@ def request_name():
         cap_name = strip.capitalize()
         if validate_name(cap_name) and len(cap_name) < 10:
             name = (cap_name)
+        elif
         elif white_space(cap_name):
             print(f"""The entry appears to have {Fore.RED}spaces{Fore.WHITE}.
 Please provide a name that does not contain spaces""")
@@ -622,6 +651,7 @@ Please re-enter your name using letters only""")
 
 
 def total_clear():
+    """clears whole screen without adding a title unlike clear terminal"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
