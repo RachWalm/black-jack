@@ -34,7 +34,7 @@ pay_type = 'undecided'
 
 def instructions():
     """Prints the instructions to the screen and a pace the user can read"""
-    total_clear() #  removes everything including title to give space
+    total_clear()  # removes everything including title to give space
     print(f"""
 Initially you enter your {Fore.CYAN}{Fore.WHITE}name using letters
 """)
@@ -61,7 +61,7 @@ and {Fore.CYAN}Ace{Fore.WHITE} can be worth
 {Fore.CYAN}1{Fore.WHITE} or {Fore.CYAN}11{Fore.WHITE}.
 """)
     sleep(2)
-    enter_to_continue() # awaits user to click enter for next screen
+    enter_to_continue()  # awaits user to click enter for next screen
     print(f"""
 If you exceed {Fore.CYAN}21{Fore.WHITE} then you will lose.
 If you get {Fore.CYAN}21{Fore.WHITE} there is an instant payout.
@@ -83,8 +83,8 @@ If at the end you have the higher value - you win.
 """)
     sleep(2)
     enter_to_continue()
-    clear_terminal() #  clears screen putting just title and credit on screen
-    instructions_query() # asks user if they want to see instructions or start
+    clear_terminal()  # clears screen putting just title and credit on screen
+    instructions_query()  # asks user if they want to see instructions or start
 
 
 def enter_to_continue():
@@ -98,7 +98,7 @@ def enter_to_continue():
             break
         else:
             print("Please don't use other keys, just press Enter to continue.")
-    total_clear() # leaves screen completely clear for next information
+    total_clear()  # leaves screen completely clear for next information
 
 
 def instructions_query():
@@ -131,7 +131,7 @@ def clear_terminal():
     and credit on the screen in the same place each time
     """
     os.system('cls' if os.name == 'nt' else 'clear')
-    ascii.title() #  game name in ascii
+    ascii.title()  # game name in ascii
     print(f"""Your credit is {Fore.GREEN}{credit}{Fore.WHITE} units""")
 
 
@@ -177,34 +177,34 @@ def cards_to_screen(who, when, cards):
     """
     length = len(cards)
     nparray = numpy.array(cards)
-    if when == "initial": #  during intial stage both player and dealer
+    if when == "initial":  # during intial stage both player and dealer
         if who == "dealer" and length == 2:
-            print(f"""{print_cards(nparray[0])} and 
+            print(f"""{print_cards(nparray[0])} and
 {Fore.CYAN}dealer hole card {Fore.WHITE}""")
-        else:    
+        else:
             for x in range(0, length):
-                print(f"""{print_cards(nparray[x])}""") #  prints cards 
+                print(f"""{print_cards(nparray[x])}""")  # prints cards
     elif when == "playing" and who == "player":
         print('Your current cards : ', end="")
-        for x in range(0, (length - 1)): # prints all but one cards
+        for x in range(0, (length - 1)):  # prints all but one cards
             one_line = print_cards(nparray[x])
-            print(one_line, end=", ") #  prints cards on one line
+            print(one_line, end=", ")  # prints cards on one line
         print(f"""
 New card is : {print_cards(nparray[-1])}
-""") # prints new cards on separate line
+""")  # prints new cards on separate line
         print(f"""Dealer cards  : """)
         cards_to_screen(dealer.who, dealer.when, dealer.cards)
-        print("") # prints dealer cards for information
+        print("")  # prints dealer cards for information
     elif who == "dealer" and when == "playing":
-        print(f"""Your cards :""") #  prints player cards
+        print(f"""Your cards :""")  # prints player cards
         cards_to_screen(player.who, player.when, player.cards)
         print('Dealer current cards: ', end=" ")
         for x in range(0, (length - 1)):
             one_line = print_cards(nparray[x])
-            print(one_line, end=", ") #  prints dealer cards one line
+            print(one_line, end=", ")  # prints dealer cards one line
         print(f"""
 New card is : {print_cards(nparray[-1])}
-""") #  prints dealers new card
+""")  # prints dealers new card
         sleep(2)
     elif who == "player" and when == "finished":
         for x in range(0, (length)):
@@ -235,9 +235,9 @@ you would type {Fore.RED}50{Fore.WHITE} and press enter
 Please input your bet""")
     in_bet = input()
     if validate_bet(in_bet) and check_credit(in_bet):
-        bet = int(in_bet) #  makes validated integer the bet
+        bet = int(in_bet)  # makes validated integer the bet
     else:
-        request_bet() #  if problem asks for bet again
+        request_bet()  # if problem asks for bet again
 
 
 def validate_bet(input):
@@ -248,7 +248,7 @@ def validate_bet(input):
     try:
         value = (int(input))
         if value > 0:
-            return True #  positive numbers only
+            return True  # positive numbers only
         else:
             print('The bet does not appear to be a positive number')
             return False
@@ -262,9 +262,9 @@ def check_credit(suggest):
     Checks that the integer put in is within the credit of the person
     placing the bet
     """
-    suggested = int(suggest) #  input bet
+    suggested = int(suggest)  # input bet
     if suggested <= credit:
-        return True #  it is within thier credit limit
+        return True  # it is within thier credit limit
     else:
         print(f"""Your bet -{Fore.RED}{suggested}{Fore.WHITE}
 exceeds your credit : {Fore.GREEN}{credit}{Fore.WHITE}""")
@@ -276,7 +276,7 @@ def subtract_credit(minus):
     Subtracts the bet from the credit
     """
     global credit
-    credit -= minus #  subtracts bet from credit
+    credit -= minus  # subtracts bet from credit
 
 
 def place_bet():
@@ -296,8 +296,8 @@ def enough_cards():
     if len(deck) > 1:
         pass
     else:
-        new_deck = cards.generate_deck() #  new shuffled deck
-        deck.extend(new_deck) #  adds to deck currently in play
+        new_deck = cards.generate_deck()  # new shuffled deck
+        deck.extend(new_deck)  # adds to deck currently in play
 
 
 def deal(stack, self):
@@ -305,10 +305,10 @@ def deal(stack, self):
     Takes the last card from the deck that is being dealt from and places
     it either in the player or dealers list of cards
     """
-    enough_cards() #  checks cards left available to deal
-    last_card = stack.pop() #  takes card from deck
-    self.cards.append(last_card) #  adds card to hand
-    cards_to_screen(self.who, self.when, self.cards) #  prints cards
+    enough_cards()  # checks cards left available to deal
+    last_card = stack.pop()  # takes card from deck
+    self.cards.append(last_card)  # adds card to hand
+    cards_to_screen(self.who, self.when, self.cards)  # prints cards
 
 
 def initial_deal(active_cards):
@@ -320,20 +320,20 @@ def initial_deal(active_cards):
     print('Dealing cards..........')
     sleep(2)
     print("Your first card is:")
-    deal(active_cards, player) #  deals player first card to array
+    deal(active_cards, player)  # deals player first card to array
     sleep(1)
     print('The dealers first card is:')
-    deal(active_cards, dealer) #  deals dealer first card to array
+    deal(active_cards, dealer)  # deals dealer first card to array
     sleep(1)
-    ingame_screen() #  clears screen for second round of deal
+    ingame_screen()  # clears screen for second round of deal
     print('Dealing cards..........')
     sleep(2)
     print("Your cards:")
-    deal(active_cards, player) # deals player second card to array
+    deal(active_cards, player)  # deals player second card to array
     sleep(1)
     print('The dealers cards:')
-    deal(active_cards, dealer) #  deals dealer second card to array
-    player.when = "playing" #  changes players status to playing 
+    deal(active_cards, dealer)  # deals dealer second card to array
+    player.when = "playing"  # changes players status to playing
 
 
 def ace(total, aces):
@@ -344,19 +344,19 @@ def ace(total, aces):
     """
     value = 0
     if aces > 0:
-        if total < (12 - aces): #  calculates switch point from 11 to 1
-            value = (10 + aces) #  one ace as 11 then rest as 1
+        if total < (12 - aces):  # calculates switch point from 11 to 1
+            value = (10 + aces)  # one ace as 11 then rest as 1
         else:
-            value = aces #  all aces are worth 1
+            value = aces  # all aces are worth 1
     return value
 
 
 def change_court_to_num(string):
     """Changes the string name of the card to an integer """
     if string == 'Jack' or string == 'Queen' or string == 'King':
-        num = 10 #  value of court
+        num = 10  # value of court
     elif string == 'Ace':
-        num = 0 #  Ace dealt with if there in another function
+        num = 0  # Ace dealt with if there in another function
     else:
         num = int(string)
     return num
@@ -369,15 +369,15 @@ def calculate_total(hands):
     total = 0
     for ind in individual:
         if ind == 'Ace':
-            aces += 1 #  counts aces
+            aces += 1  # counts aces
             individuals = 0
         else:
             individuals = change_court_to_num(ind)
-        total += individuals #  Adds court cards and numbers together
+        total += individuals  # Adds court cards and numbers together
         aced = 0
         aced = ace(total, aces)
-        aced_total = aced + total #  adds in aces
-    return aced_total #  returns total value
+        aced_total = aced + total  # adds in aces
+    return aced_total  # returns total value
 
 
 def check_instant_end(total):
@@ -402,8 +402,8 @@ def double_down():
     global credit
     credit -= bet
     bet *= 2
-    deal(deck, player) #  deals one card only in accordance with rules
-    dealer_time() #  starts dealers turn
+    deal(deck, player)  # deals one card only in accordance with rules
+    dealer_time()  # starts dealers turn
 
 
 def player_action():
@@ -432,14 +432,14 @@ def progress_player_choice(choice):
     """
     if choice == 0:
         ingame_screen()
-        deal(deck, player) #  player chose hit gets card
-        player_time() # back to choice of actions
+        deal(deck, player)  # player chose hit gets card
+        player_time()  # back to choice of actions
     elif choice == 1:
-        dealer_time() #  player chose stick
+        dealer_time()  # player chose stick
     elif choice == 2:
-        double_down() # player chose double down
+        double_down()  # player chose double down
     elif choice == 3:
-        quit_round() #  player chose to quit round
+        quit_round()  # player chose to quit round
 
 
 def quit_round():
@@ -470,8 +470,8 @@ def player_time():
     player_total = calculate_total(player.cards)
     check_instant_end(player_total)
     if pay_type == 'undecided':
-        action = player_action() #  player chooses next step
-        progress_player_choice(action) #  player's action implemented
+        action = player_action()  # player chooses next step
+        progress_player_choice(action)  # player's action implemented
     elif pay_type == 'blackjack':
         pay_winnings()
     elif pay_type == 'bust':
@@ -500,23 +500,23 @@ def amount_winnings():
     """
     pay = 0
     if pay_type == 'blackjack':
-        pay = ((bet/2)*3)+bet #  winnings amount
+        pay = ((bet/2)*3)+bet  # winnings amount
         print(f"""{Fore.GREEN}Congratulations you won.{Fore.CYAN}
 You got 21 or Blackjack{Fore.WHITE}""")
     elif pay_type == 'bust':
-        pay = 0 #  winnings amount
+        pay = 0  # winnings amount
         print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
 You got exceeded 21{Fore.WHITE}""")
     elif pay_type == 'bust' or pay_type == 'no':
-        pay = 0 #  winnings amount
+        pay = 0  # winnings amount
         print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
 You got less than the dealer{Fore.WHITE}""")
     elif pay_type == 'even':
-        pay = 2 * bet #  winnings amount
+        pay = 2 * bet  # winnings amount
         print(f"""{Fore.GREEN}Congratulations you won.{Fore.CYAN}
 You beat the dealer{Fore.WHITE}""")
     elif pay_type == 'back':
-        pay = bet #  winnings amount
+        pay = bet  # winnings amount
         print(f"""{Fore.GREEN}Congratulations
 you get your money back.{Fore.CYAN}
 Dealer went bust{Fore.WHITE}""")
@@ -529,8 +529,8 @@ def pay_winnings():
     """
     global credit
     pay = amount_winnings()
-    decimal = credit + pay #  adds winnings to credit
-    credit = int(decimal) #  ensures it is an integer
+    decimal = credit + pay  # adds winnings to credit
+    credit = int(decimal)  # ensures it is an integer
     print(f"""credit is now {Fore.GREEN}{credit}{Fore.WHITE}!!!""")
     continue_playing()
 
@@ -541,10 +541,10 @@ def dealer_time():
     with the cards after the play has completed their turn
     """
     global dealer_total
-    dealer.when = "playing" #  changes stage of game in hand class
-    player.when = "finished" #  changes stage of game in hand class
+    dealer.when = "playing"  # changes stage of game in hand class
+    player.when = "finished"  # changes stage of game in hand class
     if pay_type == 'undecided':
-        ingame_screen() #  title credit and bet on top of screen
+        ingame_screen()  # title credit and bet on top of screen
         dealer_total = calculate_total(dealer.cards)
         for x in range(2, 17):
             if dealer_total <= 17:
@@ -589,12 +589,12 @@ def continue_playing():
             clear_terminal()
             print(f"""Thank you for playing
 Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
-            ascii.goodbye() #  quit game
+            ascii.goodbye()  # quit game
         elif chosen == 0:
             clear_for_round()
-            main() # another round
+            main()  # another round
     else:
-        clear_terminal() #  out of credit so forced stop
+        clear_terminal()  # out of credit so forced stop
         print(f"""{name} thank you for playing""")
         print('You are out of credit so we have to say GOODBYE!!!')
         ascii.goodbye()
