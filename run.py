@@ -177,8 +177,12 @@ def cards_to_screen(who, when, cards):
     length = len(cards)
     nparray = numpy.array(cards)
     if when == "initial": #  during intial stage both player and dealer
-        for x in range(0, length):
-            print(f"""{print_cards(nparray[x])}""") #  prints cards
+        if who == "dealer" and length == 2:
+            print(f"""{print_cards(nparray[0])} and 
+{Fore.CYAN}dealer hole card {Fore.WHITE}""")
+        else:    
+            for x in range(0, length):
+                print(f"""{print_cards(nparray[x])}""") #  prints cards 
     elif when == "playing" and who == "player":
         print('Your current cards : ', end="")
         for x in range(0, (length - 1)): # prints all but one cards
@@ -627,7 +631,6 @@ def request_name():
         cap_name = strip.capitalize()
         if validate_name(cap_name) and len(cap_name) < 10:
             name = (cap_name)
-        elif
         elif white_space(cap_name):
             print(f"""The entry appears to have {Fore.RED}spaces{Fore.WHITE}.
 Please provide a name that does not contain spaces""")
