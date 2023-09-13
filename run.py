@@ -10,6 +10,7 @@ import emoji
 from colorama import Fore
 import ascii
 import cards
+import strings
 
 
 class Hand:
@@ -182,12 +183,12 @@ def cards_to_screen(who, when, cards):
             print(f"""{print_cards(nparray[0])} and
 {Fore.CYAN}dealer hole card {Fore.WHITE}""")
         else:
-            for x in range(0, length):
-                print(f"""{print_cards(nparray[x])}""")  # prints cards
+            for i in range(0, length):
+                print(f"""{print_cards(nparray[i])}""")  # prints cards
     elif when == "playing" and who == "player":
         print('Your current cards : ', end="")
-        for x in range(0, (length - 1)):  # prints all but one cards
-            one_line = print_cards(nparray[x])
+        for i in range(0, (length - 1)):  # prints all but one cards
+            one_line = print_cards(nparray[i])
             print(one_line, end=", ")  # prints cards on one line
         print(f"""
 New card is : {print_cards(nparray[-1])}
@@ -199,16 +200,16 @@ New card is : {print_cards(nparray[-1])}
         print(f"""Your cards :""")  # prints player cards
         cards_to_screen(player.who, player.when, player.cards)
         print('Dealer current cards: ', end=" ")
-        for x in range(0, (length - 1)):
-            one_line = print_cards(nparray[x])
+        for i in range(0, (length - 1)):
+            one_line = print_cards(nparray[i])
             print(one_line, end=", ")  # prints dealer cards one line
         print(f"""
 New card is : {print_cards(nparray[-1])}
 """)  # prints dealers new card
         sleep(1)
     elif who == "player" and when == "finished":
-        for x in range(0, (length)):
-            one_line = print_cards(nparray[x])
+        for i in range(0, (length)):
+            one_line = print_cards(nparray[i])
             print(one_line, end=", ")
         print("")
 
@@ -546,7 +547,7 @@ def dealer_time():
     if pay_type == 'undecided':
         ingame_screen()  # title credit and bet on top of screen
         dealer_total = calculate_total(dealer.cards)
-        for x in range(2, 17):
+        for num in range(2, 17):
             if dealer_total <= 17:
                 deal(deck, dealer)
                 dealer_total = calculate_total(dealer.cards)

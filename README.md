@@ -1,36 +1,3 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-Welcome,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
-
-## Reminders
-
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
-
 # Black Jack 21 game
 
 BlackJack21 is a python terminal game, which is run on the Code Institute mock terminal on Heroku. 
@@ -41,9 +8,9 @@ It is a betting game that is played against a dealer which in this case is the c
 
 Black Jack is a card game played at casinos against a dealer. As it only requires a pack of cards it has also been popular family entertainment with or without the betting. This version includes betting. For a more complete history see [Wikipedia](https://en.wikipedia.org/wiki/Blackjack)
 
-## flow chart
+## Flow chart
 
-### initial flow chart 
+### Initial flow chart 
 
 I proposed the initial design of the game using a flow-chart and document that I put together with my thoughts.
 
@@ -55,17 +22,16 @@ I proposed the initial design of the game using a flow-chart and document that I
 
 ## How to play
 
-- Initially you enter your name so the experience can be personalised
-- Then you place a bet without knowing the cards by typing a whole number that is less than or equal to your credit.
-- The cards will then be dealt. Two each for you and the dealer, one of the dealers cards will be held in the hole until his turn (So you can't see his second card).
-- If you have two identical value cards you can then split by answering the y/n question.
-- You can Hit (get one more card then decide again), Stick (stay where you are and it is the dealers turn) or Double down (which doubles the bet and gives you only one more card - before the dealers turn).
-- Your cards are worth their face value if they are a number card. Jack, Queen and King are worth 10 and Ace can be worth 1 or 11 depending on what is best for the hand.
-- If you exceed 21 then you will lose your bet. If you get 21 there is an instant payout.
-- If you don't exceed 21 and have stuck or doubled down then the dealers(computers) turn commences. You will get to see the dealers cards and if he gets additional cards you will see those dealt.
-- If the dealer gets higher than you without exceeding 21 he wins, if he exceeds 21 you get your money back and if you have the higher value you win. 
-- If you win the winnings will be paid into your credit.
-- 21 gets a higher return than just beating the dealer.
+1. Initially you enter your name so the experience can be personalised
+2. Then you place a bet without knowing the cards by typing a whole number that is less than or equal to your credit.
+3. The cards will then be dealt. Two each for you and the dealer, one of the dealers cards will be held in the hole until his turn (So you can't see his second card).
+4. You can Hit (get one more card then decide again), Stick (stay where you are and it is the dealers turn) or Double down (which doubles the bet and gives you only one more card - before the dealers turn).
+5. Your cards are worth their face value if they are a number card. Jack, Queen and King are worth 10 and Ace can be worth 1 or 11 depending on what is best for the hand.
+6. If you exceed 21 then you will lose your bet. If you get 21 there is an instant payout.
+7. If you don't exceed 21 and have stuck or doubled down then the dealers(computers) turn commences. You will get to see the dealers cards and if he gets additional cards you will see those dealt.
+8. If the dealer gets higher than you without exceeding 21 he wins, if he exceeds 21 you get your money back and if you have the higher value you win. 
+9. If you win the winnings will be paid into your credit.
+10. 21 gets a higher return than just beating the dealer.
 
 ## Features
 
@@ -140,18 +106,18 @@ Due to an issue with code institute credits on codeanywhere not being set to inf
 
 ## Testing
 
-check|intended outcome|comment
----|---|---
-User name only accepts letters|specific error for anything that isn't automatically corrected| |
-Bet input only accepts positive numbers|specific error for anything that isn't a positive number within credit|Tried letters special characters and 0 and negative numbers and blank space
-Game runs in correct order of functions |Plays as expected| |
-Adding up of card values gives correct person winning|User or Dealer wins or loses correctly against cards| |
-Credit system has correct amount added and subtracted| credit relates to bets won and lost| |
+check|intended outcome|comment|pass y/n
+---|---|---|----
+User name only accepts letters|specific error for anything that isn't automatically corrected| | |
+Bet input only accepts positive numbers|specific error for anything that isn't a positive number within credit|Tried letters special characters and 0 and negative numbers and blank space| |
+Game runs in correct order of functions |Plays as expected| | |
+Adding up of card values gives correct person winning|User or Dealer wins or loses correctly against cards| | |
+Credit system has correct amount added and subtracted| credit relates to bets won and lost| | |
 No issues with moving to second deck|next deck cards play without interruption||
-Menus give correct action|correct function called from choice||
-Play another round works|next round has cleared hands and bet to work as an independent round while credit retained| |
-Ends as expected when requested|says goodbye and tell you credit| |
-When you run out of credit it ends the game|says goodbye but doesn't tell you your credit just that you ran out| |
+Menus give correct action|correct function called from choice| | |
+Play another round works|next round has cleared hands and bet to work as an independent round while credit retained| | |
+Ends as expected when requested|says goodbye and tell you credit| | |
+When you run out of credit it ends the game|says goodbye but doesn't tell you your credit just that you ran out| | |
 
 
 ## Validator
@@ -160,17 +126,24 @@ When you run out of credit it ends the game|says goodbye but doesn't tell you yo
 
 ## Technology used
 
-- [python 3.11.5](https://docs.python.org/3/)
-- [codeanywhere](https://codeanywhere.com/beta)
-- [Heroku](heroku.com) was used to deploy.
-- [code institute mock terminal]
+### Language
 
-Third part technologies were used in the form of :
+- [python 3.11.5](https://docs.python.org/3/)
+
+### Other technologies
+
+- [codeanywhere](https://codeanywhere.com/beta) was used to write the code
+- [pythontutor](https://pythontutor.com/visualize.html#mode=edit) to allow me to work through my code in small sections
+- [Heroku](heroku.com) was used to deploy.
+- [Github](https://docs.github.com/en) used for version control.
+- code institute mock terminal
+
+### Third part libraries
 
 - [colorama 0.4.6](https://pypi.org/project/colorama/) was used to highlight signficant text so that it would be more readable.
 - [emoji 2.8.0](https://pypi.org/project/emoji/) was used to introduce images that made the information more easily interpreted by the user.
 - [numpy 1.24.4](https://numpy.org/doc/stable/reference/) allows the sequencing of arrays.
-- [simple-term-menu 1.6.1](https://pypi.org/project/simple-term-menu/) gave a simple menu that could be adapted to allow fo r
+- [simple-term-menu 1.6.1](https://pypi.org/project/simple-term-menu/) gave a simple menu that could be adapted to allow for relevant menus
 
 
 ## Deployment
@@ -238,6 +211,21 @@ and the purple 'create' button was pressed.
 
 - The ASCII larger writing was taken from [patorjk.com](http://patorjk.com/software/taag/#p=display&h=2&v=2&f=Univers&t=BlackJack21) and cut and paste into print f string statements using the style Calvin S.
 
-- Wikipedia/my grandparents for teaching me the game.
+- My grandparents for amazing patience teaching me the game when I was learning to add up.
 
-- [pythontutor](https://pythontutor.com/visualize.html#mode=edit) to allow me to work through my code in small sections
+- Pat Walmsley and Ian Harris - My mother and partner for their patience.
+
+- My Mentor - Juliia Konn has been enthusiastic and provided encouragement and spotted details that I was only vaguely aware of and taught me to look for them.
+
+- [Wikipedia](https://en.wikipedia.org/wiki/Blackjack) for reminding me to the details of the game.
+
+- [pythontutor](https://pythontutor.com/visualize.html#mode=edit) for working through my code.
+
+- [Heroku](heroku.com) for deployment.
+
+- [Github](https://docs.github.com/en) for version control
+- [colorama 0.4.6](https://pypi.org/project/colorama/) for coloured text.
+- [emoji 2.8.0](https://pypi.org/project/emoji/) for emoji's.
+- [numpy 1.24.4](https://numpy.org/doc/stable/reference/) to work with arrays.
+- [simple-term-menu 1.6.1](https://pypi.org/project/simple-term-menu/) for menus.
+
