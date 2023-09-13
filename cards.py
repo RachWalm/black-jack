@@ -3,7 +3,7 @@ import random
 
 def generate_cards():
     """
-    Builds a deck of cards into a dictionary in a list. 
+    Builds a deck of cards into a dictionary in a list.
     Using list comprehension to go through nested for loops
     of suit and number outputting the dictionary to a list for
     each cards
