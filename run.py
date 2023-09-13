@@ -43,7 +43,7 @@ Initially you enter your {Fore.CYAN}{Fore.WHITE}name using letters
 a whole number, which is less than or equal to
 your {Fore.GREEN}credit{Fore.WHITE}.
 """)
-    sleep(2)
+    sleep(1)
     print('The cards will then be dealt. Two each for you and the dealer')
     # - If you have two identical value cards you can then split.
     sleep(1)
@@ -53,14 +53,14 @@ then you decide again,
 {Fore.CYAN}Double down{Fore.WHITE} - bet doubles
 and gives you only one more card.
 """)
-    sleep(3)
+    sleep(1)
     print(f"""Your cards are worth their face value if they are a number card.
 {Fore.CYAN}Jack, Queen{Fore.WHITE} and {Fore.CYAN}King{Fore.WHITE}
 are worth {Fore.CYAN}10{Fore.WHITE}
 and {Fore.CYAN}Ace{Fore.WHITE} can be worth
 {Fore.CYAN}1{Fore.WHITE} or {Fore.CYAN}11{Fore.WHITE}.
 """)
-    sleep(2)
+    sleep(1)
     enter_to_continue()  # awaits user to click enter for next screen
     print(f"""
 If you exceed {Fore.CYAN}21{Fore.WHITE} then you will lose.
@@ -68,7 +68,7 @@ If you get {Fore.CYAN}21{Fore.WHITE} there is an instant payout.
 If you {Fore.CYAN}stick{Fore.WHITE} or {Fore.CYAN}double down{Fore.WHITE} then
 it is the dealers turn
 """)
-    sleep(3)
+    sleep(1)
     print(f"""You will now get to see all the dealers cards
 and any additional cards he deals himself.
 
@@ -81,7 +81,7 @@ If at the end you have the higher value - you win.
 
 {Fore.CYAN}21{Fore.WHITE} gets a higher return than just beating the dealer.
 """)
-    sleep(2)
+    sleep(1)
     enter_to_continue()
     clear_terminal()  # clears screen putting just title and credit on screen
     instructions_query()  # asks user if they want to see instructions or start
@@ -205,7 +205,7 @@ New card is : {print_cards(nparray[-1])}
         print(f"""
 New card is : {print_cards(nparray[-1])}
 """)  # prints dealers new card
-        sleep(2)
+        sleep(1)
     elif who == "player" and when == "finished":
         for x in range(0, (length)):
             one_line = print_cards(nparray[x])
@@ -318,7 +318,7 @@ def initial_deal(active_cards):
     """
     print(f"""Your bet is {Fore.RED}{bet}{Fore.WHITE}""")
     print('Dealing cards..........')
-    sleep(2)
+    sleep(1)
     print("Your first card is:")
     deal(active_cards, player)  # deals player first card to array
     sleep(1)
@@ -327,7 +327,7 @@ def initial_deal(active_cards):
     sleep(1)
     ingame_screen()  # clears screen for second round of deal
     print('Dealing cards..........')
-    sleep(2)
+    sleep(1)
     print("Your cards:")
     deal(active_cards, player)  # deals player second card to array
     sleep(1)
@@ -550,7 +550,7 @@ def dealer_time():
             if dealer_total <= 17:
                 deal(deck, dealer)
                 dealer_total = calculate_total(dealer.cards)
-                sleep(2)
+                sleep(1)
             elif dealer_total > 17:
                 break
         who_won()
@@ -646,7 +646,7 @@ Please re-enter your name using letter only.""")
 It has been shortened to {name}.
 If this is unacceptable you can quit in next menu.
 Then when you restart you can choose a different name""")
-            sleep(7)
+            sleep(4)
         else:
             print(f"""you entered {Fore.RED}{in_name}{Fore.WHITE}
 This is not a name consisting of only of letters.
