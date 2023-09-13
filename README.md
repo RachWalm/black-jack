@@ -47,9 +47,10 @@ Black Jack is a card game played at casinos against a dealer. As it only require
 
 I proposed the initial design of the game using a flow-chart and document that I put together with my thoughts.
 
-![flowchart](document/flowchart.pdf)
+![flowchart](document/flowchart.png)
 
-[idea document](document/design-thoughts.pdf)
+[idea document page 1](document/design-thoughts-1.png)
+[idea document page 2](document/design-thoughts-2.png)
 
 ## How to play
 
