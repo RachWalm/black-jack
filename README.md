@@ -50,6 +50,7 @@ I proposed the initial design of the game using a flow-chart and document that I
 ![flowchart](document/flowchart.png)
 
 [idea document page 1](document/design-thoughts-1.png)
+
 [idea document page 2](document/design-thoughts-2.png)
 
 ## How to play
@@ -135,7 +136,7 @@ The dealer time was stuck in an infinite loop while the function was being devel
 
 Due to an issue with code institute credits on codeanywhere not being set to infinite before this project, there is a slight gap when I couldn't commit to Git. During this time I just worked on the README, to reduce loss of traceability.
 
-# numpy
+
 
 ## Testing
 
@@ -158,6 +159,19 @@ When you run out of credit it ends the game|says goodbye but doesn't tell you yo
 [PEP8Online.com](https://pep8ci.herokuapp.com/) was used to validate this project. No errors was found in the final deployed version.
 
 ## Technology used
+
+- [python 3.11.5](https://docs.python.org/3/)
+- [codeanywhere](https://codeanywhere.com/beta)
+- [Heroku](heroku.com) was used to deploy.
+- [code institute mock terminal]
+
+Third part technologies were used in the form of :
+
+- [colorama 0.4.6](https://pypi.org/project/colorama/) was used to highlight signficant text so that it would be more readable.
+- [emoji 2.8.0](https://pypi.org/project/emoji/) was used to introduce images that made the information more easily interpreted by the user.
+- [numpy 1.24.4](https://numpy.org/doc/stable/reference/) allows the sequencing of arrays.
+- [simple-term-menu 1.6.1](https://pypi.org/project/simple-term-menu/) gave a simple menu that could be adapted to allow fo r
+
 
 ## Deployment
 
