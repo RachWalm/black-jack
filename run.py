@@ -105,6 +105,7 @@ def instructions_query():
     """
     Asks the user if they want to read the instructions,
     or continue to play or quit then performs that action
+    Self validating third party
     """
     print(f"""{name}, please choose whether to
    {Fore.CYAN}Read instructions{Fore.WHITE}
@@ -213,7 +214,7 @@ New card is : {print_cards(nparray[-1])}
 
 
 def print_cards(hand):
-    """Prints a user readable version of the cards to the terminal"""
+    """User readable version using unicode of the cards to emoji"""
     suit_image = change_suit_to_uni(hand['suit'])
     name_image = change_value_to_uni(hand['name'])
     image = f"""{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}"""
@@ -234,9 +235,9 @@ you would type {Fore.RED}50{Fore.WHITE} and press enter
 Please input your bet""")
     in_bet = input()
     if validate_bet(in_bet) and check_credit(in_bet):
-        bet = int(in_bet)
+        bet = int(in_bet) #  makes validated integer the bet
     else:
-        request_bet()
+        request_bet() #  if problem asks for bet again
 
 
 def validate_bet(input):
@@ -247,7 +248,7 @@ def validate_bet(input):
     try:
         value = (int(input))
         if value > 0:
-            return True
+            return True #  positive numbers only
         else:
             print('The bet does not appear to be a positive number')
             return False
@@ -261,9 +262,9 @@ def check_credit(suggest):
     Checks that the integer put in is within the credit of the person
     placing the bet
     """
-    suggested = int(suggest)
+    suggested = int(suggest) #  input bet
     if suggested <= credit:
-        return True
+        return True #  it is within thier credit limit
     else:
         print(f"""Your bet -{Fore.RED}{suggested}{Fore.WHITE}
 exceeds your credit : {Fore.GREEN}{credit}{Fore.WHITE}""")
@@ -275,7 +276,7 @@ def subtract_credit(minus):
     Subtracts the bet from the credit
     """
     global credit
-    credit -= minus
+    credit -= minus #  subtracts bet from credit
 
 
 def place_bet():
@@ -295,8 +296,8 @@ def enough_cards():
     if len(deck) > 1:
         pass
     else:
-        new_deck = cards.generate_deck()
-        deck.extend(new_deck)
+        new_deck = cards.generate_deck() #  new shuffled deck
+        deck.extend(new_deck) #  adds to deck currently in play
 
 
 def deal(stack, self):
@@ -304,10 +305,10 @@ def deal(stack, self):
     Takes the last card from the deck that is being dealt from and places
     it either in the player or dealers list of cards
     """
-    enough_cards()
-    last_card = stack.pop()
-    self.cards.append(last_card)
-    cards_to_screen(self.who, self.when, self.cards)
+    enough_cards() #  checks cards left available to deal
+    last_card = stack.pop() #  takes card from deck
+    self.cards.append(last_card) #  adds card to hand
+    cards_to_screen(self.who, self.when, self.cards) #  prints cards
 
 
 def initial_deal(active_cards):
@@ -353,9 +354,9 @@ def ace(total, aces):
 def change_court_to_num(string):
     """Changes the string name of the card to an integer """
     if string == 'Jack' or string == 'Queen' or string == 'King':
-        num = 10
+        num = 10 #  value of court
     elif string == 'Ace':
-        num = 0
+        num = 0 #  Ace dealt with if there in another function
     else:
         num = int(string)
     return num
@@ -368,21 +369,21 @@ def calculate_total(hands):
     total = 0
     for ind in individual:
         if ind == 'Ace':
-            aces += 1
+            aces += 1 #  counts aces
             individuals = 0
         else:
             individuals = change_court_to_num(ind)
-        total += individuals
+        total += individuals #  Adds court cards and numbers together
         aced = 0
         aced = ace(total, aces)
-        aced_total = aced + total
-    return aced_total
+        aced_total = aced + total #  adds in aces
+    return aced_total #  returns total value
 
 
 def check_instant_end(total):
     """
     Checks if the hand totals 21 or over which would mean an instant payout
-    or / and end of game
+    or / and end of round
     """
     global pay_type
     if total == 21:
@@ -409,6 +410,7 @@ def player_action():
     """
     Asks the user what action they wish to take now they have their cards.
     Do they want to hit or stick or double down or quit?
+    Self validating third party
     """
     print(f"""Please choose whether to
 {Fore.CYAN}Hit{Fore.WHITE} (get one more card)
@@ -430,14 +432,14 @@ def progress_player_choice(choice):
     """
     if choice == 0:
         ingame_screen()
-        deal(deck, player)
-        player_time()
+        deal(deck, player) #  player chose hit gets card
+        player_time() # back to choice of actions
     elif choice == 1:
-        dealer_time()
+        dealer_time() #  player chose stick
     elif choice == 2:
-        double_down()
+        double_down() # player chose double down
     elif choice == 3:
-        quit_round()
+        quit_round() #  player chose to quit round
 
 
 def quit_round():
@@ -451,8 +453,8 @@ def quit_round():
 
 def ingame_screen():
     """
-    Used after the bet has been placed to put the title, credit
-    and bet amount on the top of each screen
+    Used after the bet has been placed. To put the title, credit
+    and bet amount on the top of each screen consistently
     """
     clear_terminal()
     print(f"""{name} - Your bet is {Fore.RED}{bet}{Fore.WHITE}""")
@@ -468,8 +470,8 @@ def player_time():
     player_total = calculate_total(player.cards)
     check_instant_end(player_total)
     if pay_type == 'undecided':
-        action = player_action()
-        progress_player_choice(action)
+        action = player_action() #  player chooses next step
+        progress_player_choice(action) #  player's action implemented
     elif pay_type == 'blackjack':
         pay_winnings()
     elif pay_type == 'bust':
@@ -496,26 +498,25 @@ def amount_winnings():
     Calculates what the winnings/if there are winnings depending on what
     the outcome of the game was
     """
-    #  print(pay_type)
     pay = 0
     if pay_type == 'blackjack':
-        pay = ((bet/2)*3)+bet
+        pay = ((bet/2)*3)+bet #  winnings amount
         print(f"""{Fore.GREEN}Congratulations you won.{Fore.CYAN}
 You got 21 or Blackjack{Fore.WHITE}""")
     elif pay_type == 'bust':
-        pay = 0
+        pay = 0 #  winnings amount
         print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
 You got exceeded 21{Fore.WHITE}""")
     elif pay_type == 'bust' or pay_type == 'no':
-        pay = 0
+        pay = 0 #  winnings amount
         print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
 You got less than the dealer{Fore.WHITE}""")
     elif pay_type == 'even':
-        pay = 2 * bet
+        pay = 2 * bet #  winnings amount
         print(f"""{Fore.GREEN}Congratulations you won.{Fore.CYAN}
 You beat the dealer{Fore.WHITE}""")
     elif pay_type == 'back':
-        pay = bet
+        pay = bet #  winnings amount
         print(f"""{Fore.GREEN}Congratulations
 you get your money back.{Fore.CYAN}
 Dealer went bust{Fore.WHITE}""")
@@ -528,8 +529,8 @@ def pay_winnings():
     """
     global credit
     pay = amount_winnings()
-    decimal = credit + pay
-    credit = int(decimal)
+    decimal = credit + pay #  adds winnings to credit
+    credit = int(decimal) #  ensures it is an integer
     print(f"""credit is now {Fore.GREEN}{credit}{Fore.WHITE}!!!""")
     continue_playing()
 
@@ -540,12 +541,11 @@ def dealer_time():
     with the cards after the play has completed their turn
     """
     global dealer_total
-    dealer.when = "playing"
-    player.when = "finished"
+    dealer.when = "playing" #  changes stage of game in hand class
+    player.when = "finished" #  changes stage of game in hand class
     if pay_type == 'undecided':
-        ingame_screen()
+        ingame_screen() #  title credit and bet on top of screen
         dealer_total = calculate_total(dealer.cards)
-        dealer.when = "playing"
         for x in range(2, 17):
             if dealer_total <= 17:
                 deal(deck, dealer)
@@ -577,6 +577,7 @@ def continue_playing():
     """
     Allows the user to decide if they want to continue playing at the end
     of the round with another round
+    Self validating third party
     """
     if credit >= 1:
         print('Do you want to continue playing another round?')
@@ -588,12 +589,12 @@ def continue_playing():
             clear_terminal()
             print(f"""Thank you for playing
 Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
-            ascii.goodbye()
+            ascii.goodbye() #  quit game
         elif chosen == 0:
             clear_for_round()
-            main()
+            main() # another round
     else:
-        clear_terminal()
+        clear_terminal() #  out of credit so forced stop
         print(f"""{name} thank you for playing""")
         print('You are out of credit so we have to say GOODBYE!!!')
         ascii.goodbye()
@@ -659,7 +660,11 @@ def total_clear():
 
 
 def main():
-    """The main run through of the program for an entire players hand"""
+    """
+    The main run through of the program to end of players hand
+    clearing the screen at appropriate points in the game to provide
+    useful information on screen
+    """
     clear_terminal()
     request_name()
     clear_terminal()
