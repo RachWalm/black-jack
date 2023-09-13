@@ -192,7 +192,8 @@ def cards_to_screen(who, when, cards):
             print(one_line, end=", ")  # prints cards on one line
         print(f"""
 New card is : {print_cards(nparray[-1])}
-""")  # prints new cards on separate line
+""")  
+        # prints new cards on separate line
         print(f"""Dealer cards  : """)
         cards_to_screen(dealer.who, dealer.when, dealer.cards)
         print("")  # prints dealer cards for information
@@ -243,8 +244,8 @@ Please input your bet""")
 
 def validate_bet(input):
     """
-    Validate to check if the input was an integer, not a float / letter /
-    speical character etc.
+    Validate to check if the input was an integer, not a float/letter/
+    special character etc.
     """
     try:
         value = (int(input))
@@ -273,9 +274,7 @@ exceeds your credit : {Fore.GREEN}{credit}{Fore.WHITE}""")
 
 
 def subtract_credit(minus):
-    """
-    Subtracts the bet from the credit
-    """
+    """Subtracts the bet from the credit"""
     global credit
     credit -= minus  # subtracts bet from credit
 
@@ -384,7 +383,7 @@ def calculate_total(hands):
 def check_instant_end(total):
     """
     Checks if the hand totals 21 or over which would mean an instant payout
-    or / and end of round
+    or/and end of round
     """
     global pay_type
     if total == 21:
@@ -525,9 +524,7 @@ Dealer went bust{Fore.WHITE}""")
 
 
 def pay_winnings():
-    """
-    Puts winnings into the credit pot of the player
-    """
+    """Puts winnings into the credit pot of the player"""
     global credit
     pay = amount_winnings()
     decimal = credit + pay  # adds winnings to credit
