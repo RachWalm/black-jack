@@ -135,20 +135,21 @@ def cards_to_screen(who, when, cards):
         cards_to_screen(dealer.who, dealer.when, dealer.cards)
         print("")  # prints dealer cards for information
     elif who == "dealer" and when == "playing":
+        ingame_screen()
+        print("\nDealer dealing his cards.......\n")
         print(f"""Your cards :""")  # prints player cards
         cards_to_screen(player.who, player.when, player.cards)
+        print("\n")
         sleep(1)
-        print("\n \n")
         print("Dealer current cards: ", end=" ")
         for i in range(0, (length - 1)):
             one_line = print_cards(nparray[i])
             print(one_line, end=", ")  # prints dealer cards one line
-        print(f"""
-New card is : {print_cards(nparray[-1])}
-""")
+        print("\n")
+        print(f"""New card is : {print_cards(nparray[-1])}""")
         # prints dealers new card
         sleep(1)
-    elif who == "player" and when == "finished":
+    elif when == "finished":
         for i in range(0, (length)):
             one_line = print_cards(nparray[i])
             print(one_line, end=", ")
@@ -342,6 +343,9 @@ def double_down():
     credit -= bet
     bet *= 2
     deal(deck, player)  # deals one card only in accordance with rules
+    cards_to_screen(player.who, player.when, player.cards)
+    player_total = calculate_total(player.cards)
+    check_instant_end(player_total)
     dealer_time()  # starts dealers turn
 
 
@@ -463,6 +467,10 @@ def pay_winnings():
     pay = amount_winnings()
     decimal = credit + pay  # adds winnings to credit
     credit = int(decimal)  # ensures it is an integer
+    print(f"""At the end of the game {name} had :""")
+    cards_to_screen(player.who, player.when, player.cards)
+    print(f"""At the end of the game dealer had :""")
+    cards_to_screen(dealer.who, dealer.when, dealer.cards)
     print(f"""credit is now {Fore.GREEN}{credit}{Fore.WHITE}!!!""")
     continue_playing()
 
@@ -485,6 +493,8 @@ def dealer_time():
                 sleep(1)
             elif dealer_total > 17:
                 break
+        dealer.when = "finished"  # changes stage of game in hand class
+        clear_terminal()
         who_won()
 
 
