@@ -11,6 +11,7 @@ from colorama import Fore
 import ascii
 import cards
 import strings
+import dictionary
 
 
 class Hand:
@@ -72,40 +73,6 @@ def clear_terminal():
     print(f"""Your credit is {Fore.GREEN}{credit}{Fore.WHITE} units""")
 
 
-def change_suit_to_uni(string):
-    """
-    Makes names and values on the cards more readable with colours and
-    symbols from the string value
-    """
-    if string == "spade":
-        image = "\u2660"
-    elif string == "heart":
-        image = f"""{Fore.RED}\u2665{Fore.WHITE}"""
-    elif string == "club":
-        image = "\u2663"
-    elif string == "diamond":
-        image = f"""{Fore.RED}\u2666{Fore.WHITE}"""
-    return image
-
-
-def change_value_to_uni(string):
-    """
-    Makes values on the cards more readable with colours and
-    symbols from the string value
-    """
-    if string == "Queen":
-        image = f"""{Fore.CYAN}Queen{Fore.WHITE} \U0001F451 """
-    elif string == "King":
-        image = f"""{Fore.CYAN}King{Fore.WHITE} \U0001F451 """
-    elif string == "Jack":
-        image = f"""{Fore.CYAN}Jack{Fore.WHITE} \U0001F451 """
-    elif string == "Ace":
-        image = f"""{Fore.CYAN}Ace{Fore.WHITE}"""
-    else:
-        image = f"""{Fore.CYAN}{string}{Fore.WHITE}"""
-    return image
-
-
 def cards_to_screen(who, when, cards):
     """
     Prints the cards to the screen in the appropriate format for
@@ -158,8 +125,11 @@ def cards_to_screen(who, when, cards):
 
 def print_cards(hand):
     """User readable version using unicode of the cards to emoji"""
-    suit_image = change_suit_to_uni(hand["suit"])
-    name_image = change_value_to_uni(hand["name"])
+    suit_image = dictionary.change_to_uni(hand["suit"])
+    try:
+        name_image = dictionary.change_to_uni(hand["name"])
+    except KeyError:
+        name_image = hand["name"]
     image = f"""{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}"""
     return image
 
