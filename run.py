@@ -143,7 +143,8 @@ def cards_to_screen(who, when, cards):
             print(one_line, end=", ")  # prints dealer cards one line
         print(f"""
 New card is : {print_cards(nparray[-1])}
-""")  # prints dealers new card
+""")
+        # prints dealers new card
         sleep(1)
     elif who == "player" and when == "finished":
         for i in range(0, (length)):
@@ -253,21 +254,21 @@ def initial_deal(active_cards):
     to the table before the user has interaction with the cards
     """
     print(f"""Your bet is {Fore.RED}{bet}{Fore.WHITE}""")
-    print('Dealing cards..........')
+    print("Dealing cards..........")
     sleep(1)
     print("Your first card is:")
     deal(active_cards, player)  # deals player first card to array
     sleep(1)
-    print('The dealers first card is:')
+    print("The dealers first card is:")
     deal(active_cards, dealer)  # deals dealer first card to array
     sleep(1)
     ingame_screen()  # clears screen for second round of deal
-    print('Dealing cards..........')
+    print("Dealing cards..........")
     sleep(1)
     print("Your cards:")
     deal(active_cards, player)  # deals player second card to array
     sleep(1)
-    print('The dealers cards:')
+    print("The dealers cards:")
     deal(active_cards, dealer)  # deals dealer second card to array
     player.when = "playing"  # changes players status to playing
 
@@ -525,7 +526,7 @@ Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
     else:
         clear_terminal()  # out of credit so forced stop
         print(f"""{name} thank you for playing""")
-        print('You are out of credit so we have to say GOODBYE!!!')
+        print("You are out of credit so we have to say GOODBYE!!!")
         ascii.goodbye()
 
 
