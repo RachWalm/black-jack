@@ -117,7 +117,7 @@ def cards_to_screen(who, when, cards):
     if when == "initial":  # during intial stage both player and dealer
         if who == "dealer" and length == 2:
             print(f"""{print_cards(nparray[0])} and
-{Fore.CYAN}dealer hole card {Fore.WHITE}""")
+{Fore.CYAN}Dealer hole card {Fore.WHITE}""")
         else:
             for i in range(0, length):
                 print(f"""{print_cards(nparray[i])}""")  # prints cards
@@ -136,7 +136,7 @@ def cards_to_screen(who, when, cards):
         print("")  # prints dealer cards for information
     elif who == "dealer" and when == "playing":
         ingame_screen()
-        print("\nDealer dealing his cards.......\n")
+        print("\nDealer is dealing his cards.......\n")
         print(f"""Your cards :""")  # prints player cards
         cards_to_screen(player.who, player.when, player.cards)
         print("\n")
@@ -340,10 +340,11 @@ def double_down():
     """
     global bet
     global credit
+    global player_total
     credit -= bet
     bet *= 2
     deal(deck, player)  # deals one card only in accordance with rules
-    cards_to_screen(player.who, player.when, player.cards)
+    # cards_to_screen(player.who, player.when, player.cards)
     player_total = calculate_total(player.cards)
     check_instant_end(player_total)
     dealer_time()  # starts dealers turn
@@ -359,7 +360,6 @@ def player_action():
     choices = ["Hit", "Stick", "Double down", "Quit round"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
-    print(f"""You have chosen {choices[chosen]}!""")
     return chosen
 
 
@@ -368,8 +368,8 @@ def progress_player_choice(choice):
     Carries out the action that the user has chosen to either
     hit or stick
     """
+    ingame_screen()
     if choice == 0:
-        ingame_screen()
         deal(deck, player)  # player chose hit gets card
         player_time()  # back to choice of actions
     elif choice == 1:
@@ -436,6 +436,7 @@ def amount_winnings():
     Calculates what the winnings/if there are winnings depending on what
     the outcome of the game was
     """
+    clear_terminal()
     pay = 0
     if pay_type == "blackjack":
         pay = ((bet/2)*3)+bet  # winnings amount
@@ -444,20 +445,20 @@ You got 21 or Blackjack{Fore.WHITE}""")
     elif pay_type == "bust":
         pay = 0  # winnings amount
         print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
-You got exceeded 21{Fore.WHITE}""")
-    elif pay_type == "bust" or pay_type == "no":
+You exceeded 21{Fore.WHITE}""")
+    elif pay_type == "no":
         pay = 0  # winnings amount
         print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
 You got less than the dealer{Fore.WHITE}""")
     elif pay_type == "even":
         pay = 2 * bet  # winnings amount
         print(f"""{Fore.GREEN}Congratulations you won.{Fore.CYAN}
-You beat the dealer{Fore.WHITE}""")
+You beat the dealer or he went bust{Fore.WHITE}""")
     elif pay_type == "back":
         pay = bet  # winnings amount
         print(f"""{Fore.GREEN}Congratulations
 you get your money back.{Fore.CYAN}
-Dealer went bust{Fore.WHITE}""")
+Scores were tied{Fore.WHITE}""")
     return pay
 
 
@@ -483,6 +484,7 @@ def dealer_time():
     global dealer_total
     dealer.when = "playing"  # changes stage of game in hand class
     player.when = "finished"  # changes stage of game in hand class
+    print('dealer time started')
     if pay_type == "undecided":
         ingame_screen()  # title credit and bet on top of screen
         dealer_total = calculate_total(dealer.cards)
@@ -494,8 +496,7 @@ def dealer_time():
             elif dealer_total > 17:
                 break
         dealer.when = "finished"  # changes stage of game in hand class
-        clear_terminal()
-        who_won()
+    who_won()
 
 
 def clear_for_round():

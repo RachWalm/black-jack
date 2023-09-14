@@ -25,7 +25,7 @@ def enter_to_continue():
 def str_instructions():
     total_clear()  # removes everything including title to give space
     print("")
-    print(f"""Initially you enter your {Fore.CYAN}{Fore.WHITE}name
+    print(f"""Initially you enter your {Fore.CYAN}name{Fore.WHITE}
 using letters
 """)
     sleep(1)
@@ -35,7 +35,6 @@ your {Fore.GREEN}credit{Fore.WHITE}.
 """)
     sleep(1)
     print("The cards will then be dealt. Two each for you and the dealer")
-    # - If you have two identical value cards you can then split.
     sleep(1)
     print(f"""You can {Fore.CYAN}Hit{Fore.WHITE} - get one more card,
 then you decide again,
@@ -54,7 +53,7 @@ and {Fore.CYAN}Ace{Fore.WHITE} can be worth
     enter_to_continue()  # awaits user to click enter for next screen
     print(f"""
 If you exceed {Fore.CYAN}21{Fore.WHITE} then you will lose.
-If you get {Fore.CYAN}21{Fore.WHITE} there is an instant payout.
+If you get {Fore.CYAN}21{Fore.WHITE} there is an instant big payout.
 If you {Fore.CYAN}stick{Fore.WHITE} or {Fore.CYAN}double down{Fore.WHITE} then
 it is the dealers turn
 """)
@@ -63,13 +62,13 @@ it is the dealers turn
 and any additional cards he deals himself.
 
 If the dealer gets higher than you without
-exceeding {Fore.CYAN}21{Fore.WHITE} he wins
+exceeding {Fore.CYAN}21{Fore.WHITE} - he wins.
 
-If he exceeds {Fore.CYAN}21{Fore.WHITE} you win
+If he exceeds {Fore.CYAN}21{Fore.WHITE} - you win.
+
+If you match scores you get your bet back.
 
 If at the end you have the higher value - you win.
-
-{Fore.CYAN}21{Fore.WHITE} gets a higher return than just beating the dealer.
 """)
     sleep(1)
     enter_to_continue()
