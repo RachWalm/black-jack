@@ -48,7 +48,7 @@ def instructions_query():
     """
     print(f"""{name}""")
     strings.str_instructions_query()
-    choices = ["Instructions", "Game", "Quit"]
+    choices = ["Instructions", "Game", "Quit out of game"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
     print(f"""You have chosen {choices[chosen]}!""")
@@ -510,7 +510,7 @@ def continue_playing():
     """
     if credit >= 1:
         print('Do you want to continue playing for another round?')
-        contnue = ["[Y] Yes", "[N] No"]
+        contnue = ["Yes - menu/another round", "No - quit out of game"]
         terminal_menu = TerminalMenu(contnue)
         chosen = terminal_menu.show()
         print(f"""You have chosen {contnue[chosen]}!""")
@@ -543,11 +543,17 @@ def white_space(name):
     Checks for white space in the middle of the name after strip has
     removed any from the ends
     """
-    for letter in name:
-        if letter == " ":
-            return False
-        else:
-            return True
+    space = name.__contains__(" ")
+    return space
+
+
+def tab(name):
+    """
+    Checks for tab press in the middle of the name after strip has
+    removed any from the ends
+    """
+    tab = name.__contains__("\t")
+    return tab
 
 
 def request_name():
@@ -563,7 +569,11 @@ def request_name():
             name = (cap_name)
         elif white_space(cap_name):
             print(f"""The entry appears to have {Fore.RED}spaces{Fore.WHITE}.
-Please provide a name that does not contain spaces""")
+Please provide a name that does not contain {Fore.RED}spaces{Fore.WHITE}""")
+            request_name()
+        elif tab(cap_name):
+            print(f"""This appears to have {Fore.RED}TAB{Fore.WHITE} in it.
+Please provide a name that does not contain {Fore.RED}TAB{Fore.WHITE}""")
             request_name()
         elif len(cap_name) < 1:
             print(f"""It appears that you did not enter anything.

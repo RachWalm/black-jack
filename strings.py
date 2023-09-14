@@ -79,7 +79,7 @@ def str_instructions_query():
     print(f"""Please choose whether to
    {Fore.CYAN}Read instructions{Fore.WHITE}
 or {Fore.CYAN}Play the game{Fore.WHITE}
-or {Fore.CYAN}Quit{Fore.WHITE}
+or {Fore.CYAN}Quit - this will remove you from program{Fore.WHITE}.
 move up or down to select then press enter""")
 
 
