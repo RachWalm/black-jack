@@ -30,7 +30,7 @@ player = Hand("player", "initial", [])
 player_total = 0
 dealer = Hand("dealer", "initial", [])
 dealer_total = 0
-pay_type = 'undecided'
+pay_type = "undecided"
 
 
 def instructions():
@@ -67,7 +67,7 @@ def clear_terminal():
     Clears terminal so that previous text isn't visible and put the title
     and credit on the screen in the same place each time
     """
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
     ascii.title()  # game name in ascii
     print(f"""Your credit is {Fore.GREEN}{credit}{Fore.WHITE} units""")
 
@@ -77,13 +77,13 @@ def change_suit_to_uni(string):
     Makes names and values on the cards more readable with colours and
     symbols from the string value
     """
-    if string == 'spade':
-        image = '\u2660'
-    elif string == 'heart':
+    if string == "spade":
+        image = "\u2660"
+    elif string == "heart":
         image = f"""{Fore.RED}\u2665{Fore.WHITE}"""
-    elif string == 'club':
-        image = '\u2663'
-    elif string == 'diamond':
+    elif string == "club":
+        image = "\u2663"
+    elif string == "diamond":
         image = f"""{Fore.RED}\u2666{Fore.WHITE}"""
     return image
 
@@ -93,13 +93,13 @@ def change_value_to_uni(string):
     Makes values on the cards more readable with colours and
     symbols from the string value
     """
-    if string == 'Queen':
+    if string == "Queen":
         image = f"""{Fore.CYAN}Queen{Fore.WHITE} \U0001F451 """
-    elif string == 'King':
+    elif string == "King":
         image = f"""{Fore.CYAN}King{Fore.WHITE} \U0001F451 """
-    elif string == 'Jack':
+    elif string == "Jack":
         image = f"""{Fore.CYAN}Jack{Fore.WHITE} \U0001F451 """
-    elif string == 'Ace':
+    elif string == "Ace":
         image = f"""{Fore.CYAN}Ace{Fore.WHITE}"""
     else:
         image = f"""{Fore.CYAN}{string}{Fore.WHITE}"""
@@ -122,7 +122,7 @@ def cards_to_screen(who, when, cards):
             for i in range(0, length):
                 print(f"""{print_cards(nparray[i])}""")  # prints cards
     elif when == "playing" and who == "player":
-        print('Your current cards : ', end="")
+        print("Your current cards : ", end="")
         for i in range(0, (length - 1)):  # prints all but one cards
             one_line = print_cards(nparray[i])
             print(one_line, end=", ")  # prints cards on one line
@@ -137,7 +137,7 @@ def cards_to_screen(who, when, cards):
     elif who == "dealer" and when == "playing":
         print(f"""Your cards :""")  # prints player cards
         cards_to_screen(player.who, player.when, player.cards)
-        print('Dealer current cards: ', end=" ")
+        print("Dealer current cards: ", end=" ")
         for i in range(0, (length - 1)):
             one_line = print_cards(nparray[i])
             print(one_line, end=", ")  # prints dealer cards one line
@@ -155,8 +155,8 @@ New card is : {print_cards(nparray[-1])}
 
 def print_cards(hand):
     """User readable version using unicode of the cards to emoji"""
-    suit_image = change_suit_to_uni(hand['suit'])
-    name_image = change_value_to_uni(hand['name'])
+    suit_image = change_suit_to_uni(hand["suit"])
+    name_image = change_value_to_uni(hand["name"])
     image = f"""{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}"""
     return image
 
@@ -189,10 +189,10 @@ def validate_bet(input):
         if value > 0:
             return True  # positive numbers only
         else:
-            print('The bet does not appear to be a positive number')
+            print("The bet does not appear to be a positive number")
             return False
     except ValueError:
-        print('The bet is either not a number or not a whole number')
+        print("The bet is either not a number or not a whole number")
         return False
 
 
@@ -290,9 +290,9 @@ def ace(total, aces):
 
 def change_court_to_num(string):
     """Changes the string name of the card to an integer """
-    if string == 'Jack' or string == 'Queen' or string == 'King':
+    if string == "Jack" or string == "Queen" or string == "King":
         num = 10  # value of court
-    elif string == 'Ace':
+    elif string == "Ace":
         num = 0  # Ace dealt with if there in another function
     else:
         num = int(string)
@@ -301,11 +301,11 @@ def change_court_to_num(string):
 
 def calculate_total(hands):
     """Calculates how much the cards in the hand adds up to"""
-    individual = [hand['name'] for hand in hands]
+    individual = [hand["name"] for hand in hands]
     aces = 0
     total = 0
     for ind in individual:
-        if ind == 'Ace':
+        if ind == "Ace":
             aces += 1  # counts aces
             individuals = 0
         else:
@@ -324,9 +324,9 @@ def check_instant_end(total):
     """
     global pay_type
     if total == 21:
-        pay_type = 'blackjack'
+        pay_type = "blackjack"
     elif total > 21:
-        pay_type = 'bust'
+        pay_type = "bust"
 
 
 def double_down():
@@ -401,12 +401,12 @@ def player_time():
     global player_total
     player_total = calculate_total(player.cards)
     check_instant_end(player_total)
-    if pay_type == 'undecided':
+    if pay_type == "undecided":
         action = player_action()  # player chooses next step
         progress_player_choice(action)  # player's action implemented
-    elif pay_type == 'blackjack':
+    elif pay_type == "blackjack":
         pay_winnings()
-    elif pay_type == 'bust':
+    elif pay_type == "bust":
         pay_winnings()
 
 
@@ -417,11 +417,11 @@ def who_won():
     """
     global pay_type
     if dealer_total > 21 or dealer_total < player_total:
-        pay_type = 'even'
+        pay_type = "even"
     elif (dealer_total > player_total):  # and (dealer_total < 22):
-        pay_type = 'no'
+        pay_type = "no"
     elif dealer_total == player_total:
-        pay_type = 'back'
+        pay_type = "back"
     pay_winnings()
 
 
@@ -431,23 +431,23 @@ def amount_winnings():
     the outcome of the game was
     """
     pay = 0
-    if pay_type == 'blackjack':
+    if pay_type == "blackjack":
         pay = ((bet/2)*3)+bet  # winnings amount
         print(f"""{Fore.GREEN}Congratulations you won.{Fore.CYAN}
 You got 21 or Blackjack{Fore.WHITE}""")
-    elif pay_type == 'bust':
+    elif pay_type == "bust":
         pay = 0  # winnings amount
         print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
 You got exceeded 21{Fore.WHITE}""")
-    elif pay_type == 'bust' or pay_type == 'no':
+    elif pay_type == "bust" or pay_type == "no":
         pay = 0  # winnings amount
         print(f"""{Fore.RED}Sorry you lost.{Fore.CYAN}
 You got less than the dealer{Fore.WHITE}""")
-    elif pay_type == 'even':
+    elif pay_type == "even":
         pay = 2 * bet  # winnings amount
         print(f"""{Fore.GREEN}Congratulations you won.{Fore.CYAN}
 You beat the dealer{Fore.WHITE}""")
-    elif pay_type == 'back':
+    elif pay_type == "back":
         pay = bet  # winnings amount
         print(f"""{Fore.GREEN}Congratulations
 you get your money back.{Fore.CYAN}
@@ -473,7 +473,7 @@ def dealer_time():
     global dealer_total
     dealer.when = "playing"  # changes stage of game in hand class
     player.when = "finished"  # changes stage of game in hand class
-    if pay_type == 'undecided':
+    if pay_type == "undecided":
         ingame_screen()  # title credit and bet on top of screen
         dealer_total = calculate_total(dealer.cards)
         for num in range(2, 17):
@@ -494,7 +494,7 @@ def clear_for_round():
     global pay_type
     global player_total
     global dealer_total
-    pay_type = 'undecided'
+    pay_type = "undecided"
     player.cards.clear()
     player_total = 0
     dealer.cards.clear()
@@ -510,7 +510,7 @@ def continue_playing():
     Self validating third party
     """
     if credit >= 1:
-        print('Do you want to continue playing for another round?')
+        print("Do you want to continue playing for another round?")
         contnue = ["Yes - menu/another round", "No - quit out of game"]
         terminal_menu = TerminalMenu(contnue)
         chosen = terminal_menu.show()
@@ -561,8 +561,8 @@ def request_name():
     """gets the users name and check various potential problems"""
     global name
     if name is None:
-        print('What is your name?')
-        print('Type your name and press enter')
+        print("What is your name?")
+        print("Type your name and press enter")
         in_name = input()
         strip = in_name.strip()
         cap_name = strip.capitalize()

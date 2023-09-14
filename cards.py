@@ -9,8 +9,8 @@ def generate_cards():
     each cards
     """
     suits = ["spade", "diamond", "heart", "club"]
-    names = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 'Jack', 'Queen', 'King']
-    cards = [{'suit': suit, 'name': name} for suit in suits for name in names]
+    names = ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, "Jack", "Queen", "King"]
+    cards = [{"suit": suit, "name": name} for suit in suits for name in names]
     return cards
 
 

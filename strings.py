@@ -5,7 +5,7 @@ from colorama import Fore
 
 def total_clear():
     """clears whole screen without adding a title unlike clear terminal"""
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 def enter_to_continue():
@@ -34,7 +34,7 @@ a whole number, which is less than or equal to
 your {Fore.GREEN}credit{Fore.WHITE}.
 """)
     sleep(1)
-    print('The cards will then be dealt. Two each for you and the dealer')
+    print("The cards will then be dealt. Two each for you and the dealer")
     # - If you have two identical value cards you can then split.
     sleep(1)
     print(f"""You can {Fore.CYAN}Hit{Fore.WHITE} - get one more card,
