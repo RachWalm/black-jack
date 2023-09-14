@@ -1,7 +1,3 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
-
 import os
 from time import sleep
 import numpy
@@ -314,7 +310,6 @@ def double_down():
     credit -= bet
     bet *= 2
     deal(deck, player)  # deals one card only in accordance with rules
-    # cards_to_screen(player.who, player.when, player.cards)
     player_total = calculate_total(player.cards)
     check_instant_end(player_total)
     dealer_time()  # starts dealers turn
