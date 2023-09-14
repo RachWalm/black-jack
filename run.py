@@ -48,11 +48,11 @@ def instructions_query():
     """
     print(f"""{name}""")
     strings.str_instructions_query()
-    choices = ["Instructions", "Game", "Quit out of game"]
+    choices = ["Game", "Instructions", "Quit out of game"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
     print(f"""You have chosen {choices[chosen]}!""")
-    if chosen == 0:
+    if chosen == 1:
         instructions()
     elif chosen == 2:
         clear_terminal()
@@ -137,6 +137,8 @@ def cards_to_screen(who, when, cards):
     elif who == "dealer" and when == "playing":
         print(f"""Your cards :""")  # prints player cards
         cards_to_screen(player.who, player.when, player.cards)
+        sleep(1)
+        print("\n \n")
         print("Dealer current cards: ", end=" ")
         for i in range(0, (length - 1)):
             one_line = print_cards(nparray[i])
@@ -568,11 +570,11 @@ def request_name():
         cap_name = strip.capitalize()
         if validate_name(cap_name) and len(cap_name) < 10:
             name = (cap_name)
-        elif white_space(cap_name):
+        elif white_space(in_name):
             print(f"""The entry appears to have {Fore.RED}spaces{Fore.WHITE}.
 Please provide a name that does not contain {Fore.RED}spaces{Fore.WHITE}""")
             request_name()
-        elif tab(cap_name):
+        elif tab(in_name):
             print(f"""This appears to have {Fore.RED}TAB{Fore.WHITE} in it.
 Please provide a name that does not contain {Fore.RED}TAB{Fore.WHITE}""")
             request_name()

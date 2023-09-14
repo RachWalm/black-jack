@@ -77,8 +77,8 @@ If at the end you have the higher value - you win.
 
 def str_instructions_query():
     print(f"""Please choose whether to
-   {Fore.CYAN}Read instructions{Fore.WHITE}
-or {Fore.CYAN}Play the game{Fore.WHITE}
+   {Fore.CYAN}Play the game{Fore.WHITE}
+or {Fore.CYAN}Read instructions{Fore.WHITE}
 or {Fore.CYAN}Quit - this will remove you from program{Fore.WHITE}.
 move up or down to select then press enter""")
 
