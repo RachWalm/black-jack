@@ -60,15 +60,140 @@ A name was *input* in *request_name* so that other parts of the program could be
 - [*capitalize()*](https://www.w3schools.com/python/ref_string_capitalize.asp) to make just the first letter a capital, irrespective of what combination of capitals and lower case was entered.
 - [*len()*](https://www.w3schools.com/python/ref_func_len.asp) was used to make sure the person hadn't just pressed enter or white space or tab. It was also used to restrict the name length so it didn't interfer with layout of string literals when used.
 
+```py
+def validate_name(in_name):
+    """Checks that the input for the name is letters only"""
+    try:
+        if in_name.isalpha():
+            return True
+    except ValueError:
+        return False
 
+
+def white_space(name):
+    """
+    Checks for white space in the middle of the name after strip has
+    removed any from the ends
+    """
+    space = name.__contains__(" ")
+    return space
+
+
+def tab(name):
+    """
+    Checks for tab press in the middle of the name after strip has
+    removed any from the ends
+    """
+    tab = name.__contains__("\t")
+    return tab
+
+
+def request_name():
+    """gets the users name and check various potential problems"""
+    global name
+    if name is None:
+        print("What is your name?")
+        print("Type your name and press enter")
+        in_name = input()
+        strip = in_name.strip()
+        cap_name = strip.capitalize()
+        if validate_name(cap_name) and len(cap_name) < 10:
+            name = (cap_name)
+        elif white_space(in_name):
+            print(f"""The entry appears to have {Fore.RED}spaces{Fore.WHITE}.
+Please provide a name that does not contain {Fore.RED}spaces{Fore.WHITE}""")
+            request_name()
+        elif tab(in_name):
+            print(f"""This appears to have {Fore.RED}TAB{Fore.WHITE} in it.
+Please provide a name that does not contain {Fore.RED}TAB{Fore.WHITE}""")
+            request_name()
+        elif len(cap_name) < 1:
+            print(f"""It appears that you did not enter anything.
+Please re-enter your name using letter only.""")
+            request_name()
+        elif validate_name(cap_name) and len(cap_name) > 9:
+            name = cap_name[:9]
+            print(f"""the name you entered is too long.
+It has been shortened to {name}.
+If this is unacceptable you can quit in next menu.
+Then when you restart you can choose a different name""")
+            sleep(4)
+        else:
+            print(f"""you entered {Fore.RED}{in_name}{Fore.WHITE}
+This is not a name consisting of only of letters.
+Please re-enter your name using letters only""")
+            request_name()
+```
 
 #### Betting 
 
 Betting was done via an *input*, in the function *request_bet* which was then validated to ensure that it was an integer (not a special character, letter etc.) developed from [pynative](https://pynative.com/python-check-user-input-is-number-or-string/) using a *try* function that looked to see if the string could be turned into an integer. It was also necessary to ensure that it was a positive number *if* statement* and there was sufficient credit - *check_credit* - credit greater than or equal to value held in the game (as *credit*) to allow the bet to be made.
 
+```py
+def request_bet():
+    """
+    The player is asked to provide an integer to place a bet with from their
+    credit. The number is validated to be an integer and checked to be within
+    thier credit available. Then the bet value updated if valid
+    """
+    global bet
+    print(f"""{name}, it is time to place your bet.......""")
+    print(f"""Your bet must not exceed your credit:
+{Fore.GREEN}{credit}{Fore.WHITE} units""")
+    strings.str_request_bet()
+    in_bet = input()
+    if validate_bet(in_bet) and check_credit(in_bet):
+        bet = int(in_bet)  # makes validated integer the bet
+    else:
+        request_bet()  # if problem asks for bet again
+
+
+def validate_bet(input):
+    """
+    Validate to check if the input was an integer, not a float/letter/
+    special character etc.
+    """
+    try:
+        value = (int(input))
+        if value > 0:
+            return True  # positive numbers only
+        else:
+            print("The bet does not appear to be a positive number")
+            return False
+    except ValueError:
+        print("The bet is either not a number or not a whole number")
+        return False
+
+
+def check_credit(suggest):
+    """
+    Checks that the integer put in is within the credit of the person
+    placing the bet
+    """
+    suggested = int(suggest)  # input bet
+    if suggested <= credit:
+        return True  # it is within thier credit limit
+    else:
+        print(f"""Your bet -{Fore.RED}{suggested}{Fore.WHITE}
+exceeds your credit : {Fore.GREEN}{credit}{Fore.WHITE}""")
+        return False
+```
+
 #### Menus
 
 The next user input that was required was a menu. All menus throughut the project were from a third party module [simple-term-menu](https://pypi.org/project/simple-term-menu/). This could provide more complex menus such as hit, stick, double down or quit, or yes/no menus. This menu system was already validated so didn't require any validation.
+
+```py
+    choices = ["Hit", "Stick", "Double down", "Quit round"]
+    terminal_menu = TerminalMenu(choices)
+    chosen = terminal_menu.show()
+    return chosen
+
+
+    if chosen == 1:
+        # gives option at index 1 (index starts 0)
+    elif chosen == 2:
+```
 
 #### Timing for impact
 
@@ -76,31 +201,111 @@ The next user input that was required was a menu. All menus throughut the projec
 
 2. During the instructions being read it is not possible to guess how long individuals will take to read, so in addition to *sleep* function, when it reached the bottom of the page a *press enter key to continue* function was used. This was discovered from [geeks for geeks](https://www.geeksforgeeks.org/make-python-wait-for-a-pressed-key/)
 
+```py
+def enter_to_continue():
+    """
+    Waits for user to press enter so that can continue to next screen
+    when ready.
+    """
+    while True:
+        is_enter = input("Press Enter to continue...")
+        if is_enter == "":
+            break
+        else:
+            print("Please don't use other keys, just press Enter to continue.")
+    total_clear()  # leaves screen completely clear for next information
+```
+
 #### Readability
 
 Readability is a big factor as the terminal is limited in what can be displayed.
 
-1. It was essential to remove extraneous information from the screen once it was no longer required. OS clear screen adapted from [clear](https://www.geeksforgeeks.org/clear-screen-python/). To keep the screen consistent (apart from in instructions where space was needed) ASCII title, credit and where appropriate bet were always at the top of the screen
+1. It was essential to remove extraneous information from the screen once it was no longer required. OS imported for clear screen adapted from [clear](https://www.geeksforgeeks.org/clear-screen-python/). To keep the screen consistent (apart from in instructions where space was needed) ASCII title, credit and where appropriate bet were always at the top of the screen
 
 2. Readability also was improved by the use of colours from [colorama](https://pypi.org/project/colorama/).
+
+```py
+"Queen": f"""{Fore.CYAN}Queen{Fore.WHITE} \U0001F451 """,
+```
 
 3. Simplistic reading of the cards was aided by the use of emojis. The initial idea to use the cards emojis. This idea was quickly disregarded when it became apparent that they were unreadable due to size on the terminal output, so a crown and the emojis for the suits were used instead. This was taken from [emoji](https://pypi.org/project/emoji/). It was attempted to also do the Jack, King and Queen with their own emoji's but the available emoji's didn't make that clear. So it was decided just to have a crown to show that they were court cards.
 
 4. To make the code more readable it and not so bulky, additional *x.py* files were created. This allowed bulky string literals to be taken out of the code (some were left in where they were one line, or required global variables to be available, or if the information described what the code was doing). An *ascii.py* was created as this was just pictorial and not needed to for anyone reading the code. Generating the cards was also grouped and put in *cards.py*. More could have been done on this if time allowed.
 
-5. A dictionary of the emojis was also taken out of the *run.py* as it was originally set up as a *if/elif* with each emoji having it's own line. The dictionary in a different file was easier to read and out of the way. 
+5. A dictionary of the emojis was also taken out of the *run.py* as it was originally set up as a *if/elif* with each emoji having it's own line. The dictionary in a different file was easier to read and out of the way.
+
+```py
+images = {"spade": "\u2660",
+          "heart": f"""{Fore.RED}\u2665{Fore.WHITE}""",
+          "club": "\u2663",
+          "diamond": f"""{Fore.RED}\u2666{Fore.WHITE}""",
+          "Queen": f"""{Fore.CYAN}Queen{Fore.WHITE} \U0001F451 """,
+          "King": f"""{Fore.CYAN}King{Fore.WHITE} \U0001F451 """,
+          "Jack": f"""{Fore.CYAN}Jack{Fore.WHITE} \U0001F451 """,
+          "Ace": f"""{Fore.CYAN}Ace{Fore.WHITE}""",
+          }
+```
 
 #### Making a card not visible (putting it in the hole)
 
 This was done using [numpy](https://numpy.org/doc/stable/reference/) and it's indexing features. I learnt about these while studying for my PCEP-30-02 from the python institute. This allowed me to print a string rather than the card for a specific index under certain circumstances. The numpy array allows indexing and itteration through it which means you can be specific with different entries.
 
+```py
+    nparray = numpy.array(cards)
+    if when == "initial":  # during intial stage both player and dealer
+        if who == "dealer" and length == 2:
+            print(f"""{print_cards(nparray[0])} and
+{Fore.CYAN}Dealer hole card {Fore.WHITE}""")
+```
+
+This also allowed to the individual card being dealt to be put on a separate line to already received cards. Or different configurations at different stages of the game.
+
+#### Class Hand
+
+A class was used to store the information required about each hand. This object orientated approach allows for the potential of mulitple players with the *who* updated. It stores the cards that that person holds in the *cards* and allows storage of the progress through the game with the *when* as to whether that player is in inital, playing or finished state. If split was ever added this could also be incorporated using this class.
+
+```py
+class Hand:
+    """Hand class - provide who is playing, at what stage and their cards"""
+    def __init__(self, who, when, cards):
+        #  instance attribute
+        self.who = who
+        self.cards = cards
+        self.when = when
+```
+
 #### Calculations
 
-Calculations were all done using basic adding, subtracting, dividing etc. functionality available in python. These were needed to deal with betting, credit and calculating the value of the hands. Strings were turned to integers either using *int* or *if* "certain string" = certain value.
+Calculations were all done using basic adding, subtracting, dividing etc. functionality available in python. These were needed to deal with betting, credit and calculating the value of the hands. Strings were turned to integers either using *int* or *if* "certain string" equals certain value.
+
+```py
+def change_court_to_num(string):
+    """Changes the string name of the card to an integer """
+    if string == "Jack" or string == "Queen" or string == "King":
+        num = 10  # value of court
+    elif string == "Ace":
+        num = 0  # Ace dealt with if there in another function
+    else:
+        num = int(string)
+    return num
+```
 
 #### Running out of cards
 
 It is possible that if the player continues through many rounds that the deck of cards will run out. Therefore, when this occurs an additional deck of cards is shuffled and added to the end of the pack. The adding to the end of the deck was done using code develped from [W3](https://www.w3schools.com/python/gloss_python_join_lists.asp) to extend list to add two decks together
+
+```py
+def enough_cards():
+    """
+    Checks that there are enough cards left in the pack to
+    continue dealing
+    """
+    if len(deck) > 1:
+        pass
+    else:
+        new_deck = cards.generate_deck()  # new shuffled deck
+        deck.extend(new_deck)  # adds to deck currently in play
+```
  
 #### End of game
 
@@ -141,6 +346,22 @@ Developing a function that would allow me to either produce a value of 1 or 11 w
 - Using a combination of the specific total values prior to adding the Aces and the number of aces being added (number of aces can only be 0 to 4) gave a significant simplification of the code. It also aligns with Dealers always stopping at 17 as that is the point where the probability of winning changes. So this made sense.
 
 - The final simplification involved using just a couple of lines of code with addition in the line of code, rather than many lines of for and if, when the value was only changing by one.
+
+```py
+def ace(total, aces):
+    """
+    Checks if there are aces - which can be 1 or 11.
+    If there are aces if calculate what their values added
+    together equals
+    """
+    value = 0
+    if aces > 0:
+        if total < (12 - aces):  # calculates switch point from 11 to 1
+            value = (10 + aces)  # one ace as 11 then rest as 1
+        else:
+            value = aces  # all aces are worth 1
+    return value
+```
 
 ### Not using equal to or greater than just greater than
 I had two examples where the greater than logic was not what was intended. In both cases I had intended equal to or greater than and only used greater than.
