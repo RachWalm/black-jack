@@ -24,7 +24,7 @@ I proposed the initial design of the game using a flow-chart and document that I
 
 These ideas and flow chart have been fairly accurately followed to produce the final product.
 
-Although, from the outset discussion the split (when you have identical cards) was discarded. This is a rare occurance so won't subtract significantly from the game play, therfore, won't impact user experience. It would also be difficult to test and involve putting in specific cards, due to it's rarity in random occurrence. These combined factors made it a low value function at high testing cost, so it was dropped.
+Although, from the outset discussion the split (when you have identical cards) was discarded. This is a rare occurence so won't subtract significantly from the game play, therefore, won't impact user experience. It would also be difficult to test and involve putting in specific cards, due to its rarity in random occurrence. These combined factors made it a low value function at high testing cost, so it was dropped.
 
 ## How to play
 
@@ -48,7 +48,7 @@ Although, from the outset discussion the split (when you have identical cards) w
 
 1. List comprehension was used to create the deck of cards and then it was held in a constant. This works with a nested *for* in *for* loop. One for loop works through the suits and one works through the values, each time outputting a dictionary entry for the suit and value/name. This ends up with every combination of value and suit.
 
-2. These cards are shuffled using the *random.sample* function. This information was developed from [W3](https://www.w3schools.com/python/ref_random_sample.asp) which showed that you could input the sequence and length of the sequence and it would return a shuffled list. So the cards and 48 were the two arguements, as 48 is the number of cards in a deck.
+2. These cards are shuffled using the *random.sample* function. This information was developed from [W3](https://www.w3schools.com/python/ref_random_sample.asp) which showed that you could input the sequence and length of the sequence and it would return a shuffled list. So the cards and 48 were the two arguments, as 48 is the number of cards in a deck.
 
 #### Name
 
@@ -58,7 +58,7 @@ A name was *input* in *request_name* so that other parts of the program could be
 - [*isalpha()*](https://www.w3schools.com/python/ref_string_isalpha.asp) ensures that it is only letters.
 - [*strip()*](https://www.freecodecamp.org/news/python-strip-how-to-trim-a-string-or-line/) to remove white space from each end.
 - [*capitalize()*](https://www.w3schools.com/python/ref_string_capitalize.asp) to make just the first letter a capital, irrespective of what combination of capitals and lower case was entered.
-- [*len()*](https://www.w3schools.com/python/ref_func_len.asp) was used to make sure the person hadn't just pressed enter or white space or tab. It was also used to restrict the name length so it didn't interfer with layout of string literals when used.
+- [*len()*](https://www.w3schools.com/python/ref_func_len.asp) was used to make sure the person hadn't just pressed enter or white space or tab. It was also used to restrict the name length so it didn't interfere with layout of string literals when used.
 
 ```py
 def validate_name(in_name):
@@ -181,7 +181,7 @@ exceeds your credit : {Fore.GREEN}{credit}{Fore.WHITE}""")
 
 #### Menus
 
-The next user input that was required was a menu. All menus throughut the project were from a third party module [simple-term-menu](https://pypi.org/project/simple-term-menu/). This could provide more complex menus such as hit, stick, double down or quit, or yes/no menus. This menu system was already validated so didn't require any validation.
+The next user input that was required was a menu. All menus throughout the project were from a third party module [simple-term-menu](https://pypi.org/project/simple-term-menu/). This could provide more complex menus such as hit, stick, double down or quit, or yes/no menus. This menu system was already validated so didn't require any validation.
 
 ```py
     choices = ["Hit", "Stick", "Double down", "Quit round"]
@@ -228,9 +228,9 @@ Readability is a big factor as the terminal is limited in what can be displayed.
 "Queen": f"""{Fore.CYAN}Queen{Fore.WHITE} \U0001F451 """,
 ```
 
-3. Simplistic reading of the cards was aided by the use of emojis. The initial idea to use the cards emojis. This idea was quickly disregarded when it became apparent that they were unreadable due to size on the terminal output, so a crown and the emojis for the suits were used instead. This was taken from [emoji](https://pypi.org/project/emoji/). It was attempted to also do the Jack, King and Queen with their own emoji's but the available emoji's didn't make that clear. So it was decided just to have a crown to show that they were court cards.
+3. Simplistic reading of the cards was aided by the use of emojis. The initial idea was to use the cards emojis. This idea was quickly disregarded when it became apparent that they were unreadable due to size on the terminal output, so a crown and the emojis for the suits were used instead. This was taken from [emoji](https://pypi.org/project/emoji/). It was attempted to also do the Jack, King and Queen with their own emoji's but the available emoji's didn't make that clear. So it was decided just to have a crown to show that they were court cards.
 
-4. To make the code more readable it and not so bulky, additional *x.py* files were created. This allowed bulky string literals to be taken out of the code (some were left in where they were one line, or required global variables to be available, or if the information described what the code was doing). An *ascii.py* was created as this was just pictorial and not needed to for anyone reading the code. Generating the cards was also grouped and put in *cards.py*. More could have been done on this if time allowed.
+4. To make the code more readable and less bulky, additional *x.py* files were created. This allowed bulky string literals to be taken out of the code (some were left in where they were one line, or required global variables to be available, or if the information described what the code was doing). An *ascii.py* was created as this was just pictorial and not needed by anyone reading the code. Generating the cards was also grouped and put in *cards.py*. More could have been done on this if time allowed.
 
 5. A dictionary of the emojis was also taken out of the *run.py* as it was originally set up as a *if/elif* with each emoji having it's own line. The dictionary in a different file was easier to read and out of the way.
 
@@ -248,7 +248,7 @@ images = {"spade": "\u2660",
 
 #### Making a card not visible (putting it in the hole)
 
-This was done using [numpy](https://numpy.org/doc/stable/reference/) and it's indexing features. I learnt about these while studying for my PCEP-30-02 from the python institute. This allowed me to print a string rather than the card for a specific index under certain circumstances. The numpy array allows indexing and itteration through it which means you can be specific with different entries.
+This was done using [numpy](https://numpy.org/doc/stable/reference/) and its indexing features. I learnt about these while studying for my PCEP-30-02 from the python institute. This allowed me to print a string rather than the card for a specific index under certain circumstances. The numpy array allows indexing and itteration through it which means you can be specific with different entries.
 
 ```py
     nparray = numpy.array(cards)
@@ -313,7 +313,7 @@ It is necessary to end the game when the user is out of credit or wishes to. Thi
 
 ### Potential Future features
 
-#### Mulitiple players
+#### Multiple players
 
 It would be possible to add several players to the game by asking how many players there were, up to a set number, then setting up those players hands separately, with a reference to the name that they gave initially. This could have the hand class adjusted to include a name and then that could contain all the information on that players cards and status.
 
@@ -327,13 +327,13 @@ Split was in the original idea, but wasn't worth including in this limited versi
 
 #### Code improvements
 
-There are several things that if time had allowed or were considered lower value items so were not implemented.
+There are several things (considered lower value items) that were not currently implemented.
 
-1. A dictionary of values for the court and Ace cards rather than the *if* string = then give value. This could go into another *.py file. This idea of dictionaries was only suggested at the end stages of implementation, so done for the emoji's but not values of court cards. 
+1. Adding a dictionary of values for the court and Ace cards rather than the *if* string = then give value. This could go into another *.py file. This idea of dictionaries was only suggested at the end stages of implementation, so it was used for the emoji's but not values of court cards. 
 
-2. Put more strings and functions into either the strings.py or additional files to make the code more readable and logical. This was started but could definitely be taken further.
+2. Putting more strings and functions into either the strings.py or additional files to make the code more readable and logical. This was started but could definitely be taken further.
 
-3. Global variable were taken out of code as far as possible. Due to my inexperience I excessively used global variables, I am now aware that this is bad practise. I am now familiar with using *return* instead. Once again significant improvments were made taking out many of the simple global values but the time to take out where I had used several in a function and the risk to breaking the working code at this late stage was considered not practical.
+3. As far as possible, taking global variables out of code. Due to my inexperience, I made heavy use of global variables, I am now aware that this is bad practise. I am now familiar with using *return* instead. Once again significant improvements were made by taking out many of the simple global values. Given time constraints and the risk to breaking the working code, it was not practicable to remove them all.
 
 ## Bugs
 
@@ -366,22 +366,22 @@ def ace(total, aces):
 ### Not using equal to or greater than just greater than
 I had two examples where the greater than logic was not what was intended. In both cases I had intended equal to or greater than and only used greater than.
 
-1. When checking that the player had sufficient credit to be able to place a bet I put > 1, but obviously there is not reason why a bet of 1 could not be placed. The logic should either be > 0 or >=1. This was discovered when a player tried to bet 1.
+1. When checking that the player had sufficient credit to be able to place a bet I put > 1, but obviously there is no reason why a bet of 1 could not be placed. The logic should either be > 0 or >=1. This was discovered when a player tried to bet 1.
 2. During the development of the Ace function I used greater than for my limit numbers when they should have been >= which meant that for Black Jack (21) my calculation was giving the Ace a value of 1 when it should be 11 to equal 21.
 
 ### Initial input held instead of latest input
 
-Due to the ordering of the actions in my code the input of a bet took a value and then validated it. Often the first input was kept rather than the one passing validation.
+Due to the ordering of the actions in my code the input of a bet took a value and then validated it. Often the first input was kept rather than the one needed to pass validation.
 
 - If the value failed validation then it asked for another value. During various attempts at the code it either held the initial input (which was the first bug to deal with) and ignored later inputs or as I moved through improving the code either the calculations or the values given to the player on screen were from the wrong iteration. 
-- This was eventually worked through by working step by step thorough the code with each error till I found where it was in the wrong order. Eventually, although not best practise, it was decided to put Bet as a global variable so that all the other functions were working from the same source, rather than returning the value. 
-- Potentially with additional work this could be sorted out in to a return again, but currently as it is working and there were more important concerns it was left to be improved (if time) later.
+- This was eventually dealt with by working step by step thorough the code with each error till I found where it was in the wrong order. Eventually, although not best practise, it was decided to put Bet as a global variable so that all the other functions were working from the same source, rather than returning the value. 
+- Potentially with additional work this could be improved in to a *return* again, but currently, as it is working and there were more important concerns, it was left to be improved (if time) later.
 
 ### Infinite loop
 
 The dealer time was stuck in an infinite loop while the function was being developed as the part of the function that dealt an extra card hadn't been put in so it kept checking if the value exceeded 17 and as no action had occurred to change the value (no new cards to add in) it went round the loop. 
 
-This took a few times to realise as sometimes the initial draw was above 17 so it was an intermittent fault.
+This took a few times to become apparent as sometimes the initial draw was above 17 so it was an intermittent fault.
 
 ### CodeAnywhere issues
 
@@ -404,7 +404,7 @@ Each winning or loosing option correct|Correct outcome|21, bust for dealer and p
 Menus give correct action|Correct function called from choice|All menu options tested|Yes|
 Play another round works|Next round has cleared hands and bet to work as an independent round while credit retained|Values matched anticipated|Yes|
 Ends as expected when requested|says goodbye and tell you credit|Credit and goodbye present|Yes|
-When you run out of credit it ends the game|says goodbye and tells you that you ran out of credit|Purposefully lost|Yes|
+When you run out of credit it ends the game|says goodbye and tells you that you ran out of credit|Intentionally lost all credit|Yes|
 --------------
 
 ### User stories
@@ -423,7 +423,7 @@ My family played the game and said it played as they remembered from card games 
 
 ## Validator
 
-[PEP8Online.com](https://pep8ci.herokuapp.com/) was used to validate this project. No errors was found in the final deployed version.
+[PEP8Online.com](https://pep8ci.herokuapp.com/) was used to validate this project. No errors were found in the final deployed version.
 
 Here is a [pdf of results](document/PEP8.pdf) for each of the *.py files related to the project.
 
@@ -443,7 +443,7 @@ Here is a [pdf of results](document/PEP8.pdf) for each of the *.py files related
 
 ### Third part libraries
 
-- [colorama 0.4.6](https://pypi.org/project/colorama/) was used to highlight signficant text so that it would be more readable.
+- [colorama 0.4.6](https://pypi.org/project/colorama/) was used to highlight significant text so that it would be more readable.
 - [emoji 2.8.0](https://pypi.org/project/emoji/) was used to introduce images that made the information more easily interpreted by the user.
 - [numpy 1.24.4](https://numpy.org/doc/stable/reference/) allows the sequencing of arrays.
 - [simple-term-menu 1.6.1](https://pypi.org/project/simple-term-menu/) gave a simple menu that could be adapted to allow for relevant menus
@@ -466,13 +466,13 @@ or the drop down menu
 
 ![dropdown](document/create-new-app-dropdown.png)
 
-4. Next the app was named black-jack21 and the Europe region chosen in these feilds
+4. Next the app was named black-jack21 and the Europe region chosen in these fields
 
 ![name](document/name-and-region.png)
 
 and the purple 'create' button was pressed.
 
-5. In the menu navigation bar the settings was selected
+5. In the menu navigation bar the 'settings' was selected
 
 ![settings](document/settings.png)
 
@@ -543,9 +543,9 @@ Open in Gitpod
 
 Install Python module dependencies:
 
-- Navigate to the folder madlib_with_python by executing the command:
+- Navigate to the folder blackjack by executing the command:
 ```
-cd madlib_with_python
+cd blackjack
 ```
 Run the command 
 ```
