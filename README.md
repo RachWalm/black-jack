@@ -52,7 +52,7 @@ Although, from the outset the split (when you have identical cards) was discarde
 
 #### Name
 
-A name was *input* in *request_name* so that other parts of the program could be personalised. This was validated and formatted with code developed from:
+A name was *input* in *request_name* so that other parts of the program could be personalised (or if multiple player functionality was introduced it differentiated between players). This was validated and formatted with code developed from:
 
 -  [*contains*](https://www.askpython.com/python/string/python-string-contains) to check for white space and tab (so name doesn't make string literals too long if spaces in middle).
 - [*isalpha()*](https://www.w3schools.com/python/ref_string_isalpha.asp) ensures that it is only letters.
@@ -140,25 +140,43 @@ Due to the ordering of the actions in my code the input of a bet took a value an
 
 The dealer time was stuck in an infinite loop while the function was being developed as the part of the function that dealt an extra card hadn't been put in so it kept checking if the value exceeded 17 and as no action had occurred to change the value (no new cards to add in) it went round the loop. This took a few times to realise as sometimes the initial draw was above 17 so it was an intermittent fault.
 
-Due to an issue with code institute credits on codeanywhere not being set to infinite before this project, there is a slight gap when I couldn't commit to Git. During this time I just worked on the README, to reduce loss of traceability.
+### CodeAnywhere issues
 
-
+Due to an issue with code institute credits on codeanywhere not being set to infinite credit before this project, there is a slight gap when I couldn't commit to Git. During this time I just worked on the README, to reduce loss of traceability.
 
 ## Testing
 
+### Functions test
+
 check|intended outcome|comment|pass y/n
 ---|---|---|----
-User name only accepts letters|specific error for anything that isn't automatically corrected| | |
-Bet input only accepts positive numbers|specific error for anything that isn't a positive number within credit|Tried letters special characters and 0 and negative numbers and blank space| |
-Game runs in correct order of functions |Plays as expected| | |
-Adding up of card values gives correct person winning|User or Dealer wins or loses correctly against cards| | |
-Credit system has correct amount added and subtracted| credit relates to bets won and lost| | |
-No issues with moving to second deck|next deck cards play without interruption||
-Menus give correct action|correct function called from choice| | |
-Play another round works|next round has cleared hands and bet to work as an independent round while credit retained| | |
-Ends as expected when requested|says goodbye and tell you credit| | |
-When you run out of credit it ends the game|says goodbye but doesn't tell you your credit just that you ran out| | |
+User name only accepts letters|Specific error for anything that isn't automatically corrected|Tried letters (with and without spaces inside and out of word), special characters, 0, numbers, blank space, tab, enter, longer than one line and e - all gave correct error messages when relevant|Yes|
+Bet input only accepts positive numbers|Specific error for anything that isn't a positive number within credit|Tried numbers - in and out of credit, letters, special characters, 0, negative numbers, blank space, tab, exact amount of credit, enter and e - error messages where relevant|Yes|
+Game runs in correct order of functions |Plays as expected|Nothing unexpected|Yes|
+Adding up of card values gives correct person winning|User or Dealer wins or loses correctly against cards|Values matched testers calculations, checked Ace, King, Queen, Jack and multiple number cards|Yes|
+Credit system has correct amount added and subtracted|Credit relates to bets won and lost|Values matched testers calculations|Yes|
+No issues with moving to second deck|Next deck cards play without interruption|Pressed Hit over 100 times which with the initial deal means the cards were at least in third pack|Yes|
+Enter to continue|Instructions requires enter to continue - error other keys|Tried letters, numbers and special characters - correct error message when relevant|Yes
+Each winning or loosing option correct|Correct outcome|21, bust for dealer and player, win, loose and scores tied tested|Yes
+Menus give correct action|Correct function called from choice|All menu options tested|Yes|
+Play another round works|Next round has cleared hands and bet to work as an independent round while credit retained|Values matched anticipated|Yes|
+Ends as expected when requested|says goodbye and tell you credit|Credit and goodbye present|Yes|
+When you run out of credit it ends the game|says goodbye and tells you that you ran out of credit|Purposefully lost|Yes|
+--------------
 
+### User stories
+
+#### New to game
+
+Read instructions and played the game with random choices to give impression of no strategy - played as expected.
+
+#### Repeat user
+
+Played with strategy to win, making appropriate bets and card choices - played as expected.
+
+#### Family member testing
+
+My family played the game and said it played as they remembered from card games during my childhood (except we had no betting).
 
 ## Validator
 
