@@ -60,6 +60,8 @@ A name was *input* in *request_name* so that other parts of the program could be
 - [*capitalize()*](https://www.w3schools.com/python/ref_string_capitalize.asp) to make just the first letter a capital, irrespective of what combination of capitals and lower case was entered.
 - [*len()*](https://www.w3schools.com/python/ref_func_len.asp) was used to make sure the person hadn't just pressed enter or white space or tab. It was also used to restrict the name length so it didn't interfer with layout of string literals when used.
 
+
+
 #### Betting 
 
 Betting was done via an *input*, in the function *request_bet* which was then validated to ensure that it was an integer (not a special character, letter etc.) developed from [pynative](https://pynative.com/python-check-user-input-is-number-or-string/) using a *try* function that looked to see if the string could be turned into an integer. It was also necessary to ensure that it was a positive number *if* statement* and there was sufficient credit - *check_credit* - credit greater than or equal to value held in the game (as *credit*) to allow the bet to be made.
@@ -228,6 +230,10 @@ Here is a [pdf of results](document/PEP8.pdf) for each of the *.py files related
 
 ## Deployment
 
+### Heroku deployment
+
+This can be accessed on Heroku [here](https://black-jack21-fa4b7e8cb0bf.herokuapp.com/)
+
 1. [Heroku](heroku.com) was used to deploy.
 2. Once logged onto the website, using the drop down menu in the top right we went to the dashboard.
 ![dashboard](document/go-to-dashboard.png)
@@ -284,6 +290,49 @@ and the purple 'create' button was pressed.
 13. It was deployed
 
 ![deployed](document/deployed.png)
+
+### Local deployment
+
+1. This project requires you to have Python installed on your local PC:
+```
+sudo apt install python3
+```
+2. You will also need pip installed to allow the installation of modules the application uses.
+```
+sudo apt install python3-pip
+```
+
+3. Create a local copy of the GitHub repository by following one of the two processes below:
+
+- Download ZIP file:
+
+Go to the GitHub Repo page.
+Click the Code button and download the ZIP file containing the project.
+Extract the ZIP file to a location on your PC.
+Clone the repository:
+
+Open a folder on your computer with the terminal.
+Run the following command
+```
+git clone https://github.com/RachWalm/black-jack.git
+```
+- Alternatively, if using Gitpod, you can click below to create your own workspace using this repository.
+
+Open in Gitpod
+
+Install Python module dependencies:
+
+- Navigate to the folder madlib_with_python by executing the command:
+```
+cd madlib_with_python
+```
+Run the command 
+```
+pip install -r requirements.txt
+```
+```
+pip3 install -r requirements.txt
+```
 
 ## Credit
 
