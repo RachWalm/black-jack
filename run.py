@@ -4,10 +4,10 @@ import numpy
 from simple_term_menu import TerminalMenu
 import emoji
 from colorama import Fore
-import ascii
+import ascii_game
 import cards
-import strings
-import dictionary
+import game_text_variables
+import emoji_dictionary
 
 
 class Hand:
@@ -32,7 +32,7 @@ pay_type = "undecided"
 
 def instructions():
     """Prints the instructions to the screen and a pace the user can read"""
-    strings.str_instructions()
+    game_text_variables.str_instructions()
     clear_terminal()  # clears screen putting just title and credit on screen
     instructions_query()  # asks user if they want to see instructions or start
 
@@ -44,7 +44,7 @@ def instructions_query():
     Self validating third party
     """
     print(f"""{name}""")
-    strings.str_instructions_query()
+    game_text_variables.str_instructions_query()
     choices = ["Game", "Instructions", "Quit out of game"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
@@ -56,7 +56,7 @@ def instructions_query():
         print(f"""Thank you for playing""")
         print(f"""Your final credit was
         {Fore.GREEN}{credit}{Fore.WHITE} units""")
-        ascii.goodbye()
+        ascii_game.goodbye()
 
 
 def clear_terminal():
@@ -65,7 +65,7 @@ def clear_terminal():
     and credit on the screen in the same place each time
     """
     os.system("cls" if os.name == "nt" else "clear")
-    ascii.title()  # game name in ascii
+    ascii_game.title()  # game name in ascii
     print(f"""Your credit is {Fore.GREEN}{credit}{Fore.WHITE} units""")
 
 
@@ -121,9 +121,9 @@ def cards_to_screen(who, when, cards):
 
 def print_cards(hand):
     """User readable version using unicode of the cards to emoji"""
-    suit_image = dictionary.change_to_uni(hand["suit"])
+    suit_image = emoji_dictionary.change_to_uni(hand["suit"])
     try:
-        name_image = dictionary.change_to_uni(hand["name"])
+        name_image = emoji_dictionary.change_to_uni(hand["name"])
     except KeyError:
         name_image = hand["name"]
     image = f"""{name_image} {Fore.YELLOW}of{Fore.WHITE} {suit_image}"""
@@ -140,7 +140,7 @@ def request_bet():
     print(f"""{name}, it is time to place your bet.......""")
     print(f"""Your bet must not exceed your credit:
 {Fore.GREEN}{credit}{Fore.WHITE} units""")
-    strings.str_request_bet()
+    game_text_variables.str_request_bet()
     in_bet = input()
     if validate_bet(in_bet) and check_credit(in_bet):
         bet = int(in_bet)  # makes validated integer the bet
@@ -321,7 +321,7 @@ def player_action():
     Do they want to hit or stick or double down or quit?
     Self validating third party
     """
-    strings.str_player_action()
+    game_text_variables.str_player_action()
     choices = ["Hit", "Stick", "Double down", "Quit round"]
     terminal_menu = TerminalMenu(choices)
     chosen = terminal_menu.show()
@@ -497,7 +497,7 @@ def continue_playing():
             clear_terminal()
             print(f"""Thank you for playing
 Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
-            ascii.goodbye()  # quit game
+            ascii_game.goodbye()  # quit game
         elif chosen == 0:
             clear_for_round()
             main()  # another round
@@ -505,7 +505,7 @@ Your final credit was {Fore.GREEN}{credit}{Fore.WHITE} units""")
         clear_terminal()  # out of credit so forced stop
         print(f"""{name} thank you for playing""")
         print("You are out of credit so we have to say GOODBYE!!!")
-        ascii.goodbye()
+        ascii_game.goodbye()
 
 
 def validate_name(in_name):

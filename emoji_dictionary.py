@@ -13,5 +13,10 @@ images = {"spade": "\u2660",
 
 
 def change_to_uni(string):
+    """
+    Takes the string value from the card and changes it into
+    an emoji. Suits are turned to the appropriate colour and words
+    turned to cyan
+    """
     emoj = images[string]
     return emoj

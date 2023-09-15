@@ -23,6 +23,11 @@ def enter_to_continue():
 
 
 def str_instructions():
+    """
+    Contains all the text for the instructions part of the game and also
+    all the timings for that part of the game. It also switches between
+    the first and second screen of the instructions
+    """
     total_clear()  # removes everything including title to give space
     print("")
     print(f"""Initially you enter your {Fore.CYAN}name{Fore.WHITE}
@@ -75,6 +80,10 @@ If at the end you have the higher value - you win.
 
 
 def str_instructions_query():
+    """
+    Contains the text instructions to user for menu that allows
+    them to choose whether to see instructions, play or quit
+    """
     print(f"""Please choose whether to
    {Fore.CYAN}Play the game{Fore.WHITE}
 or {Fore.CYAN}Read instructions{Fore.WHITE}
@@ -83,12 +92,18 @@ move up or down to select then press enter""")
 
 
 def str_request_bet():
+    """text to explain to user how to place a bet"""
     print(f"""If you wanted to bet {Fore.RED}50{Fore.WHITE} units,
 you would type {Fore.RED}50{Fore.WHITE} and press enter
 Please input your bet""")
 
 
 def str_player_action():
+    """
+    Contains the text instructions to user for menu that allows
+    them to choose during the game what action they wish to take.
+    Whether to hit, stick, double down or quit.
+    """
     print(f"""Please choose whether to
 {Fore.CYAN}Hit{Fore.WHITE} (get one more card)
 or {Fore.CYAN}Stick{Fore.WHITE} (No more cards)
