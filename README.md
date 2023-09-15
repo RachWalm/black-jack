@@ -437,7 +437,7 @@ Here is a [pdf of results](document/PEP8.pdf) for each of the *.py files related
 
 - [codeanywhere](https://codeanywhere.com/beta) was used to write the code
 - [pythontutor](https://pythontutor.com/visualize.html#mode=edit) to allow me to work through my code in small sections
-- [Heroku](heroku.com) was used to deploy.
+- [Heroku](https://www.heroku.com/) was used to deploy.
 - [Github](https://docs.github.com/en) used for version control.
 - code institute mock terminal
 
@@ -453,9 +453,9 @@ Here is a [pdf of results](document/PEP8.pdf) for each of the *.py files related
 
 ### Heroku deployment
 
-This can be accessed on Heroku [here](https://black-jack21-fa4b7e8cb0bf.herokuapp.com/)
+The deployed version can be accessed on Heroku [here](https://black-jack21-fa4b7e8cb0bf.herokuapp.com/)
 
-1. [Heroku](heroku.com) was used to deploy.
+1. [Heroku](https://www.heroku.com/) was used to deploy.
 2. Once logged onto the website, using the drop down menu in the top right we went to the dashboard.
 ![dashboard](document/go-to-dashboard.png)
 3. From here we are able to create a new app either by clicking on the icon (which is what we did)
@@ -571,7 +571,7 @@ pip3 install -r requirements.txt
 
 - [pythontutor](https://pythontutor.com/visualize.html#mode=edit) for working through my code.
 
-- [Heroku](heroku.com) for deployment.
+- [Heroku](https://www.heroku.com/) for deployment.
 
 - [Github](https://docs.github.com/en) for version control
 - [colorama 0.4.6](https://pypi.org/project/colorama/) for coloured text.
