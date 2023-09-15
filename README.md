@@ -202,6 +202,8 @@ My family played the game and said it played as they remembered from card games 
 
 [PEP8Online.com](https://pep8ci.herokuapp.com/) was used to validate this project. No errors was found in the final deployed version.
 
+Here is a [pdf of results](document/PEP8.pdf) for each of the *.py files related to the project.
+
 ## Technology used
 
 ### Language
